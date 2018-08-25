@@ -1,5 +1,46 @@
 #!/bin/bash
 
+# Change current .npmrc file (swap npm registry)
+function npmrc() {
+  local file=~/.npmrc-${1:-npm}
+  if [ -z $1 ]; then
+    echo "Namespace as first argument is mandatory" 1>&2
+  else
+    if [ -f $file ]; then
+      rm ~/.npmrc
+      ln -s $file ~/.npmrc
+      echo "Linked ${file} as ~/.npmrc"
+    else
+      echo "${file} does not exist"
+    fi
+  fi
+}
+
+# Run mimtproxy to allow Woody access to production environment
+function run_proxy() {
+  local ENV="$1"
+  local PREFIX=""
+
+  if [ -n "$ENV" ]; then
+    PREFIX="$ENV-"
+  fi
+
+  mitmproxy \
+    -p 8081 \
+    -R https://${PREFIX}servicios.bbva.es \
+    --setheader "|~q|Host|$ENV-servicios.bbva.es" \
+    --setheader "|~q|Origin|https://movil.bbva.es" \
+    --setheader "|~q|Referer|https://movil.bbva.es/" \
+    --replace "|~s|access-control-allow-origin: (.+)|access-control-allow-origin: http://localhost:4200" \
+    --replace "|~s|Secure; HttpOnly|" \
+    -t ".*"
+}
+
+# Custom testing for Woody
+function cucumber-test(){
+  cucumber -f pretty -f BDD::MaggieOrchestrator -o /dev/null --tags $1 ENV=ei URL=http://localhost:4200 PUBL_PORT=8484 MAGGIE_MODE=$2 CHROMEDRIVER=LOCAL
+}
+
 # Create a new directory and enter it
 function md() {
 	mkdir -p "$@" && cd "$@"

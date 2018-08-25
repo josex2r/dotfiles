@@ -582,7 +582,9 @@ augroup END
 " Markdown {{{
 augroup filetype_markdown
   autocmd!
-  let g:markdown_fenced_languages = ['ruby', 'html', 'javascript', 'css', 'erb=eruby.html', 'bash=sh']
+  let g:vim_markdown_fenced_languages = ['ruby', 'html', 'javascript', 'css', 'erb=eruby.html', 'bash=sh', 'js=javascript', 'handlebars', 'hbs=handlebars', 'ini=dosini']
+  let g:vim_markdown_folding_disabled = 1
+  let g:vim_markdown_new_list_item_indent = 2
 augroup END
 " }}}
 
@@ -611,7 +613,7 @@ augroup END
 " XML {{{
 augroup filetype_xml
   autocmd!
-  au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
+  " au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
 augroup END
 " }}}
 
@@ -690,7 +692,9 @@ augroup ale_config
   let g:ale_sign_warning = '⚠'
   let g:ale_linters = {
     \   'javascript': ['eslint'],
-    \   'handlebars': ['embertemplatelint'],
+    \   'markdown': ['remark-lint', 'alex'],
+    \   'handlebars': ['ember-template-lint'],
+    \   'bash': ['shellcheck'],
   \}
 augroup END
 " }}}
@@ -747,24 +751,6 @@ augroup indent_guides_config
   let g:indent_guides_auto_colors = 0
   autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
   autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
-augroup END
-" }}}
-
-" Syntastic.vim {{{
-augroup syntastic_config
-  autocmd!
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_loc_list_height = 5
-  let g:syntastic_auto_loc_list = 1
-  let g:syntastic_check_on_open = 1
-  let g:syntastic_check_on_wq = 0
-  let g:syntastic_error_symbol = '✗'
-  let g:syntastic_warning_symbol = '⚠'
-  let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-  let g:syntastic_javascript_checkers = ['eslint']
-
-  highlight link SyntasticError InterestingWord5
-  highlight link SyntasticWarning InterestingWord5
 augroup END
 " }}}
 
@@ -921,12 +907,15 @@ Plug 'mustache/vim-mustache-handlebars' " Handlebars syntax
 Plug 'nathanaelkane/vim-indent-guides' " Visually displaying indent levels
 " Plug 'oplatek/Conque-Shell'
 Plug 'pangloss/vim-javascript' " Syntax highlighting and improved indentation
+Plug 'mxw/vim-jsx' " React syntax highlight
 Plug 'scrooloose/nerdcommenter' " Intensely orgasmic commenting
 Plug 'scrooloose/nerdtree' " Display directory tree
 Plug 'Xuyuanp/nerdtree-git-plugin' " Enables icons to display the git status of a file
 Plug 'tpope/vim-commentary' " Esasy comment shortcuts
 Plug 'tpope/vim-fugitive' " Git wrapper
-Plug 'tpope/vim-markdown',     { 'for': 'markdown' }
+" Plug 'tpope/vim-markdown',     { 'for': 'markdown' }
+Plug 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular'
 Plug 'tpope/vim-repeat' " Enable repeating supported plugin maps with
 Plug 'tpope/vim-surround' " Quoting/parenthesizing made simple
 Plug 'editorconfig/editorconfig-vim' " EditorConfig plugin
@@ -943,6 +932,9 @@ Plug 'Olical/vim-enmasse' " Edit every line in a quickfix list at the same time
 Plug 'mileszs/ack.vim' " Vim plugin for the Perl module / CLI script 'ack'
 Plug 'w0rp/ale' " Asynchronous Lint Engine
 Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files
+Plug 'sukima/vim-ember-imports' " Ember RFC module unification
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'leafgarland/typescript-vim' " Typescript
 
 call plug#end()
 
