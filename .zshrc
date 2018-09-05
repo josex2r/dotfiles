@@ -1,15 +1,36 @@
+# Enable profiling
+# zmodload zsh/zprof
+
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/jose.represa/.oh-my-zsh
 export PATH="/usr/local/sbin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
+\. "$NVM_DIR/nvm.sh" --no-use
+
+# Load the shell dotfiles, and then some:
+# * ~/.path can be used to extend `$PATH`.
+# * ~/.extra can be used for other settings you don’t want to commit.
+for file in ~/.{path,exports,aliases,functions,extra}; do
+  [ -r "$file" ] && source "$file"
+done
+
+# Setup fzf (fuzzy-finder)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# set autoload path
+fpath=( "$HOME/zsh" $fpath )
+# Fast compinit 
+rm -f "$HOME/.zcompdump"
+
+autoload -Uz bip bcp bup cani fp kp
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="agnoster"
+# ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -49,15 +70,8 @@ ZSH_THEME="agnoster"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git osx autojump brew node zsh-autosuggestions sudo z)
-
 # User configuration
-
-export PATH="/Users/jose.represa/.nvm/versions/node/v7.4.0/bin:/Users/jose.represa/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/jose.represa/bin"
+export PATH="$PATH:/Users/jose.represa/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/jose.represa/bin"
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Hey fool! You have an alias: "
 export DEFAULT_USER="josex2r"
 export SSH_CONNECTION=""
@@ -73,22 +87,30 @@ export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+# plugins=(git autojump osx brew sudo node zsh-autosuggestions z zsh-completions)
+antigen bundle brew
+antigen bundle colorize
 antigen bundle z
 antigen bundle git
 antigen bundle sudo
 antigen bundle autojump
-antigen bundle brew
 antigen bundle node
-antigen bundle command-not-found
+antigen bundle osx
+antigen bundle common-aliases
+
+# Third party bundles
 antigen bundle zsh-users/zsh-syntax-highlighting
-#antigen bundle olivierverdier/zsh-git-prompt
 antigen bundle djui/alias-tips
 antigen bundle unixorn/tumult.plugin.zsh
-#antigen bundle arialdomartini/oh-my-git
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-autosuggestions
 
-#antigen theme arialdomartini/oh-my-git-themes oppa-lana-style
 antigen theme agnoster
+# antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
 
 #PROMPT='%~%b$(git_super_status) %# '
 
@@ -119,8 +141,10 @@ antigen apply
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export PATH="/usr/local/sbin:$PATH"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/Library/Python/2.7/bin/" # Add Python to PATH for scripting
+export PATH="$HOME/.cargo/bin:$PATH"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Disable profiling
+# zprof

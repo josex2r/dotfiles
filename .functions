@@ -16,6 +16,11 @@ function npmrc() {
   fi
 }
 
+# key_code
+function key_code() {
+  xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'
+}
+
 # Run mimtproxy to allow Woody access to production environment
 function run_proxy() {
   local ENV="$1"
@@ -34,6 +39,21 @@ function run_proxy() {
     --replace "|~s|access-control-allow-origin: (.+)|access-control-allow-origin: http://localhost:4200" \
     --replace "|~s|Secure; HttpOnly|" \
     -t ".*"
+}
+
+# Shell timing performance
+function perf_shell() {
+  for i in $(seq 1 10); do /usr/bin/time $SHELL -i -c exit; done
+}
+
+# Build BBVA Android app
+function build-android() {
+  ./gradlew installVirtualDebug -PhtmlBranch= -PbackendHost=http://localhost:8081 -PfrontendHost=http://localhost:4200 -PhtmlPath=
+}
+
+# Build BBVA Android app
+function adb-reverse() {
+  adb reverse tcp:8081 tcp:8081
 }
 
 # Custom testing for Woody

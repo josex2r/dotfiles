@@ -374,25 +374,6 @@ augroup jump_to_tags
 augroup END
 " }}}
 
-" FZF {{{
-augroup fzf_config
-  autocmd!
-  function! FZFPreview() " {{{
-    call fzf#vim#gitfiles('', fzf#vim#with_preview('right'))
-  endfunction " }}}
-
-  let g:fzf_files_options =
-   \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
-
-  " noremap <silent> <c-p> :Files<CR>
-  " noremap <leader>p :Buffer<CR>
-
-  " Default fzf layout
-  " - down / up / left / right
-  let g:fzf_layout = { 'down': '~40%' }
-augroup END
-" }}}
-
 " repeat {{{
 augroup repeat_config
   autocmd!
@@ -527,6 +508,13 @@ augroup filetype_coffee
 augroup END
 " }}}
 
+" EJS {{{
+augroup filetype_cwejscoffee
+  autocmd!
+  au BufNewFile,BufReadPost *.ejs setl foldmethod=indent nofoldenable ft=javascript syntax=javascript
+augroup END
+" }}}
+
 " Fish {{{
 augroup filetype_fish
   autocmd!
@@ -640,44 +628,6 @@ augroup airline_config
 augroup END
 " }}}
 
-" CtrlP.vim {{{
-augroup ctrlp_config
-  autocmd!
-  let g:ctrlp_clear_cache_on_exit = 0 " Do not clear filenames cache, to improve CtrlP startup
-  let g:ctrlp_lazy_update = 350 " Set delay to prevent extra search
-  let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' } " Use python fuzzy matcher for better performance
-  let g:ctrlp_match_window_bottom = 0 " Show at top of window
-  let g:ctrlp_max_files = 0 " Set no file limit, we are building a big project
-  let g:ctrlp_switch_buffer = 'Et' " Jump to tab AND buffer if already open
-  let g:ctrlp_open_new_file = 'r' " Open newly created files in the current window
-  let g:ctrlp_open_multiple_files = 'ij' " Open multiple files in hidden buffers, and jump to the first one
-  " change paste key for ctrlp
-  let g:ctrlp_prompt_mappings = {
-      \ 'AcceptSelection("v")': ['<c-a>', '<RightMouse>'],
-      \ 'PrtInsert("c")': ['<c-v>'],
-      \ 'PrtInsert()': ['<c-v>', '<c->'],
-    \ }
-augroup END
-" }}}
-
-" MultipleCursor.vim {{{
-augroup multiplecursor_config
-  autocmd!
-  " Remove default mappings.
-  let g:multi_cursor_use_default_mapping=0
-
-  " Remap.
-  let g:multi_cursor_next_key='<C-n>'
-  let g:multi_cursor_prev_key='<C-b>'
-  let g:multi_cursor_skip_key='<C-q>'
-  let g:multi_cursor_quit_key='<Esc>'
-
-  " Edit current search.
-  nnoremap <silent> <F3> :MultipleCursorsFind <C-R>/<CR>
-  vnoremap <silent> <F3> :MultipleCursorsFind <C-R>/<CR>
-augroup END
-" }}}
-
 " SmoothScroll {{{
   noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
   noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
@@ -699,27 +649,37 @@ augroup ale_config
 augroup END
 " }}}
 
-" EasyAlign.vim {{{
-augroup easy_align_config
-  autocmd!
-  vmap <Enter> <Plug>(EasyAlign) " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-  nmap <Leader>a <Plug>(EasyAlign) " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
-  nmap ga <Plug>(EasyAlign)
-  xmap ga <Plug>(EasyAlign)
-augroup END
-" }}}
-
-" RainbowParenthesis.vim {{{
-augroup rainbow_parenthesis_config
-  autocmd!
-  nnoremap <leader>rp :RainbowParenthesesToggle<CR>
-augroup END
-" }}}
-
 " commetary.vim {{{
 augroup commentary_config
   autocmd!
   autocmd FileType apache setlocal commentstring=#\ %s
+augroup END
+" }}}
+
+" FZF {{{
+augroup fzf_config
+  autocmd!
+  function! FZFPreview() " {{{
+    call fzf#vim#gitfiles('', fzf#vim#with_preview('right'))
+  endfunction " }}}
+
+  let g:fzf_layout = { 'up': '~40%' }
+  " let g:fzf_layout = { 'down': '~40%' }
+  let g:fzf_files_options =
+   \ '-m fzf_files_options--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+
+  command! -bang -nargs=* Rg
+    \ call fzf#vim#grep(
+    \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+    \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+    \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+    \   <bang>0)
+
+  let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+
+  noremap <silent> <c-p> :Files<CR>
+  noremap <leader>p :Buffer<CR>
+  nnoremap <C-g> :Rg<Cr>
 augroup END
 " }}}
 
@@ -741,16 +701,6 @@ augroup END
 augroup ack_config
   autocmd!
   let g:ackprg = 'ag --vimgrep'
-augroup END
-" }}}
-
-" indent-guides {{{
-augroup indent_guides_config
-  autocmd!
-  let g:indent_guides_enable_on_vim_startup = 0
-  let g:indent_guides_auto_colors = 0
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
 augroup END
 " }}}
 
@@ -855,6 +805,18 @@ augroup neocomplete_config
 augroup END
 " }}}
 
+" emoji {{{
+augroup emoji_config
+  autocmd!
+  silent! if emoji#available() 
+    let g:gitgutter_sign_added = emoji#for('small_blue_diamond') 
+    let g:gitgutter_sign_modified = emoji#for('small_orange_diamond') 
+    let g:gitgutter_sign_removed = emoji#for('small_red_triangle') 
+    let g:gitgutter_sign_modified_removed = emoji#for('collision') 
+  endif
+augroup END
+" }}}
+
 " Neosnippet {{{
 augroup neocomplete_config
   autocmd!
@@ -885,6 +847,19 @@ augroup neocomplete_config
 augroup END
 " }}}
 
+" Custom -------------------------------------------------------------
+
+" This allows you to visually select a section and then hit @ to run a macro
+" on all lines. Only lines which match will change. Without this script the
+" macro would stop at lines which don’t match the macro.
+" https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+
 " Plugins -------------------------------------------------------------
 
 " Load plugins {{{
@@ -892,20 +867,12 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter' " Shows a git diff in the 'gutter' (sign column)
 Plug 'majutsushi/tagbar' " Easy way to browse the tags of the current file
-Plug 'ap/vim-css-color' " Multi-syntax context-sensitive color name highlighter
 Plug 'bling/vim-airline' " Lean & mean status/tabline for vim that's light as air.
-Plug 'junegunn/vim-easy-align' " Vim alignment plugin
 Plug 'junegunn/vim-emoji' " Emoji in Vim
-" Plug 'junegunn/goyo.vim'
 Plug 'kchmck/vim-coffee-script'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'FelikZ/ctrlp-py-matcher'
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
-Plug 'kien/rainbow_parentheses.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'mustache/vim-mustache-handlebars' " Handlebars syntax
-Plug 'nathanaelkane/vim-indent-guides' " Visually displaying indent levels
-" Plug 'oplatek/Conque-Shell'
 Plug 'pangloss/vim-javascript' " Syntax highlighting and improved indentation
 Plug 'mxw/vim-jsx' " React syntax highlight
 Plug 'scrooloose/nerdcommenter' " Intensely orgasmic commenting
@@ -913,16 +880,13 @@ Plug 'scrooloose/nerdtree' " Display directory tree
 Plug 'Xuyuanp/nerdtree-git-plugin' " Enables icons to display the git status of a file
 Plug 'tpope/vim-commentary' " Esasy comment shortcuts
 Plug 'tpope/vim-fugitive' " Git wrapper
-" Plug 'tpope/vim-markdown',     { 'for': 'markdown' }
 Plug 'plasticboy/vim-markdown'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-repeat' " Enable repeating supported plugin maps with
-Plug 'tpope/vim-surround' " Quoting/parenthesizing made simple
+Plug 'machakann/vim-sandwich' " add/delete/replace surroundings of a sandwiched textobject
 Plug 'editorconfig/editorconfig-vim' " EditorConfig plugin
-" Plug 'mhinz/vim-startify'
 Plug 'justinmk/vim-sneak' " The missing motion for Vim
 Plug 'junegunn/vim-peekaboo' " Inspect the contents of the registers
-Plug 'terryma/vim-multiple-cursors'
 Plug 'terryma/vim-smooth-scroll' " Make scrolling in Vim more pleasant
 Plug 'Shougo/neocomplete'
 Plug 'Shougo/neosnippet'
@@ -937,17 +901,5 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'leafgarland/typescript-vim' " Typescript
 
 call plug#end()
-
-" emoji {{{
-augroup emoji_config
-  autocmd!
-  silent! if emoji#available() 
-    let g:gitgutter_sign_added = emoji#for('small_blue_diamond') 
-    let g:gitgutter_sign_modified = emoji#for('small_orange_diamond') 
-    let g:gitgutter_sign_removed = emoji#for('small_red_triangle') 
-    let g:gitgutter_sign_modified_removed = emoji#for('collision') 
-  endif
-augroup END
-" }}}
 
 " }}}

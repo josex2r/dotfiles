@@ -14,14 +14,17 @@ export NVM_DIR="$HOME/.nvm"
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
 for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+  echo file
   [ -r "$file" ] && source "$file"
 done
 unset file
 export NVM_DIR="/Users/jose.represa/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-export PATH=/Users/jose.represa/.nvm/versions/node/v7.4.0/bin:/Users/jose.represa/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/jose.represa/bin
+export PATH=/Users/jose.represa/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/jose.represa/bin
 
 # Fix Python error for YouCompleteMe plugin
 export DYLD_FORCE_FLAT_NAMESPACE=1
 
 source ~/.profile
+
+export PATH="$HOME/.cargo/bin:$PATH"
