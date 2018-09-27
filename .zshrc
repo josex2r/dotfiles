@@ -1,25 +1,38 @@
 # Enable profiling
 # zmodload zsh/zprof
 
+# history
+SAVEHIST=100000
+
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/jose.represa/.oh-my-zsh
 export PATH="/usr/local/sbin:$PATH"
 
+# Load nvm without autoload option
 export NVM_DIR="$HOME/.nvm"
-\. "$NVM_DIR/nvm.sh" --no-use
+# \. "$NVM_DIR/nvm.sh" --no-use
+# Async nvm loading 
+function nvm_load() {
+  . "$NVM_DIR/nvm.sh" && . "$NVM_DIR/bash_completion";
+}
+alias node='unalias nvm; unalias node; unalias npm; nvm_load; node $@'
+alias npm='unalias nvm; unalias node; unalias npm; nvm_load; npm $@'
+alias nvm='unalias nvm; unalias node; unalias npm; nvm_load; nvm $@'
 
 # Load the shell dotfiles, and then some:
-# * ~/.path can be used to extend `$PATH`.
-# * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/.{path,exports,aliases,functions,extra}; do
+for file in ~/.{exports,aliases,functions,extra}; do
   [ -r "$file" ] && source "$file"
 done
 
 # Setup fzf (fuzzy-finder)
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -s ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # set autoload path
-fpath=( "$HOME/zsh" $fpath )
+fpath=(
+  "$HOME/.zfunctions" 
+  $fpath
+)
+
 # Fast compinit 
 rm -f "$HOME/.zcompdump"
 
@@ -30,7 +43,8 @@ autoload -Uz bip bcp bup cani fp kp
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 # ZSH_THEME="agnoster"
-ZSH_THEME="powerlevel9k/powerlevel9k"
+# ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME=""
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -103,16 +117,20 @@ antigen bundle osx
 antigen bundle common-aliases
 
 # Third party bundles
-antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle djui/alias-tips
 antigen bundle unixorn/tumult.plugin.zsh
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 
 antigen theme agnoster
+
 # antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
 
-#PROMPT='%~%b$(git_super_status) %# '
+# Pure theme
+# antigen bundle mafredri/zsh-async
+# antigen bundle sindresorhus/pure
+
+antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Tell antigen that you're done.
 antigen apply

@@ -665,8 +665,8 @@ augroup fzf_config
 
   let g:fzf_layout = { 'up': '~40%' }
   " let g:fzf_layout = { 'down': '~40%' }
-  let g:fzf_files_options =
-   \ '-m fzf_files_options--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+  " let g:fzf_files_options =
+   " \ 'fzf_files_options--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
 
   command! -bang -nargs=* Rg
     \ call fzf#vim#grep(
@@ -805,18 +805,6 @@ augroup neocomplete_config
 augroup END
 " }}}
 
-" emoji {{{
-augroup emoji_config
-  autocmd!
-  silent! if emoji#available() 
-    let g:gitgutter_sign_added = emoji#for('small_blue_diamond') 
-    let g:gitgutter_sign_modified = emoji#for('small_orange_diamond') 
-    let g:gitgutter_sign_removed = emoji#for('small_red_triangle') 
-    let g:gitgutter_sign_modified_removed = emoji#for('collision') 
-  endif
-augroup END
-" }}}
-
 " Neosnippet {{{
 augroup neocomplete_config
   autocmd!
@@ -847,6 +835,16 @@ augroup neocomplete_config
 augroup END
 " }}}
 
+" Codi {{{
+augroup neocomplete_config
+  autocmd!
+  let g:codi#width = 60
+  let g:codi#rightalign = 0
+  let g:codi#autoclose = 1
+  let g:codi#sync = 0
+augroup END
+" }}}
+
 " Custom -------------------------------------------------------------
 
 " This allows you to visually select a section and then hit @ to run a macro
@@ -860,6 +858,16 @@ function! ExecuteMacroOverVisualRange()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
 
+" Swap Cursors on mode change {{{
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+" }}}
+
 " Plugins -------------------------------------------------------------
 
 " Load plugins {{{
@@ -868,7 +876,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter' " Shows a git diff in the 'gutter' (sign column)
 Plug 'majutsushi/tagbar' " Easy way to browse the tags of the current file
 Plug 'bling/vim-airline' " Lean & mean status/tabline for vim that's light as air.
-Plug 'junegunn/vim-emoji' " Emoji in Vim
 Plug 'kchmck/vim-coffee-script'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -895,10 +902,11 @@ Plug 'honza/vim-snippets'
 Plug 'Olical/vim-enmasse' " Edit every line in a quickfix list at the same time
 Plug 'mileszs/ack.vim' " Vim plugin for the Perl module / CLI script 'ack'
 Plug 'w0rp/ale' " Asynchronous Lint Engine
-Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files
+" Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files
 Plug 'sukima/vim-ember-imports' " Ember RFC module unification
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'leafgarland/typescript-vim' " Typescript
+Plug 'metakirby5/codi.vim' " Live scratchpad through the shell wrapper
 
 call plug#end()
 
