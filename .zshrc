@@ -106,15 +106,15 @@ antigen use oh-my-zsh
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git autojump osx brew sudo node zsh-autosuggestions z zsh-completions)
-antigen bundle brew
+# antigen bundle brew
 antigen bundle colorize
 antigen bundle z
 antigen bundle git
-antigen bundle sudo
+# antigen bundle sudo
 antigen bundle autojump
 antigen bundle node
 antigen bundle osx
-antigen bundle common-aliases
+# antigen bundle common-aliases
 
 # Third party bundles
 antigen bundle djui/alias-tips
@@ -160,9 +160,19 @@ antigen apply
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export PATH="$PATH:$HOME/Library/Python/2.7/bin/" # Add Python to PATH for scripting
-export PATH="$HOME/.cargo/bin:$PATH"
+which gem >/dev/null && export PATH=$(gem environment gemdir)/bin:${PATH}
+# export PATH="$PATH:$HOME/Library/Python/2.7/bin/" # Add Python to PATH for scripting
+
+# Init python version manager
+# if command -v pyenv 1>/dev/null 2>&1; then
+#   eval "$(pyenv init -)"
+# fi
 
 # Disable profiling
 # zprof
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/jose.represa/Desktop/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jose.represa/Desktop/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/jose.represa/Desktop/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jose.represa/Desktop/google-cloud-sdk/completion.zsh.inc'; fi

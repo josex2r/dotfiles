@@ -24,10 +24,15 @@ function key_code() {
 # Run mimtproxy to allow Woody access to production environment
 function run_proxy() {
   local ENV="$1"
+  local HOST="$2"
   local PREFIX=""
 
   if [ -n "$ENV" ]; then
     PREFIX="$ENV-"
+  fi
+
+  if [ -z "$HOST" ]; then
+    HOST="localhost"
   fi
 
   mitmproxy \
@@ -36,7 +41,7 @@ function run_proxy() {
     --setheader "|~q|Host|$ENV-servicios.bbva.es" \
     --setheader "|~q|Origin|https://movil.bbva.es" \
     --setheader "|~q|Referer|https://movil.bbva.es/" \
-    --replace "|~s|access-control-allow-origin: (.+)|access-control-allow-origin: http://localhost:4200" \
+    --replace "|~s|access-control-allow-origin: (.+)|access-control-allow-origin: http://$HOST:4200" \
     --replace "|~s|Secure; HttpOnly|" \
     -t ".*"
 }
@@ -46,19 +51,25 @@ function perf_shell() {
   for i in $(seq 1 10); do /usr/bin/time $SHELL -i -c exit; done
 }
 
+function clean_brew() {
+  brew cleanup
+}
+
 # Build BBVA Android app
 function build-android() {
-  ./gradlew installVirtualDebug -PhtmlBranch= -PbackendHost=http://localhost:8081 -PfrontendHost=http://localhost:4200 -PhtmlPath=
+  ./gradlew phone:installVirtualDebug -PhtmlBranch= -PbackendHost=http://localhost:8081 -PfrontendHost=http://localhost:4200 -PhtmlPath= --stacktrace
 }
 
 # Build BBVA Android app
 function adb-reverse() {
-  adb reverse tcp:8081 tcp:8081
+  adb reverse tcp:4200 tcp:4200 && adb reverse tcp:8081 tcp:8081
 }
 
 # Custom testing for Woody
 function cucumber-test(){
-  cucumber -f pretty -f BDD::MaggieOrchestrator -o /dev/null --tags $1 ENV=ei URL=http://localhost:4200 PUBL_PORT=8484 MAGGIE_MODE=$2 CHROMEDRIVER=LOCAL
+  # cucumber -f pretty -f BDD::MaggieOrchestrator -o /dev/null --tags $1 ENV=ei URL=http://localhost:4200 PUBL_PORT=8484 MAGGIE_MODE=$2 CHROMEDRIVER=LOCAL
+  # rake test:playback[$1,localhost:4200]
+  cucumber -f pretty -f junit -o junit-reports -f html -o html-report.html -f BDD::MaggieOrchestrator -o maggie_orchestrator.log --tags @$1 ENV=ei URL=http://localhost:4200 PUBL_PORT=8484 CHROMEDRIVER=LOCAL MAGGIE_MODE=PLAYBACK
 }
 
 # Create a new directory and enter it

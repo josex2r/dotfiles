@@ -32,7 +32,10 @@ set cursorline " Highlight current line
 set diffopt=filler " Add vertical spaces to keep right and left aligned
 set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 set encoding=utf-8 nobomb " BOM often causes trouble
-set esckeys " Allow cursor keys in insert mode
+if !has('nvim')
+  set esckeys " Allow cursor keys in insert mode
+  set ttymouse=xterm " Set mouse type to xterm
+endif
 set expandtab " Expand tabs to spaces
 set foldcolumn=0 " Column to show folds
 set nofoldenable " Enable folding
@@ -70,6 +73,7 @@ set nostartofline " Don't reset cursor to start of line when moving around
 set nowrap " Do not wrap lines
 set nu " Enable line numbers
 set ofu=syntaxcomplete#Complete " Set omni-completion method
+set omnifunc=syntaxcomplete#Complete " Set omni-completion method
 set regexpengine=1 " Use the old regular expression engine (it's faster for certain language syntaxes)
 set report=0 " Show all changes
 set ruler " Show the cursor position
@@ -90,7 +94,6 @@ set switchbuf=""
 set tags+=.tags/tags " Set tags folder.
 set title " Show the filename in the window titlebar
 set ttyfast " Send more characters at a given time
-set ttymouse=xterm " Set mouse type to xterm
 set undofile " Persistent Undo
 set viminfo=%,'9999,s512,n~/.vim/viminfo " Restore buffer list, marks are remembered for 9999 files, registers up to 512Kb are remembered
 set visualbell " Use visual bell instead of audible bell (annnnnoying)
@@ -443,11 +446,11 @@ augroup word_processor_mode
     map j gj
     map k gk
     setlocal smartindent
-    setlocal spell spelllang=en_ca
+    setlocal spell spelllang=es_ES
     setlocal noexpandtab
     setlocal wrap
     setlocal linebreak
-    Goyo 100
+    " Goyo 100
   endfunction " }}}
   com! WP call WordProcessorMode()
 augroup END
@@ -677,6 +680,7 @@ augroup fzf_config
 
   let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 
+  noremap <silent> <D-> :Files<CR>
   noremap <silent> <c-p> :Files<CR>
   noremap <leader>p :Buffer<CR>
   nnoremap <C-g> :Rg<Cr>
@@ -729,85 +733,17 @@ augroup ultisnips_config
 augroup END
 " }}}
 
-" Neocomplete {{{
-augroup neocomplete_config
+" Deoplete {{{
+augroup deoplete_config
   autocmd!
-  "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-  " Disable AutoComplPop.
-  let g:acp_enableAtStartup = 0
-  " Use neocomplete.
-  let g:neocomplete#enable_at_startup = 1
-  " Use smartcase.
-  let g:neocomplete#enable_smart_case = 1
-  " Set minimum syntax keyword length.
-  let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-  " Define dictionary.
-  let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-  " Define keyword.
-  if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-  endif
-  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-  " Plugin key-mappings.
-  inoremap <expr><C-g>     neocomplete#undo_completion()
-  inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-  " Recommended key-mappings.
-  " <CR>: close popup and save indent.
-  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-  function! s:my_cr_function()
-    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-    " For no inserting <CR> key.
-    "return pumvisible() ? "\<C-y>" : "\<CR>"
-  endfunction
-  " <TAB>: completion.
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-  " <C-h>, <BS>: close popup and delete backword char.
-  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-  " Close popup by <Space>.
-  "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-  " AutoComplPop like behavior.
-  "let g:neocomplete#enable_auto_select = 1
-
-  " Shell like behavior(not recommended).
-  "set completeopt+=longest
-  "let g:neocomplete#enable_auto_select = 1
-  "let g:neocomplete#disable_auto_complete = 1
-  "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-  " Enable omni completion.
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-  " Enable heavy omni completion.
-  if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-  endif
-  "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-  "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-  "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-  " For perlomni.vim setting.
-  " https://github.com/c9s/perlomni.vim
-  let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+  let g:deoplete#enable_at_startup = 1
 augroup END
 " }}}
 
 " Neosnippet {{{
 augroup neocomplete_config
   autocmd!
+  let g:neosnippet#enable_completed_snippet = 1
   " Enable snipMate compatibility feature.
   let g:neosnippet#enable_snipmate_compatibility = 1
   " Tell Neosnippet about the other snippets
@@ -845,6 +781,94 @@ augroup neocomplete_config
 augroup END
 " }}}
 
+" ternjs {{{
+augroup ternjs_config
+  autocmd!
+  " Whether to include the types of the completions in the result data. Default: 0
+  let g:deoplete#sources#ternjs#types = 1
+
+  " Whether to include the distance (in scopes for variables, in prototypes for 
+  " properties) between the completions and the origin position in the result 
+  " data. Default: 0
+  let g:deoplete#sources#ternjs#depths = 1
+
+  " Whether to include documentation strings (if found) in the result data.
+  " Default: 0
+  let g:deoplete#sources#ternjs#docs = 1
+
+  " When on, only completions that match the current word at the given point will
+  " be returned. Turn this off to get all results, so that you can filter on the 
+  " client side. Default: 1
+  let g:deoplete#sources#ternjs#filter = 0
+
+  " Whether to use a case-insensitive compare between the current word and 
+  " potential completions. Default 0
+  let g:deoplete#sources#ternjs#case_insensitive = 1
+
+  " When completing a property and no completions are found, Tern will use some 
+  " heuristics to try and return some properties anyway. Set this to 0 to 
+  " turn that off. Default: 1
+  let g:deoplete#sources#ternjs#guess = 0
+
+  " Determines whether the result set will be sorted. Default: 1
+  let g:deoplete#sources#ternjs#sort = 0
+
+  " When disabled, only the text before the given position is considered part of 
+  " the word. When enabled (the default), the whole variable name that the cursor
+  " is on will be included. Default: 1
+  let g:deoplete#sources#ternjs#expand_word_forward = 0
+
+  " Whether to ignore the properties of Object.prototype unless they have been 
+  " spelled out by at least two characters. Default: 1
+  let g:deoplete#sources#ternjs#omit_object_prototype = 0
+
+  " Whether to include JavaScript keywords when completing something that is not 
+  " a property. Default: 0
+  let g:deoplete#sources#ternjs#include_keywords = 1
+
+  " If completions should be returned when inside a literal. Default: 1
+  let g:deoplete#sources#ternjs#in_literal = 0
+
+
+  "Add extra filetypes
+  let g:deoplete#sources#ternjs#filetypes = [
+        \ 'jsx',
+        \ 'javascript.jsx',
+        \ 'vue',
+        \ '...'
+        \ ]
+
+  " Use tern_for_vim.
+  let g:tern#command = ["tern"]
+  let g:tern#arguments = ["--persistent"]
+augroup END
+" }}}
+
+" CSS3 {{{
+augroup VimCSS3Syntax
+  autocmd!
+
+  " Support `-` in css property names
+  autocmd FileType css setlocal iskeyword+=-
+augroup END
+" }}}
+
+" JSX {{{
+augroup jsx_config
+  autocmd!
+  let g:jsx_ext_required = 0 " Works on files other than .jsx
+augroup END
+" }}}
+
+" vim-js-pretty-template {{{
+" augroup vim_js_pretty_template_config
+"   autocmd!
+"   autocmd FileType javascript.jsx JsPreTmpl
+"   autocmd FileType javascript JsPreTmpl
+"   autocmd FileType typescript syn clear foldBraces " For leafgarland/typescript-vim users only. Please see #1 for details.
+" augroup END
+" }}}
+
 " Custom -------------------------------------------------------------
 
 " This allows you to visually select a section and then hit @ to run a macro
@@ -859,13 +883,13 @@ function! ExecuteMacroOverVisualRange()
 endfunction
 
 " Swap Cursors on mode change {{{
-if exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
+" if exists('$TMUX')
+"   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"   let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+" else
+"   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+"   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+" endif
 " }}}
 
 " Plugins -------------------------------------------------------------
@@ -876,38 +900,67 @@ call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter' " Shows a git diff in the 'gutter' (sign column)
 Plug 'majutsushi/tagbar' " Easy way to browse the tags of the current file
 Plug 'bling/vim-airline' " Lean & mean status/tabline for vim that's light as air.
-Plug 'kchmck/vim-coffee-script'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'mustache/vim-mustache-handlebars' " Handlebars syntax
-Plug 'pangloss/vim-javascript' " Syntax highlighting and improved indentation
-Plug 'mxw/vim-jsx' " React syntax highlight
-Plug 'scrooloose/nerdcommenter' " Intensely orgasmic commenting
+Plug 'scrooloose/nerdcommenter' " Intensely orgasmic commenting, changes comments formatting
 Plug 'scrooloose/nerdtree' " Display directory tree
 Plug 'Xuyuanp/nerdtree-git-plugin' " Enables icons to display the git status of a file
 Plug 'tpope/vim-commentary' " Esasy comment shortcuts
 Plug 'tpope/vim-fugitive' " Git wrapper
-Plug 'plasticboy/vim-markdown'
 Plug 'godlygeek/tabular'
-Plug 'tpope/vim-repeat' " Enable repeating supported plugin maps with
+Plug 'plasticboy/vim-markdown'
+Plug 'tpope/vim-repeat' " Enable repeating supported plugin maps with '.'
 Plug 'machakann/vim-sandwich' " add/delete/replace surroundings of a sandwiched textobject
 Plug 'editorconfig/editorconfig-vim' " EditorConfig plugin
 Plug 'justinmk/vim-sneak' " The missing motion for Vim
 Plug 'junegunn/vim-peekaboo' " Inspect the contents of the registers
 Plug 'terryma/vim-smooth-scroll' " Make scrolling in Vim more pleasant
-Plug 'Shougo/neocomplete'
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+" Plug 'Shougo/neocomplete'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+"Javascript Plugins
+Plug 'carlitux/deoplete-ternjs'
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
+
+"Typescript Plugins
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
+Plug 'mhartington/deoplete-typescript'
+
+Plug 'Shougo/echodoc'
 Plug 'honza/vim-snippets'
 Plug 'Olical/vim-enmasse' " Edit every line in a quickfix list at the same time
 Plug 'mileszs/ack.vim' " Vim plugin for the Perl module / CLI script 'ack'
 Plug 'w0rp/ale' " Asynchronous Lint Engine
-" Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files
+Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files
+Plug 'sukima/vim-javascript-imports'
 Plug 'sukima/vim-ember-imports' " Ember RFC module unification
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'mhinz/vim-startify'
 Plug 'leafgarland/typescript-vim' " Typescript
-Plug 'metakirby5/codi.vim' " Live scratchpad through the shell wrapper
+Plug 'pangloss/vim-javascript' " Syntax highlighting and improved indentation
+Plug 'jparise/vim-graphql' " Syntax highlighting fot graphQL
+Plug 'mxw/vim-jsx' " React syntax highlight
+" Plug 'Quramy/vim-js-pretty-template' " Highlight ES6 template literals
+Plug 'ap/vim-css-color' " Colorize hex codes
 
 call plug#end()
 
 " }}}
+
+" call jspretmpl#register_tag('gql', 'graphql')
+" call jspretmpl#register_tag('graphql', 'graphql')
+" call jspretmpl#register_tag('html', 'html')
+" call jspretmpl#addRule('html', 'html`')
+" call jspretmpl#addRule('html', 'html `')
+" Use sass highlighting for `styled.span` / `styled.div` / etc
+" call jspretmpl#register_tag('\v(styled\.\w+)', 'scss')

@@ -2,5 +2,6 @@
 .vim/viminfo
 .vim/swaps/*
 .vim/undo
+.vim/plugged
 
 tags
