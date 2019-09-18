@@ -4,4 +4,6 @@
 .vim/undo
 .vim/plugged
 
+.config/nvim/shada
+
 tags
