@@ -1,4 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='scp://pi@192.168.1.47//home/pi/workspace/vim-ale-playbulb/'
-let g:netrw_dirhist_2='scp://pi@192.168.1.47//home/pi/workspace/'
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/Users/jose.represa/workspace/dotfiles/.vim'
+let g:netrw_dirhist_4='/Users/jose.represa/workspace/dotfiles/.vim/plugged'
+let g:netrw_dirhist_3='/Users/jose.represa/workspace/dotfiles/.vim'
+let g:netrw_dirhist_2='/Users/jose.represa/workspace/dotfiles/.vim/colors'
+let g:netrw_dirhist_1='/Users/jose.represa/workspace/dotfiles/.vim'
