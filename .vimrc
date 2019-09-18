@@ -20,9 +20,11 @@ let mapleader="\<Space>"
 " }}}
 
 " Local directories {{{
-set backupdir=~/.vim/backups
-set directory=~/.vim/swaps
-set undodir=~/.vim/undo
+if !has('nvim')
+  set backupdir=~/.vim/backups
+  set directory=~/.vim/swaps
+  set undodir=~/.vim/undo
+endif
 " }}}
 
 " Set some junk {{{
@@ -37,12 +39,13 @@ if !has('nvim')
   set ttymouse=xterm " Set mouse type to xterm
 endif
 set expandtab " Expand tabs to spaces
-set foldcolumn=0 " Column to show folds
+set foldcolumn=1 " Column to show folds
 set nofoldenable " Enable folding
 set foldlevel=0 " Close all folds by default
 set foldmethod=syntax " Syntax are used to specify folds
 set foldminlines=0 " Allow folding single lines
 set foldnestmax=5 " Set max fold nesting level
+set foldlevelstart=99
 set formatoptions=
 set formatoptions+=c " Format comments
 set formatoptions+=r " Continue comments by default
@@ -95,7 +98,9 @@ set tags+=.tags/tags " Set tags folder.
 set title " Show the filename in the window titlebar
 set ttyfast " Send more characters at a given time
 set undofile " Persistent Undo
-set viminfo=%,'9999,s512,n~/.vim/viminfo " Restore buffer list, marks are remembered for 9999 files, registers up to 512Kb are remembered
+if !has('nvim')
+  set viminfo=%,'9999,s512,n~/.vim/viminfo " Restore buffer list, marks are remembered for 9999 files, registers up to 512Kb are remembered
+endif
 set visualbell " Use visual bell instead of audible bell (annnnnoying)
 set wildchar=<TAB> " Character for CLI expansion (TAB-completion)
 set wildignore+=.DS_Store
@@ -195,7 +200,8 @@ augroup general_config
   " Toggle show tabs and trailing spaces (,c) {{{
   set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
   set fcs=fold:-
-  nnoremap <silent> <leader>c :set nolist!<CR>
+  " nnoremap <silent> <leader>c :set nolist!<CR>
+  nnoremap <silent> <leader>c zA<CR>
   " }}}
 
   " Clear last search (,qs) {{{
@@ -253,6 +259,10 @@ augroup general_config
   " set relativenumber " Use relative line numbers. Current line is still in status bar.
   " au BufReadPost,BufNewFile * set relativenumber
   " }}}
+
+  " Close tab and move buffer to new split pane
+  " Used after creating new tab with "<C-W>T"
+  " nnoremap <C-W>t mNZZ<C-W>`N
 augroup END
 " }}}
 
@@ -279,10 +289,6 @@ augroup END
 " Buffers {{{
 augroup buffer_control
   autocmd!
-
-  " Prompt for buffer to select (,bs) {{{
-  nnoremap <leader>p :CtrlPBuffer<CR>
-  " }}}
 
   " Buffer navigation (,,) (gb) (gB) (,ls) {{{
   map <Leader><Leader> <C-^>
@@ -662,14 +668,19 @@ augroup END
 " FZF {{{
 augroup fzf_config
   autocmd!
+  let g:fzf_action = {
+        \ 'ctrl-t': 'tab split',
+        \ 'ctrl-x': 'split',
+        \ 'ctrl-v': 'vsplit' }
+
   function! FZFPreview() " {{{
     call fzf#vim#gitfiles('', fzf#vim#with_preview('right'))
   endfunction " }}}
 
   let g:fzf_layout = { 'up': '~40%' }
   " let g:fzf_layout = { 'down': '~40%' }
-  " let g:fzf_files_options =
-   " \ 'fzf_files_options--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+  let g:fzf_files_options =
+   \ '--preview "head -'.&lines.' {}"'
 
   command! -bang -nargs=* Rg
     \ call fzf#vim#grep(
@@ -679,6 +690,7 @@ augroup fzf_config
     \   <bang>0)
 
   let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+  let g:ctrlp_clear_cache_on_exit = 1
 
   noremap <silent> <D-> :Files<CR>
   noremap <silent> <c-p> :Files<CR>
@@ -705,38 +717,6 @@ augroup END
 augroup ack_config
   autocmd!
   let g:ackprg = 'ag --vimgrep'
-augroup END
-" }}}
-
-" Minimap {{{
-augroup minimap_config
-  autocmd VimEnter * Minimap
-  autocmd!
-  let g:minimap_show='<leader>ms'
-  let g:minimap_update='<leader>mu'
-  let g:minimap_close='<leader>gc'
-  let g:minimap_toggle='<leader>mm'
-  let g:minimap_highlight='Visual'
-augroup END
-" }}}
-
-" UltiSnips.vim {{{
-augroup ultisnips_config
-  autocmd!
-  " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-  let g:UltiSnipsExpandTrigger="<c-s>"
-  let g:UltiSnipsJumpForwardTrigger="<c-b>"
-  let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-  " If you want :UltiSnipsEdit to split your window.
-  let g:UltiSnipsEditSplit="vertical"
-augroup END
-" }}}
-
-" Deoplete {{{
-augroup deoplete_config
-  autocmd!
-  let g:deoplete#enable_at_startup = 1
 augroup END
 " }}}
 
@@ -768,16 +748,6 @@ augroup neocomplete_config
   " if has('conceal')
     " set conceallevel=2 concealcursor=niv
   " endif
-augroup END
-" }}}
-
-" Codi {{{
-augroup neocomplete_config
-  autocmd!
-  let g:codi#width = 60
-  let g:codi#rightalign = 0
-  let g:codi#autoclose = 1
-  let g:codi#sync = 0
 augroup END
 " }}}
 
@@ -902,16 +872,14 @@ Plug 'majutsushi/tagbar' " Easy way to browse the tags of the current file
 Plug 'bling/vim-airline' " Lean & mean status/tabline for vim that's light as air.
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'mustache/vim-mustache-handlebars' " Handlebars syntax
 Plug 'scrooloose/nerdcommenter' " Intensely orgasmic commenting, changes comments formatting
 Plug 'scrooloose/nerdtree' " Display directory tree
 Plug 'Xuyuanp/nerdtree-git-plugin' " Enables icons to display the git status of a file
 Plug 'tpope/vim-commentary' " Esasy comment shortcuts
 Plug 'tpope/vim-fugitive' " Git wrapper
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular' " Run ':Tab' to align text as a table
 Plug 'tpope/vim-repeat' " Enable repeating supported plugin maps with '.'
-Plug 'machakann/vim-sandwich' " add/delete/replace surroundings of a sandwiched textobject
+Plug 'tpope/vim-surround' " add/delete/replace surroundings of a sandwiched textobject
 Plug 'editorconfig/editorconfig-vim' " EditorConfig plugin
 Plug 'justinmk/vim-sneak' " The missing motion for Vim
 Plug 'junegunn/vim-peekaboo' " Inspect the contents of the registers
@@ -927,33 +895,48 @@ endif
 " Plug 'Shougo/neocomplete'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-"Javascript Plugins
+" Autocomplete
 Plug 'carlitux/deoplete-ternjs'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
-
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install -g tern' }
+Plug 'Shougo/echodoc' " Displays function signatures from completions in the command line.
+" Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 "Typescript Plugins
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
 Plug 'mhartington/deoplete-typescript'
+" Language packs
+Plug 'sheerun/vim-polyglot' " A collection of language packs for Vim
 
-Plug 'Shougo/echodoc'
+" Plug 'jiangmiao/auto-pairs' " Autoclose chars
+Plug 'terryma/vim-multiple-cursors' " crtl+n
+Plug 'mattn/emmet-vim' " HTML shorcuts (crtl+y,)
 Plug 'honza/vim-snippets'
 Plug 'Olical/vim-enmasse' " Edit every line in a quickfix list at the same time
 Plug 'mileszs/ack.vim' " Vim plugin for the Perl module / CLI script 'ack'
 Plug 'w0rp/ale' " Asynchronous Lint Engine
-Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files
+" Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files
 Plug 'sukima/vim-javascript-imports'
 Plug 'sukima/vim-ember-imports' " Ember RFC module unification
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'mhinz/vim-startify'
-Plug 'leafgarland/typescript-vim' " Typescript
-Plug 'pangloss/vim-javascript' " Syntax highlighting and improved indentation
-Plug 'jparise/vim-graphql' " Syntax highlighting fot graphQL
-Plug 'mxw/vim-jsx' " React syntax highlight
 " Plug 'Quramy/vim-js-pretty-template' " Highlight ES6 template literals
 Plug 'ap/vim-css-color' " Colorize hex codes
 
 call plug#end()
+
+" Deoplete {{{
+augroup deoplete_config
+  autocmd!
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#enable_profile = 1
+  call deoplete#enable_logging('DEBUG', '/tmp/deoplete.log')
+  call deoplete#custom#option({
+    \ 'auto_complete_delay': 200,
+    \ 'smart_case': v:true,
+    \ 'profile': v:true,
+  \ })
+augroup END
+" }}}
 
 " }}}
 
