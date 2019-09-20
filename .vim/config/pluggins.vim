@@ -15,11 +15,12 @@ call plug#begin('~/.vim/plugged')
 
 " Themes {{{
 Plug 'altercation/vim-colors-solarized'
+Plug 'drewtempelmeyer/palenight.vim'
 " }}}
 
 " Statusbar {{{
-" Plug 'itchyny/lightline.vim'
-Plug 'bling/vim-airline' " Lean & mean status/tabline for vim that's light as air.
+Plug 'itchyny/lightline.vim'
+" Plug 'bling/vim-airline' " Lean & mean status/tabline for vim that's light as air.
 " }}}
 
 " Text {{{
@@ -64,7 +65,6 @@ Plug 'ap/vim-css-color' " Hex colors highlight
 Plug 'junegunn/vim-easy-align' " Align text
 Plug 'tpope/vim-dispatch' " Async shell commands
 Plug 'Olical/vim-enmasse' " Edit every line in a quickfix list at the same time
-Plug 'mileszs/ack.vim' " Vim plugin for the Perl module / CLI script 'ack'
 
 " Plug 'majutsushi/tagbar' " Easy way to browse the tags of the current file
 " Plug 'scrooloose/nerdcommenter' " Intensely orgasmic commenting, changes comments formatting
@@ -151,7 +151,7 @@ Plug 'tpope/vim-scriptease'
 
 
 " Markdown {{{
-Plug 'dhruvasagar/vim-table-mode'
+" Plug 'dhruvasagar/vim-table-mode'
 Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' } " Compilation
 " }}}
 "

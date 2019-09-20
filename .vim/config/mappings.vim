@@ -2,8 +2,12 @@
 " How to get the first char? Use CRTL+V and press the key in command mode
 " How to get the second char? Use CRTL+K and press the key in command mode
 " <Esc> means escape char (<Esc>b === ^[b)
-cnoremap <Esc>b <S-Left>
-cnoremap <Esc>f <S-Right>
+nmap <M-f> <Esc>w
+nmap <M-b> <Esc>b
+vmap <M-f> <S-Right>
+vmap <M-b> <S-Left>
+cnoremap <M-f> <S-Right>
+cnoremap <M-b> <S-Left>
 " }}}
 
 " Speed up viewport scrolling {{{

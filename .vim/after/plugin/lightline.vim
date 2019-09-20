@@ -3,7 +3,7 @@ if !exists('g:loaded_lightline')
 endif
 
 let g:lightline = {
-      \ 'colorscheme': 'solarized',
+      \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [
       \       [ 'mode', 'paste' ],
@@ -57,7 +57,7 @@ function! LightlineGitBranch() abort
 endfunction
 
 function! LightlinePath() abort
-    return fnamemodify(expand('%:h'), ':~:.')
+    return '📁'.fnamemodify(expand('%:h'), ':~:.')
 endfunction
 
 function! AleCount(type) abort
@@ -75,17 +75,17 @@ endfunction
 
 function! LightlineHints() abort
   let l:count = AleCount('info') + CocDiagnosticInfo('hint') + CocDiagnosticInfo('information')
-  return l:count > 0 ? l:count : ''
+  return l:count > 0 ? ' ✓ '.l:count : ''
 endfunction
 
 function! LightlineWarnings() abort
   let l:count = AleCount('warning') + CocDiagnosticInfo('warning')
-  return l:count > 0 ? l:count : ''
+  return l:count > 0 ? ' ⚠️ '.l:count : ''
 endfunction
 
 function! LightlineErrors() abort
   let l:count = AleCount('error') + CocDiagnosticInfo('error')
-  return l:count > 0 ? l:count : ''
+  return l:count > 0 ? ' ✗ '.l:count : ''
 endfunction
 
 augroup lightline_update
