@@ -15,7 +15,11 @@ call plug#begin('~/.vim/plugged')
 
 " Themes {{{
 Plug 'altercation/vim-colors-solarized'
-Plug 'drewtempelmeyer/palenight.vim'
+" Plug 'drewtempelmeyer/palenight.vim'
+" Plug 'ayu-theme/ayu-vim'
+Plug 'rakr/vim-one'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'joshdick/onedark.vim'
 " }}}
 
 " Statusbar {{{
@@ -34,7 +38,6 @@ Plug 'inkarkat/vim-ingo-library' " Dependency for vim-SpellCheck.
 
 " Syntax {{{
 Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'joukevandermaas/vim-ember-hbs'
 Plug 'chrisbra/vim-zsh', { 'for': 'zsh' }
 " }}}

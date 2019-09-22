@@ -3,7 +3,7 @@ if !exists('g:loaded_lightline')
 endif
 
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'powerline',
       \ 'active': {
       \   'left': [
       \       [ 'mode', 'paste' ],

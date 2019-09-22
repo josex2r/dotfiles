@@ -3,6 +3,7 @@
 .vim/swaps/*
 .vim/undo
 .vim/plugged
+.vim/.netrwhist
 
 .config/nvim/shada
 
