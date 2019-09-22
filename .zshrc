@@ -11,7 +11,7 @@ export PATH="/usr/local/sbin:$PATH"
 # Load nvm without autoload option
 export NVM_DIR="$HOME/.nvm"
 # \. "$NVM_DIR/nvm.sh" --no-use
-# Async nvm loading 
+# Async nvm loading
 function nvm_load() {
   . "$NVM_DIR/nvm.sh" && . "$NVM_DIR/bash_completion";
 }
@@ -29,11 +29,11 @@ done
 
 # set autoload path
 fpath=(
-  "$HOME/.zfunctions" 
+  "$HOME/.zfunctions"
   $fpath
 )
 
-# Fast compinit 
+# Fast compinit
 rm -f "$HOME/.zcompdump"
 
 autoload -Uz bip bcp bup cani fp kp
@@ -170,6 +170,13 @@ which gem >/dev/null && export PATH=$(gem environment gemdir)/bin:${PATH}
 
 # Disable profiling
 # zprof
+
+# Python 2 binaries.
+export PATH=$(python -m site --user-base)/bin:${PATH}
+
+# Python 3 binaries.
+export PATH=$(python3 -m site --user-base)/bin:${PATH}
+
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/jose.represa/Desktop/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jose.represa/Desktop/google-cloud-sdk/path.zsh.inc'; fi
