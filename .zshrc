@@ -46,6 +46,19 @@ autoload -Uz bip bcp bup cani fp kp
 # ZSH_THEME="powerlevel9k/powerlevel9k"
 ZSH_THEME=""
 
+# This speeds up pasting w/ autosuggest
+# https://github.com/zsh-users/zsh-autosuggestions/issues/238
+pasteinit() {
+  OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
+  zle -N self-insert url-quote-magic # I wonder if you'd need `.url-quote-magic`?
+}
+
+pastefinish() {
+  zle -N self-insert $OLD_SELF_INSERT
+}
+zstyle :bracketed-paste-magic paste-init pasteinit
+zstyle :bracketed-paste-magic paste-finish pastefinish
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -106,6 +119,8 @@ antigen use oh-my-zsh
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git autojump osx brew sudo node zsh-autosuggestions z zsh-completions)
+
+
 # antigen bundle brew
 antigen bundle colorize
 antigen bundle z
