@@ -15,9 +15,10 @@ export NVM_DIR="$HOME/.nvm"
 function nvm_load() {
   . "$NVM_DIR/nvm.sh" && . "$NVM_DIR/bash_completion";
 }
-alias node='unalias nvm; unalias node; unalias npm; nvm_load; node $@'
-alias npm='unalias nvm; unalias node; unalias npm; nvm_load; npm $@'
-alias nvm='unalias nvm; unalias node; unalias npm; nvm_load; nvm $@'
+alias node='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; node $@'
+alias npm='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; npm $@'
+alias npx='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; npx $@'
+alias nvm='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; nvm $@'
 
 # Load the shell dotfiles, and then some:
 for file in ~/.{exports,aliases,functions,extra}; do
@@ -123,6 +124,7 @@ antigen use oh-my-zsh
 
 # antigen bundle brew
 antigen bundle colorize
+antigen bundle tmux
 antigen bundle z
 antigen bundle git
 # antigen bundle sudo

@@ -73,7 +73,7 @@ set nostartofline " Don't reset cursor to start of line when moving around
 set nowrap " Do not wrap lines
 set number " Enable line numbers
 set omnifunc=syntaxcomplete#Complete " Set omni-completion method
-set regexpengine=1 " Use the old regular expression engine (it's faster for certain language syntaxes)
+" set regexpengine=1 " Use the old regular expression engine (it's faster for certain language syntaxes)
 set report=0 " Show all changes
 set ruler " Show the cursor position
 set scrolloff=6 " Start scrolling three lines before horizontal border of window

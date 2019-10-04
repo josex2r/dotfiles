@@ -296,7 +296,6 @@ key_bindings:
   - { key: Home,      mods: Shift,   action: ScrollToTop,    mode: ~Alt       }
   - { key: End,       mods: Shift,   action: ScrollToBottom, mode: ~Alt       }
 
-
   # Characters
   # - { key: Space,    mods: Control, chars: "\x00"                        }
   - { key: 33,       mods: Alt,     chars: "["                           }
@@ -317,6 +316,8 @@ key_bindings:
   # Open a new fixed window
   - { key: N,        mods: Command,  command: { program: "open", args: ["-nb", "io.alacritty"] } }
 
+  # Tmux binding
+  - { key: Space,    mods: Control, chars: "\x00"                        }
 
   # - { key: Apostrophe,  mods: Alt,            chars: "\x7B"              }
 

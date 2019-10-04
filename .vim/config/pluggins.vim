@@ -44,7 +44,7 @@ Plug 'chrisbra/vim-zsh', { 'for': 'zsh' }
 
 " File tree {{{
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'Xuyuanp/nerdtree-git-plugin' " Disabled due https://github.com/Xuyuanp/nerdtree-git-plugin/issues/76
 " }}}
 
 " Comments {{{
@@ -111,7 +111,7 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 " }}}
 
 " Parens, Brackets, etc... {{{
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'machakann/vim-sandwich' " Surround wrappers
 " }}}
 
