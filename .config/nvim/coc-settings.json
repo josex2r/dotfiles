@@ -1,4 +1,5 @@
 {
   "coc.preferences.timeout": 300,
-  "diagnostic.displayByAle": true
+  "diagnostic.displayByAle": true,
+  "typescript.updateImportsOnFileMove.enable": false
 }

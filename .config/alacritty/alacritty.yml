@@ -16,8 +16,8 @@ window:
   # Window dimensions in character columns and lines
   # (changes require restart)
   dimensions:
-    columns: 80
-    lines: 24
+    columns: 180
+    lines: 50
 
   # Adds this many blank pixels of padding around the window
   # Units are physical pixels; this is not DPI aware.
@@ -26,9 +26,33 @@ window:
     x: 2
     y: 2
 
+  # Spread additional padding evenly around the terminal content.
+  dynamic_padding: true
+
   # Window decorations
-  # Setting this to false will result in window without borders and title bar.
-  # decorations: true
+  #
+  # Values for `decorations`:
+  #     - full: Borders and title bar
+  #     - none: Neither borders nor title bar
+  #
+  # Values for `decorations` (macOS only):
+  #     - transparent: Title bar, transparent background and title bar buttons
+  #     - buttonless: Title bar, transparent background, but no title bar buttons
+  # decorations: buttonless
+
+  # Startup Mode (changes require restart)
+  #
+  # Values for `startup_mode`:
+  #   - Windowed
+  #   - Maximized
+  #   - Fullscreen
+  #
+  # Values for `startup_mode` (macOS only):
+  #   - SimpleFullscreen
+  startup_mode: Windowed
+
+  # Window title
+  title: Alacritty
 
 # Display tabs using this many cells (changes require restart)
 tabspaces: 8
@@ -313,8 +337,10 @@ key_bindings:
   - { key: Left,     mods: Alt,     chars: "\x1bb"                       }
   - { key: Right,    mods: Alt,     chars: "\x1bf"                       }
 
+  # Open a new window
+  - { key: N,        mods: Command,  command: { program: "open", args: ["-n", "/Applications/Alacritty.app"] } }
   # Open a new fixed window
-  - { key: N,        mods: Command,  command: { program: "open", args: ["-nb", "io.alacritty"] } }
+  # - { key: N,        mods: Command,  command: { program: "open", args: ["-nb", "io.alacritty"] } }
 
   # Tmux binding
   - { key: Space,    mods: Control, chars: "\x00"                        }
