@@ -10,9 +10,19 @@ let g:did_load_commands = 1
 command! -nargs=0 FormatJSON normal! '<C-U>:%!python -m json.tool'
 
 "
+" Copy current file full path.
+"
+command! -nargs=0 CopyFullPath execute "let @+ = expand('%:p')"
+
+"
 " Copy current file path.
 "
 command! -nargs=0 CopyPath execute "let @+ = expand('%')"
+
+"
+" Copy current file path.
+"
+command! -nargs=0 CopyName execute "let @+ = expand('%:t')"
 "
 " Pulse Line (thanks Steve Losh)
 "

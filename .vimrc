@@ -164,6 +164,7 @@ runtime! config/*.vim
 
 colorscheme one
 set background=dark
+call one#highlight('CursorLine', '', '343942', 'none')
 
 " Enable background transparency (terminal defaults)
 hi Normal guibg=NONE ctermbg=NONE

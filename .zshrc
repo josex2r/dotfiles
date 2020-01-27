@@ -1,6 +1,8 @@
 # Enable profiling
 # zmodload zsh/zprof
 
+ulimit -n 8192
+
 # history
 SAVEHIST=100000
 
@@ -34,8 +36,21 @@ fpath=(
   $fpath
 )
 
-# Fast compinit
-rm -f "$HOME/.zcompdump"
+# On slow systems, checking the cached .zcompdump file to see if it must be
+# regenerated adds a noticable delay to zsh startup.  This little hack restricts
+# it to once a day.  It should be pasted into your own completion file.
+#
+# The globbing is a little complicated here:
+# - '#q' is an explicit glob qualifier that makes globbing work within zsh's [[ ]] construct.
+# - 'N' makes the glob pattern evaluate to nothing when it doesn't match (rather than throw a globbing error)
+# - '.' matches "regular files"
+# - 'mh+24' matches files (or directories or whatever) that are older than 24 hours.
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+	compinit;
+else
+	compinit -C;
+fi;
 
 autoload -Uz bip bcp bup cani fp kp
 
@@ -121,7 +136,6 @@ antigen use oh-my-zsh
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git autojump osx brew sudo node zsh-autosuggestions z zsh-completions)
 
-
 # antigen bundle brew
 antigen bundle colorize
 antigen bundle tmux
@@ -193,7 +207,6 @@ export PATH=$(python -m site --user-base)/bin:${PATH}
 
 # Python 3 binaries.
 export PATH=$(python3 -m site --user-base)/bin:${PATH}
-
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/jose.represa/Desktop/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jose.represa/Desktop/google-cloud-sdk/path.zsh.inc'; fi

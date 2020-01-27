@@ -14,12 +14,10 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Themes {{{
-Plug 'altercation/vim-colors-solarized'
+" Plug 'altercation/vim-colors-solarized'
 " Plug 'drewtempelmeyer/palenight.vim'
 " Plug 'ayu-theme/ayu-vim'
 Plug 'rakr/vim-one'
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
-Plug 'joshdick/onedark.vim'
 " }}}
 
 " Statusbar {{{
@@ -39,7 +37,9 @@ Plug 'inkarkat/vim-ingo-library' " Dependency for vim-SpellCheck.
 " Syntax {{{
 Plug 'sheerun/vim-polyglot'
 Plug 'joukevandermaas/vim-ember-hbs'
-Plug 'chrisbra/vim-zsh', { 'for': 'zsh' }
+" Plug 'chrisbra/vim-zsh', { 'for': 'zsh' }
+Plug 'Quramy/vim-js-pretty-template' " JS template strings format
+Plug 'ap/vim-css-color' " Hex colors highlight
 " }}}
 
 " File tree {{{
@@ -64,7 +64,6 @@ Plug 'justinmk/vim-sneak' " The missing motion for Vim
 Plug 'kopischke/vim-fetch' " Handle line number on filename
 Plug 'vim-scripts/Spiffy-Foldtext' " Pretty folds
 Plug 'tmhedberg/matchit' " Extend % command
-Plug 'ap/vim-css-color' " Hex colors highlight
 Plug 'junegunn/vim-easy-align' " Align text
 Plug 'tpope/vim-dispatch' " Async shell commands
 Plug 'Olical/vim-enmasse' " Edit every line in a quickfix list at the same time
@@ -130,7 +129,7 @@ Plug 'w0rp/ale'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim', { 'do': 'brew install ripgrep' }
+Plug 'junegunn/fzf.vim', { 'do': 'brew install ripgrep && brew install bat' }
 if v:version >= 800 && has('python3')
   if !has('nvim')
     Plug 'roxma/nvim-yarp' " denite dependency.
@@ -151,7 +150,6 @@ Plug 'chrisbra/vim_faq'
 " Debugging {{{
 Plug 'tpope/vim-scriptease'
 " }}}
-
 
 " Markdown {{{
 " Plug 'dhruvasagar/vim-table-mode'

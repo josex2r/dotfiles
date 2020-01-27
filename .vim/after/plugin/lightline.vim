@@ -3,13 +3,13 @@ if !exists('g:loaded_lightline')
 endif
 
 let g:lightline = {
-      \ 'colorscheme': 'powerline',
+      \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [
-      \       [ 'mode', 'paste' ],
+      \       [ 'mode', 'modified', 'paste' ],
       \		    [ 'gitbranch' ],
       \		    [ 'path' ],
-      \		    [ 'readonly', 'filename', 'modified' ],
+      \		    [ 'readonly' ],
       \   ],
       \   'right': [
       \        [ 'errors', 'warnings', 'hints' ],
@@ -28,6 +28,9 @@ let g:lightline = {
       \		     [ 'fileformat', 'fileencoding', 'filetype' ],
       \   ]
       \ },
+      \ 'component': {
+      \   'modified': '%{MyModified()}',
+      \ },
       \ 'component_function': {
       \   'cocstatus': 'coc#status',
       \   'readonly': 'LightlineReadonly',
@@ -44,6 +47,17 @@ let g:lightline = {
       \ }
       \ }
 
+function! MyModified()
+  " Unidentifies modes uses normal color mode
+  let map = { 'V': 'n', "\<C-v>": 'n', 's': 'n', "\<C-s>": 'n', 'c': 'n', 'R': 'n'}
+  " Get editor mode from the previous map
+  let mode = get(map, mode()[0], mode()[0])
+  " Colors from:
+  " https://github.com/itchyny/lightline.vim/blob/master/autoload/lightline/colorscheme/one.vim
+  let bgcolor = {'n': [76, '#98c379'], 'i': [75, '#61afef'], 'v': [176, '#c678dd']}
+  return &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
 function! LightlineReadonly() abort
     return &readonly ? '' : ''
 endfunction
@@ -57,7 +71,7 @@ function! LightlineGitBranch() abort
 endfunction
 
 function! LightlinePath() abort
-    return '📁'.fnamemodify(expand('%:h'), ':~:.')
+    return '📁'.fnamemodify(expand('%'), ':~:.')
 endfunction
 
 function! AleCount(type) abort

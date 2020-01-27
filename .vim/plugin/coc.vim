@@ -4,5 +4,6 @@ let g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-css',
   \ 'coc-html',
+  \ 'coc-ember',
   \ 'coc-emmet'
   \ ]
