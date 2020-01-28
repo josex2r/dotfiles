@@ -1,5 +1,6 @@
 {
   "coc.preferences.timeout": 300,
+  "coc.preferences.colorSupport": true,
   "diagnostic.displayByAle": true,
   "typescript.updateImportsOnFileMove.enable": false
 }
