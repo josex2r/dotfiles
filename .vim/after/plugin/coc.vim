@@ -7,25 +7,11 @@ if executable('npm') && !executable('bash-language-server')
   call system('npm install -g bash-language-server')
 endif
 
-" if hidden is not set, TextEdit might fail.
-set hidden
-
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-
-" Better display for messages
-set cmdheight=2
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
 " Basic config.
 set shortmess+=c " Remove messages for deoplete completion (match x of y)
 set completeopt+=noinsert
-
-" always show signcolumns
-set signcolumn=yes
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -104,4 +90,6 @@ augroup coc_vim
 
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+
+  autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup END

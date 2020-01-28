@@ -25,21 +25,12 @@ Plug 'itchyny/lightline.vim'
 " Plug 'bling/vim-airline' " Lean & mean status/tabline for vim that's light as air.
 " }}}
 
-" Text {{{
-Plug 'inkarkat/vim-SpellCheck' " Populate spell check to quickfix.
-Plug 'inkarkat/vim-ingo-library' " Dependency for vim-SpellCheck.
-" }}}
-
-" Search {{{
-" Plug 'wsdjeg/FlyGrep.vim'
-" }}}
-
 " Syntax {{{
 Plug 'sheerun/vim-polyglot'
 Plug 'joukevandermaas/vim-ember-hbs'
 " Plug 'chrisbra/vim-zsh', { 'for': 'zsh' }
 Plug 'Quramy/vim-js-pretty-template' " JS template strings format
-Plug 'ap/vim-css-color' " Hex colors highlight
+Plug 'tpope/vim-markdown'
 " }}}
 
 " File tree {{{
@@ -105,7 +96,6 @@ Plug 'ntpeters/vim-better-whitespace'
 " endif
 Plug 'Shougo/neco-syntax' " vim syntax source
 Plug 'neoclide/coc-neco'
-Plug 'neoclide/coc-sources'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 " }}}
 
@@ -153,7 +143,7 @@ Plug 'tpope/vim-scriptease'
 
 " Markdown {{{
 " Plug 'dhruvasagar/vim-table-mode'
-Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' } " Compilation
+" Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' } " Compilation
 " }}}
 "
 " Language Tools {{{
