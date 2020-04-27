@@ -1,6 +1,31 @@
 {
-  "coc.preferences.timeout": 300,
-  "coc.preferences.colorSupport": true,
-  "diagnostic.displayByAle": true,
-  "typescript.updateImportsOnFileMove.enable": false
+    "suggest.enablePreview": true,
+    "suggest.timeout": 1000,
+    "coc.preferences.colorSupport": true,
+    "coc.preferences.rootPatterns": [
+        "package.json",
+        "tsconfig.json",
+        ".projectroot",
+        ".vim",
+        ".git"
+    ],
+    "typescript.updateImportsOnFileMove.enable": false,
+    "diagnostic.displayByAle": true,
+    "diagnostic.virtualText": false,
+    "diagnostic.checkCurrentLine": true,
+    "eslint.autoFixOnSave": false,
+    "languageserver": {
+        "bash": {
+            "command": "bash-language-server",
+            "args": [
+                "start"
+            ],
+            "filetypes": [
+                "sh"
+            ],
+            "ignoredRootPaths": [
+                "~"
+            ]
+        }
+    }
 }

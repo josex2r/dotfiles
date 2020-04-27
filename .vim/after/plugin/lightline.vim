@@ -12,7 +12,7 @@ let g:lightline = {
       \		    [ 'readonly' ],
       \   ],
       \   'right': [
-      \        [ 'errors', 'warnings', 'hints' ],
+      \        [ 'coccustomstatus' ],
       \        [ 'lineinfo' ],
       \		     [ 'percent' ],
       \		     [ 'fileformat', 'fileencoding', 'filetype' ],
@@ -30,6 +30,7 @@ let g:lightline = {
       \ },
       \ 'component': {
       \   'modified': '%{MyModified()}',
+      \   'coccustomstatus': '%{StatusDiagnostic()}',
       \ },
       \ 'component_function': {
       \   'cocstatus': 'coc#status',
@@ -75,10 +76,10 @@ function! LightlinePath() abort
 endfunction
 
 function! AleCount(type) abort
-  let l:bufnr = bufnr('%')
-  let l:count = ale#statusline#Count(l:bufnr)
-  if empty(l:count) | return 0 | endif
-  return get(l:count, a:type, 0)
+  " let l:bufnr = bufnr('%')
+  " let l:count = ale#statusline#Count(l:bufnr)
+  " if empty(l:count) | return 0 | endif
+  " return get(l:count, a:type, 0)
 endfunction
 
 function! CocDiagnosticInfo(type) abort
@@ -88,22 +89,39 @@ function! CocDiagnosticInfo(type) abort
 endfunction
 
 function! LightlineHints() abort
-  let l:count = AleCount('info') + CocDiagnosticInfo('hint') + CocDiagnosticInfo('information')
-  return l:count > 0 ? ' ✓ '.l:count : ''
+  " let l:count = AleCount('info') + CocDiagnosticInfo('hint') + CocDiagnosticInfo('information')
+  " return l:count > 0 ? ' ✓ '.l:count : ''
 endfunction
 
 function! LightlineWarnings() abort
-  let l:count = AleCount('warning') + CocDiagnosticInfo('warning')
-  return l:count > 0 ? ' ⚠️ '.l:count : ''
+  " let l:count = AleCount('warning') + CocDiagnosticInfo('warning')
+  " return l:count > 0 ? ' ⚠️ '.l:count : ''
 endfunction
 
 function! LightlineErrors() abort
-  let l:count = AleCount('error') + CocDiagnosticInfo('error')
-  return l:count > 0 ? ' ✗ '.l:count : ''
+  " let l:count = AleCount('error') + CocDiagnosticInfo('error')
+  " return l:count > 0 ? ' ✗ '.l:count : ''
 endfunction
 
 augroup lightline_update
   autocmd!
-  autocmd User ALELintPOST call lightline#update()
-  autocmd User CocDiagnosticChange call lightline#update()
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+  " autocmd User ALELintPOST call lightline#update()
+  " autocmd User CocDiagnosticChange call lightline#update()
 augroup END
+
+function! StatusDiagnostic() abort
+  let info = get(b:, 'coc_diagnostic_info', {})
+  if empty(info) | return '' | endif
+  let msgs = []
+
+  if get(info, 'error', 0)
+    call add(msgs, '✗ ' . info['error'])
+  endif
+
+  if get(info, 'warning', 0)
+    call add(msgs, '⚠ ' . info['warning'])
+  endif
+
+  return join(msgs, '✓ ') . ' ' . get(g:, 'coc_status', '')
+endfunction

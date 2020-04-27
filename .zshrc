@@ -7,7 +7,8 @@ ulimit -n 8192
 SAVEHIST=100000
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/jose.represa/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
+export ZSH_CUSTOM=$HOME/.config/ohmyzsh/custom
 export PATH="/usr/local/sbin:$PATH"
 
 # Load nvm without autoload option
@@ -17,10 +18,11 @@ export NVM_DIR="$HOME/.nvm"
 function nvm_load() {
   . "$NVM_DIR/nvm.sh" && . "$NVM_DIR/bash_completion";
 }
-alias node='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; node $@'
-alias npm='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; npm $@'
-alias npx='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; npx $@'
-alias nvm='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; nvm $@'
+nvm_load
+# alias node='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; node $@'
+# alias npm='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; npm $@'
+# alias npx='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; npx $@'
+# alias nvm='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; nvm $@'
 
 # Load the shell dotfiles, and then some:
 for file in ~/.{exports,aliases,functions,extra}; do
@@ -153,7 +155,9 @@ antigen bundle unixorn/tumult.plugin.zsh
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 
-antigen theme agnoster
+# antigen theme agnoster
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure # prompt
 
 # antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
 

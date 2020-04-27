@@ -71,6 +71,9 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
 
+" Show coc list
+nnoremap <leader>l :CocList<Cr>
+
 " Use `:Format` for format current buffer
 command! -nargs=0 Format :call CocAction('format')
 

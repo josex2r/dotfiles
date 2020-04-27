@@ -26,6 +26,7 @@ Plug 'itchyny/lightline.vim'
 " }}}
 
 " Syntax {{{
+Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
 Plug 'joukevandermaas/vim-ember-hbs'
 " Plug 'chrisbra/vim-zsh', { 'for': 'zsh' }
@@ -34,7 +35,16 @@ Plug 'tpope/vim-markdown'
 " }}}
 
 " File tree {{{
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
+" Plug 'tpope/vim-vinegar' " native netrw
+
+Plug 'lambdalisue/fern.vim' " another file tree
+Plug 'lambdalisue/fern-renderer-devicons.vim'
+Plug 'lambdalisue/fern-mapping-project-top.vim'
+
+Plug 'mhinz/vim-startify' " start screen to select files
+
+" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " Plug 'Xuyuanp/nerdtree-git-plugin' " Disabled due https://github.com/Xuyuanp/nerdtree-git-plugin/issues/76
 " }}}
 
@@ -94,7 +104,7 @@ Plug 'ntpeters/vim-better-whitespace'
 "   Plug 'fszymanski/deoplete-emoji' " emoji source
 "   Plug 'Shougo/context_filetype.vim' " code fences source
 " endif
-Plug 'Shougo/neco-syntax' " vim syntax source
+" Plug 'Shougo/neco-syntax' " vim syntax source
 Plug 'neoclide/coc-neco'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 " }}}
@@ -105,10 +115,12 @@ Plug 'machakann/vim-sandwich' " Surround wrappers
 " }}}
 
 " Snippets {{{
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
+" Plug 'Shougo/neosnippet'
+" Plug 'Shougo/neosnippet-snippets'
+" Plug 'honza/vim-snippets'
+" Plug 'jjasghar/snipmate-snippets'
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'jjasghar/snipmate-snippets'
 " }}}
 
 " Linter {{{
@@ -120,13 +132,13 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim', { 'do': 'brew install ripgrep && brew install bat' }
-if v:version >= 800 && has('python3')
-  if !has('nvim')
-    Plug 'roxma/nvim-yarp' " denite dependency.
-    Plug 'roxma/vim-hug-neovim-rpc' " denite dependency
-  endif
-  " Plug 'Shougo/denite.nvim', { 'do': 'pip3 install pynvim' }
-endif
+" if has('nvim')
+"   Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+"   Plug 'Shougo/denite.nvim'
+"   Plug 'roxma/nvim-yarp'
+"   Plug 'roxma/vim-hug-neovim-rpc'
+" endif
 " }}}
 
 " Marks {{{

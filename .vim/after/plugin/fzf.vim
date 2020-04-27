@@ -22,7 +22,7 @@ function! CreateCenteredFloatingWindow()
   let opts.col += 2
   let opts.width -= 4
   call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
-  au BufWipeout <buffer> exe 'bw '.s:buf
+  au BufWipeout <buffer> silent exe 'bw '.s:buf
 endfunction
 
 " Config.

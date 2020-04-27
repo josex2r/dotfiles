@@ -21,6 +21,34 @@ function key_code() {
   xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'
 }
 
+# clean xcode cache data
+xcode_clean_derived() {
+  local dir=~/"library/developer/xcode/deriveddata/"
+  du -skh "${dir}"
+  # remove???
+}
+
+# Clean Xcode device support data
+xcode_clean_support() {
+  local dir=~/"Library/Developer/Xcode/iOS DeviceSupport/"
+  local device=$1
+  du -skh "${dir}"
+  du -skh "${dir}$1/"
+  # rm -rf ""
+}
+
+# clean xcode devices
+xcode_clean_devices() {
+  local dir=~/"Library/Developer/CoreSimulator/Devices/"
+  du -skh "${dir}"
+  # remove???
+}
+
+# clean /etc/hosts cache
+clean_hosts() {
+  sudo killall -HUP mDNSResponder;say DNS cache has been flushed
+}
+
 # Run mimtproxy to allow Woody access to production environment
 function run_proxy() {
   local ENV="$1"
@@ -46,6 +74,15 @@ function run_proxy() {
     --stickycookie=".*"
   }
 
+# Git resolve conflicts
+function resolve_ours() {
+  grep -lr '<<<<<<<' $1 | xargs git checkout --ours
+}
+
+function resolve_theirs() {
+  grep -lr '<<<<<<<' $1 | xargs git checkout --theirs
+}
+
 # Shell timing performance
 function perf_shell() {
   for i in $(seq 1 10); do /usr/bin/time $SHELL -i -c exit; done
@@ -57,7 +94,7 @@ function clean_brew() {
 
 # Build BBVA Android app
 function build-android() {
-  ./gradlew phone:installVirtualDebug -PhtmlBranch= -PbackendHost=http://localhost:8081 -PfrontendHost=http://localhost:4200 -PhtmlPath= --stacktrace
+  ./gradlew phone:installVirtualDebug -PhtmlBranch= -PbackendHost=http://localhost:8081 -PgamHost=https://beta.gam.movil.bbva.es -PfrontendHost=http://localhost:4200 -PhtmlPath= --stacktrace
 }
 
 # Build BBVA Android app

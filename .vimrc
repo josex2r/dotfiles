@@ -98,7 +98,8 @@ set wildignore+=.DS_Store
 set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
 " set wildignore+=*/.git/logs/*,*/.git/refs/*
 " set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
-set wildignore+=*/smarty/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/doc/*,*/source_maps/*,*/dist/*,*/recs/*
+" set wildignore+=*/smarty/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/doc/*,*/source_maps/*,*/dist/*,*/recs/*
+set wildignore+=*/smarty/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/doc/*,*/source_maps/*,*/recs/*
 set wildmenu " Hitting TAB in command mode will show possible completions above command line
 set wildmode=list:longest,full " Complete only until point of ambiguity
 set wildignorecase
@@ -163,9 +164,9 @@ runtime! config/*.vim
 " colorscheme solarized
 
 colorscheme one
-set background=dark
+" set background=dark
 call one#highlight('CursorLine', '', '343942', 'none')
 
 " Enable background transparency (terminal defaults)
-hi Normal guibg=NONE ctermbg=NONE
+" hi Normal guibg=NONE ctermbg=NONE
 " }}}
