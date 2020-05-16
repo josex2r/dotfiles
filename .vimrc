@@ -6,7 +6,7 @@
 if !exists('g:syntax_on')
   syntax enable
 endif
-set t_Co=256 " Terminal colors.
+" set t_Co=256 " Terminal colors.
 set encoding=utf-8 nobomb " BOM often causes trouble
 scriptencoding utf-8
 " }}}
