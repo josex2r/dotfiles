@@ -60,8 +60,6 @@ autoload -Uz bip bcp bup cani fp kp
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-# ZSH_THEME="agnoster"
-# ZSH_THEME="powerlevel9k/powerlevel9k"
 ZSH_THEME=""
 
 # This speeds up pasting w/ autosuggest
@@ -156,14 +154,12 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 
 # antigen theme agnoster
-antigen bundle mafredri/zsh-async
-antigen bundle sindresorhus/pure # prompt
-
-# antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
 
 # Pure theme
 # antigen bundle mafredri/zsh-async
-# antigen bundle sindresorhus/pure
+# antigen bundle sindresorhus/pure # prompt
+
+antigen theme denysdovhan/spaceship-prompt
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 
@@ -217,3 +213,81 @@ if [ -f '/Users/jose.represa/Desktop/google-cloud-sdk/path.zsh.inc' ]; then . '/
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/jose.represa/Desktop/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jose.represa/Desktop/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+# ORDER
+SPACESHIP_PROMPT_ORDER=(
+  time     #
+  vi_mode  # these sections will be
+  user     # before prompt char
+  host     #
+  dir
+  git
+  node
+  ruby
+  xcode
+  swift
+  golang
+  docker
+  venv
+  pyenv
+  char
+)
+
+SPACESHIP_CHAR_PREFIX="\n"
+SPACESHIP_PROMPT_ADD_NEWLINE=true
+SPACESHIP_PROMPT_SEPARATE_LINE=true
+
+# USER
+SPACESHIP_USER_PREFIX="" # remove `with` before username
+SPACESHIP_USER_SUFFIX="" # remove space before host
+
+# HOST
+# Result will look like this:
+#   username@:(hostname)
+SPACESHIP_HOST_PREFIX="@:("
+SPACESHIP_HOST_SUFFIX=") "
+
+# DIR
+SPACESHIP_DIR_COLOR=grey
+# SPACESHIP_DIR_TRUNC='3' # show only last 3 chunks of the directory
+
+# GIT
+SPACESHIP_GIT_SYMBOL=""
+SPACESHIP_GIT_PREFIX=""
+SPACESHIP_GIT_SUFFIX=""
+SPACESHIP_GIT_BRANCH_COLOR=blue
+SPACESHIP_GIT_STATUS_PREFIX=" "
+SPACESHIP_GIT_STATUS_SUFFIX=""
+
+# NODE
+SPACESHIP_NODE_PREFIX=" "
+SPACESHIP_NODE_SUFFIX=""
+
+# RUBY
+SPACESHIP_RUBY_PREFIX=" "
+SPACESHIP_RUBY_SUFFIX=""
+
+# XCODE
+SPACESHIP_XCODE_PREFIX=" "
+SPACESHIP_XCODE_SUFFIX=""
+
+# SWIFT
+SPACESHIP_SWIFT_PREFIX=" "
+SPACESHIP_SWIFT_SUFFIX=""
+
+# GOLANG
+SPACESHIP_GOLANG_PREFIX=" "
+SPACESHIP_GOLANG_SUFFIX=""
+
+# DOCKER
+SPACESHIP_DOCKER_PREFIX=" "
+SPACESHIP_DOCKER_SUFFIX=" "
+
+# VENV
+SPACESHIP_VENV_PREFIX="venv:("
+SPACESHIP_VENV_SUFFIX=") "
+
+# PYENV
+SPACESHIP_PYENV_PREFIX=" "
+SPACESHIP_PYENV_SUFFIX=""
