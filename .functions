@@ -1,5 +1,23 @@
 #!/bin/bash
 
+function book() {
+  cd ~/workspace/restaurant-reservation
+  node index.js book maruca 2020-10-10 14:00 -p2 &
+  node index.js book maruca 2020-10-10 14:15 -p2 &
+  node index.js book maruca 2020-10-10 14:30 -p2 &
+  node index.js book maruca 2020-10-10 21:00 -p2 &
+  node index.js book maruca 2020-10-10 21:15 -p2 &
+  node index.js book maruca 2020-10-10 21:30 -p2 &
+  node index.js book maruca 2020-10-10 21:45 -p2 &
+  node index.js book maruca 2020-10-10 22:00 -p2 &
+}
+
+function book2() {
+  cd ~/workspace/restaurant-reservation
+  node index.js book maruca 2020-10-10 14:00 -p2 &
+  node index.js book maruca 2020-10-10 21:00 -p2 &
+}
+
 # Change current .npmrc file (swap npm registry)
 function npmrc() {
   local file=~/.npmrc-${1:-npm}
@@ -53,6 +71,7 @@ clean_hosts() {
 function run_proxy() {
   local ENV="$1"
   local HOST="$2"
+  local PORT="$3"
   local PREFIX=""
 
   if [ -n "$ENV" ]; then
@@ -63,16 +82,20 @@ function run_proxy() {
     HOST="localhost"
   fi
 
+  if [ -z "$PORT" ]; then
+    PORT="4200"
+  fi
+
   mitmproxy \
     -p 8081 \
     --mode reverse:https://${PREFIX}servicios.bbva.es \
     --setheader "|~q|Host|$ENV-servicios.bbva.es" \
     --setheader "|~q|Origin|https://movil.bbva.es" \
     --setheader "|~q|Referer|https://movil.bbva.es/" \
-    --replacements "|~s|access-control-allow-origin: (.+)|access-control-allow-origin: http://$HOST:4200" \
+    --replacements "|~s|access-control-allow-origin: (.+)|access-control-allow-origin: http://$HOST:$PORT" \
     --replacements "|~s|Secure; HttpOnly|" \
     --stickycookie=".*"
-  }
+}
 
 # Git resolve conflicts
 function resolve_ours() {
@@ -94,7 +117,7 @@ function clean_brew() {
 
 # Build BBVA Android app
 function build-android() {
-  ./gradlew phone:installVirtualDebug -PhtmlBranch= -PbackendHost=http://localhost:8081 -PgamHost=https://beta.gam.movil.bbva.es -PfrontendHost=http://localhost:4200 -PhtmlPath= --stacktrace
+  ./gradlew phone:installVirtualDebug -PhtmlBranch= -PbackendHost=http://localhost:8081 -PfrontendHost=http://localhost:4200 -PhtmlPath= -PgamHost=https://gam.movil.bbva.es
 }
 
 # Build BBVA Android app

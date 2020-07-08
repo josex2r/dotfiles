@@ -19,15 +19,6 @@ function nvm_load() {
   . "$NVM_DIR/nvm.sh" && . "$NVM_DIR/bash_completion";
 }
 nvm_load
-# alias node='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; node $@'
-# alias npm='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; npm $@'
-# alias npx='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; npx $@'
-# alias nvm='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; nvm $@'
-
-# Load the shell dotfiles, and then some:
-for file in ~/.{exports,aliases,functions,extra}; do
-  [ -r "$file" ] && source "$file"
-done
 
 # Setup fzf (fuzzy-finder)
 [ -s ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -213,6 +204,15 @@ if [ -f '/Users/jose.represa/Desktop/google-cloud-sdk/path.zsh.inc' ]; then . '/
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/jose.represa/Desktop/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jose.represa/Desktop/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Go binaries
+# export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$HOME/go/bin
+
+# Load the shell dotfiles, and then some:
+for file in ~/.{exports,aliases,functions,extra}; do
+  [ -r "$file" ] && source "$file"
+done
 
 
 # ORDER

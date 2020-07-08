@@ -7,7 +7,7 @@ let g:coc_global_extensions = [
   \ 'coc-ember',
   \ 'coc-emmet',
   \ 'coc-snippets',
+  \ 'coc-eslint',
   \ 'coc-syntax'
   \ ]
   " \ 'coc-highlight',
-  " \ 'coc-eslint',

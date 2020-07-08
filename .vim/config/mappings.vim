@@ -2,10 +2,24 @@
 " How to get the first char? Use CRTL+V and press the key in command mode
 " How to get the second char? Use CRTL+K and press the key in command mode
 " <Esc> means escape char (<Esc>b === ^[b)
+"
+" :nmap - Display normal mode maps
+" :imap - Display insert mode maps
+" :vmap - Display visual and select mode maps
+" :smap - Display select mode maps
+" :xmap - Display visual mode maps
+" :cmap - Display command-line mode maps
+" :omap - Display operator pending mode maps
 nmap <M-f> <Esc>w
 nmap <M-b> <Esc>b
 vmap <M-f> <S-Right>
 vmap <M-b> <S-Left>
+imap <M-f> <S-Right>
+imap <M-b> <S-Left>
+cmap <M-f> <Esc>w
+cmap <M-b> <Esc>b
+omap <M-f> <Esc>w
+omap <M-b> <Esc>b
 cnoremap <M-f> <S-Right>
 cnoremap <M-b> <S-Left>
 " }}}
