@@ -4,8 +4,18 @@ dotfiles
 ## Install
 
 ```bash
+# use brew zsh
+brew install zsh
+sudo vim /etc/shells # /usr/local/bin/zsh
+# fix insecure directories
+# for f in $(compaudit);do sudo chmod -R 755 $f;done;
+
 # brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+# tmux
+brew install tmux
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # neovim
 brew install --HEAD neovim
@@ -19,6 +29,7 @@ mkdir workspace
 cd workspace
 git clone https://github.com/josex2r/dotfiles.git
 cd ~
+
 # aliases
 rm -rf ~/.aliases && ln -s ~/workspace/dotfiles/.aliases ~/.aliases
 rm -rf ~/.bash_profile && ln -s ~/workspace/dotfiles/.bash_profile ~/.bash_profile
@@ -33,6 +44,7 @@ rm -rf ~/.vimrc && ln -s ~/workspace/dotfiles/.vimrc ~/.vimrc
 rm -rf ~/.zshrc && ln -s ~/workspace/dotfiles/.zshrc ~/.zshrc
 rm -rf ~/.zfunctions && ln -s ~/workspace/dotfiles/.zfunctions ~/.zfunctions
 rm -rf ~/.vim && ln -s ~/workspace/dotfiles/.vim ~/.vim
+rm -rf ~/.config && ln -s ~/workspace/dotfiles/.config ~/.config
 
 # nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
