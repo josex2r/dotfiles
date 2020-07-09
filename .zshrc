@@ -112,7 +112,7 @@ export SSH_CONNECTION=""
 # export MANPATH="/usr/local/man:$MANPATH"
 
 #source $ZSH/oh-my-zsh.sh
-source $HOME/workspace/antigen/antigen.zsh
+source $HOME/workspace/dotfiles/antigen/antigen.zsh
 
 #Export Android vars
 export ANDROID_HOME=$HOME/Library/Android/sdk
@@ -133,7 +133,7 @@ antigen bundle tmux
 antigen bundle z
 antigen bundle git
 # antigen bundle sudo
-antigen bundle autojump
+# antigen bundle autojump
 antigen bundle node
 antigen bundle osx
 # antigen bundle common-aliases
