@@ -1,6 +1,6 @@
 {
     "suggest.enablePreview": true,
-    "suggest.timeout": 1000,
+    "suggest.timeout": 5000,
     "coc.preferences.colorSupport": true,
     "coc.preferences.rootPatterns": [
         "package.json",
@@ -9,11 +9,11 @@
         ".vim",
         ".git"
     ],
-    "typescript.updateImportsOnFileMove.enable": false,
     "diagnostic.displayByAle": true,
     "diagnostic.virtualText": false,
     "diagnostic.checkCurrentLine": true,
     "eslint.autoFixOnSave": false,
+    "snippets.userSnippetsDirectory": "~/workspace/dotfiles/.vim/snippets",
     "languageserver": {
         "bash": {
             "command": "bash-language-server",
@@ -27,5 +27,9 @@
                 "~"
             ]
         }
-    }
+    },
+    "typescript.updateImportsOnFileMove.enable": false,
+    "tsserver.maxTsServerMemory": 3072,
+    "tsserver.log": "verbose",
+    // "tsserver.trace.server": "verbose"
 }
