@@ -104,19 +104,10 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# User configuration
-export PATH="$PATH:/Users/jose.represa/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/jose.represa/bin"
-export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Hey fool! You have an alias: "
-export DEFAULT_USER="josex2r"
-export SSH_CONNECTION=""
 # export MANPATH="/usr/local/man:$MANPATH"
 
 #source $ZSH/oh-my-zsh.sh
 source $HOME/workspace/dotfiles/antigen/antigen.zsh
-
-#Export Android vars
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -144,21 +135,15 @@ antigen bundle unixorn/tumult.plugin.zsh
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 
-# antigen theme agnoster
-
 # Pure theme
 # antigen bundle mafredri/zsh-async
 # antigen bundle sindresorhus/pure # prompt
-
 antigen theme denysdovhan/spaceship-prompt
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Tell antigen that you're done.
 antigen apply
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -167,37 +152,8 @@ antigen apply
 #   export EDITOR='mvim'
 # fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-which gem >/dev/null && export PATH=$(gem environment gemdir)/bin:${PATH}
-# export PATH="$PATH:$HOME/Library/Python/2.7/bin/" # Add Python to PATH for scripting
-
-# Init python version manager
-# if command -v pyenv 1>/dev/null 2>&1; then
-#   eval "$(pyenv init -)"
-# fi
-
 # Disable profiling
 # zprof
-
-# Python 2 binaries.
-export PATH=$(python -m site --user-base)/bin:${PATH}
-
-# Python 3 binaries.
-export PATH=$(python3 -m site --user-base)/bin:${PATH}
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/jose.represa/Desktop/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jose.represa/Desktop/google-cloud-sdk/path.zsh.inc'; fi
@@ -205,15 +161,10 @@ if [ -f '/Users/jose.represa/Desktop/google-cloud-sdk/path.zsh.inc' ]; then . '/
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/jose.represa/Desktop/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jose.represa/Desktop/google-cloud-sdk/completion.zsh.inc'; fi
 
-# Go binaries
-# export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$HOME/go/bin
-
 # Load the shell dotfiles, and then some:
 for file in ~/.{exports,aliases,functions,extra}; do
   [ -r "$file" ] && source "$file"
 done
-
 
 # ORDER
 SPACESHIP_PROMPT_ORDER=(

@@ -62,6 +62,17 @@ xcode_clean_devices() {
   # remove???
 }
 
+# get osx displays and resolutions files
+function check_resolution() {
+  echo "Base directory: /System/Library/Displays/Overrides/"
+  echo "Example: /System/Library/Displays/Contents/Resources/Overrides/DisplayVendorID-10ac/DisplayProductID-d06e"
+  echo "\n"
+  echo "More info in: https://comsysto.github.io/Display-Override-PropertyList-File-Parser-and-Generator-with-HiDPI-Support-For-Scaled-Resolutions/"
+  echo "\n"
+
+  ioreg -lw0 | grep IODisplayPrefsKey
+}
+
 # clean /etc/hosts cache
 clean_hosts() {
   sudo killall -HUP mDNSResponder;say DNS cache has been flushed
@@ -89,7 +100,7 @@ function run_proxy() {
   mitmproxy \
     -p 8081 \
     --mode reverse:https://${PREFIX}servicios.bbva.es \
-    --setheader "|~q|Host|$ENV-servicios.bbva.es" \
+    --setheader "|~q|Host|${PREFIX}servicios.bbva.es" \
     --setheader "|~q|Origin|https://movil.bbva.es" \
     --setheader "|~q|Referer|https://movil.bbva.es/" \
     --replacements "|~s|access-control-allow-origin: (.+)|access-control-allow-origin: http://$HOST:$PORT" \

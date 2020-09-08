@@ -7,44 +7,40 @@ let g:lightline = {
       \ 'active': {
       \   'left': [
       \       [ 'mode', 'modified', 'paste' ],
-      \		    [ 'gitbranch' ],
-      \		    [ 'path' ],
-      \		    [ 'readonly' ],
+      \	      [ 'path' ],
+      \	      [ 'readonly' ],
       \   ],
       \   'right': [
-      \        [ 'coccustomstatus' ],
-      \        [ 'lineinfo' ],
-      \		     [ 'percent' ],
-      \		     [ 'fileformat', 'fileencoding', 'filetype' ],
+      \       [ 'coccustomstatus' ],
+      \       [ 'lineinfo' ],
+      \	      [ 'percent' ],
+      \	      [ 'fileformat', 'fileencoding', 'filetype' ],
+      \       [ 'linter' ],
       \   ]
       \ },
       \ 'inactive': {
       \   'left': [
-      \		    [ 'readonly', 'filename', 'modified' ]
+      \	      [ 'readonly', 'filename', 'modified' ]
       \   ],
       \   'right': [
-      \        [ 'lineinfo' ],
-      \		     [ 'percent' ],
-      \		     [ 'fileformat', 'fileencoding', 'filetype' ],
+      \       [ 'lineinfo' ],
+      \	      [ 'percent' ],
+      \	      [ 'fileformat', 'fileencoding', 'filetype' ],
       \   ]
       \ },
       \ 'component': {
       \   'modified': '%{MyModified()}',
       \   'coccustomstatus': '%{StatusDiagnostic()}',
+      \   'linter': '%{LightlineHints()} %{LightlineWarnings()} %{LightlineErrors()}',
+      \   'hints': '%{LightlineHints()}',
+      \   'warnings': '%{LightlineWarnings()}',
+      \   'errors': '%{LightlineErrors()}',
       \ },
       \ 'component_function': {
       \   'cocstatus': 'coc#status',
       \   'readonly': 'LightlineReadonly',
       \   'gitbranch': 'LightlineGitBranch',
       \   'path': 'LightlinePath',
-      \	  'hints': 'LightlineHints',
-      \	  'warnings': 'LightlineWarnings',
-      \	  'errors': 'LightlineErrors',
-      \ },
-      \ 'component_type': {
-      \   'hints': 'info',
-      \   'warnings': 'warning',
-      \   'errors': 'error',
       \ }
       \ }
 
@@ -56,7 +52,7 @@ function! MyModified()
   " Colors from:
   " https://github.com/itchyny/lightline.vim/blob/master/autoload/lightline/colorscheme/one.vim
   let bgcolor = {'n': [76, '#98c379'], 'i': [75, '#61afef'], 'v': [176, '#c678dd']}
-  return &modified ? '+' : &modifiable ? '' : '-'
+  return &modified ? '' : &modifiable ? '' : '-'
 endfunction
 
 function! LightlineReadonly() abort
@@ -76,10 +72,10 @@ function! LightlinePath() abort
 endfunction
 
 function! AleCount(type) abort
-  " let l:bufnr = bufnr('%')
-  " let l:count = ale#statusline#Count(l:bufnr)
-  " if empty(l:count) | return 0 | endif
-  " return get(l:count, a:type, 0)
+  let l:bufnr = bufnr('%')
+  let l:count = ale#statusline#Count(l:bufnr)
+  if empty(l:count) | return 0 | endif
+  return get(l:count, a:type, 0)
 endfunction
 
 function! CocDiagnosticInfo(type) abort
@@ -89,18 +85,18 @@ function! CocDiagnosticInfo(type) abort
 endfunction
 
 function! LightlineHints() abort
-  " let l:count = AleCount('info') + CocDiagnosticInfo('hint') + CocDiagnosticInfo('information')
-  " return l:count > 0 ? ' ✓ '.l:count : ''
+  let l:count = AleCount('info') + CocDiagnosticInfo('hint') + CocDiagnosticInfo('information')
+  return l:count > 0 ? ' ✓ '.l:count : ''
 endfunction
 
 function! LightlineWarnings() abort
-  " let l:count = AleCount('warning') + CocDiagnosticInfo('warning')
-  " return l:count > 0 ? ' ⚠️ '.l:count : ''
+  let l:count = AleCount('warning') + CocDiagnosticInfo('warning')
+  return l:count > 0 ? ' ⚠ '.l:count : ''
 endfunction
 
 function! LightlineErrors() abort
-  " let l:count = AleCount('error') + CocDiagnosticInfo('error')
-  " return l:count > 0 ? ' ✗ '.l:count : ''
+  let l:count = AleCount('error') + CocDiagnosticInfo('error')
+  return l:count > 0 ? ' ✗ '.l:count : ''
 endfunction
 
 augroup lightline_update

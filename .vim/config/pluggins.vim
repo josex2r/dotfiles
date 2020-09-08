@@ -26,10 +26,8 @@ Plug 'itchyny/lightline.vim'
 " }}}
 
 " Syntax {{{
-Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
 Plug 'joukevandermaas/vim-ember-hbs'
-" Plug 'chrisbra/vim-zsh', { 'for': 'zsh' }
 Plug 'Quramy/vim-js-pretty-template' " JS template strings format
 Plug 'tpope/vim-markdown'
 " }}}
@@ -37,15 +35,16 @@ Plug 'tpope/vim-markdown'
 " File tree {{{
 " Plug 'tpope/vim-vinegar' " native netrw
 
-Plug 'lambdalisue/fern.vim' " another file tree
-Plug 'lambdalisue/fern-renderer-devicons.vim'
-Plug 'lambdalisue/fern-mapping-project-top.vim'
+" Plug 'lambdalisue/fern.vim' " another file tree
+" Plug 'lambdalisue/fern-renderer-devicons.vim'
+" Plug 'lambdalisue/fern-mapping-project-top.vim'
 
 Plug 'mhinz/vim-startify' " start screen to select files
 
-" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
-" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-" Plug 'Xuyuanp/nerdtree-git-plugin' " Disabled due https://github.com/Xuyuanp/nerdtree-git-plugin/issues/76
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'ryanoasis/vim-devicons'
 " }}}
 
 " Comments {{{
@@ -54,21 +53,18 @@ Plug 'tpope/vim-commentary'
 
 " Misc {{{
 Plug 'tpope/vim-repeat' " Repeat everything
-Plug 'tpope/vim-abolish' " Camelcase, snakecase, mixedcase coercion
+" Plug 'tpope/vim-abolish' " Camelcase, snakecase, mixedcase coercion
 Plug 'tpope/vim-sleuth' " Autodetect indentation
-Plug 'tpope/vim-unimpaired' " Pair aliases and toggling options
+" Plug 'tpope/vim-unimpaired' " Pair aliases and toggling options
 Plug 'fcpg/vim-altscreen' " Clean terminal on vim shell commands
 Plug 'mjbrownie/swapit' " <c-a> increments
 Plug 'xtal8/traces.vim' " Search highlight as typing
 Plug 'hauleth/sad.vim' " Change and repeat
-Plug 'justinmk/vim-sneak' " The missing motion for Vim
+" Plug 'justinmk/vim-sneak' " The missing motion for Vim
 Plug 'kopischke/vim-fetch' " Handle line number on filename
-Plug 'vim-scripts/Spiffy-Foldtext' " Pretty folds
 Plug 'tmhedberg/matchit' " Extend % command
 Plug 'junegunn/vim-easy-align' " Align text
-Plug 'tpope/vim-dispatch' " Async shell commands
 Plug 'Olical/vim-enmasse' " Edit every line in a quickfix list at the same time
-
 " Plug 'majutsushi/tagbar' " Easy way to browse the tags of the current file
 " Plug 'scrooloose/nerdcommenter' " Intensely orgasmic commenting, changes comments formatting
 " Plug 'godlygeek/tabular' " Run ':Tab' to align text as a table
@@ -78,7 +74,6 @@ Plug 'Olical/vim-enmasse' " Edit every line in a quickfix list at the same time
 " }}}
 
 " Git {{{
-Plug 'tpope/vim-git'
 Plug 'tpope/vim-fugitive' " Git commands
 Plug 'airblade/vim-gitgutter' " Git gutter marks
 " }}}
@@ -88,38 +83,16 @@ Plug 'editorconfig/editorconfig-vim', { 'do': 'brew install editorconfig' }
 Plug 'ntpeters/vim-better-whitespace'
 " }}}
 
-" LSP {{{
-" Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-" }}}
-
 " Autocompletion {{{
-" if v:version > 800 && has('python3')
-"   Plug 'Shougo/deoplete.nvim', { 'do': 'pip3 install neovim' } " Surround wrappers
-"   Plug 'roxma/nvim-yarp' " deoplete dependency.
-"   Plug 'roxma/vim-hug-neovim-rpc' " deoplete dependency
-"   Plug 'Shougo/neco-syntax' " syntax source
-"   Plug 'Shougo/neco-vim' " vim source
-"   Plug 'ujihisa/neco-look' " words source
-"   Plug 'wellle/tmux-complete.vim' " tmux panel source
-"   Plug 'fszymanski/deoplete-emoji' " emoji source
-"   Plug 'Shougo/context_filetype.vim' " code fences source
-" endif
-" Plug 'Shougo/neco-syntax' " vim syntax source
 Plug 'neoclide/coc-neco'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release' }
 " }}}
 
 " Parens, Brackets, etc... {{{
-" Plug 'jiangmiao/auto-pairs'
 Plug 'machakann/vim-sandwich' " Surround wrappers
 " }}}
 
 " Snippets {{{
-" Plug 'Shougo/neosnippet'
-" Plug 'Shougo/neosnippet-snippets'
-" Plug 'honza/vim-snippets'
-" Plug 'jjasghar/snipmate-snippets'
-" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 " }}}
 
@@ -129,16 +102,8 @@ Plug 'w0rp/ale'
 
 " Navigation {{{
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'terryma/vim-smooth-scroll'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim', { 'do': 'brew install ripgrep && brew install bat' }
-" if has('nvim')
-"   Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-" else
-"   Plug 'Shougo/denite.nvim'
-"   Plug 'roxma/nvim-yarp'
-"   Plug 'roxma/vim-hug-neovim-rpc'
-" endif
 " }}}
 
 " Marks {{{
@@ -162,13 +127,8 @@ Plug 'tpope/vim-scriptease'
 Plug 'moll/vim-node' " Node
 Plug 'racer-rust/vim-racer' " Rust
 Plug 'mattn/emmet-vim' " HTML shorcuts (crtl+y,)
-" Plug 'Quramy/tsuquyomi' " Typescript server
-" let g:tsuquyomi_disable_default_mappings = 1
 Plug 'sukima/vim-javascript-imports'
 Plug 'sukima/vim-ember-imports' " Ember Imports
-if has('nvim')
-  Plug 'meain/vim-package-info', { 'do': 'npm install -g neovim && npm install' } " View the latest version of packages
-endif
 " }}}
 
 call plug#end()

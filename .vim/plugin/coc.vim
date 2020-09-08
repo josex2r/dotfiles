@@ -2,12 +2,15 @@ let g:coc_global_extensions = [
   \ 'coc-tsserver',
   \ 'coc-json',
   \ 'coc-yaml',
+  \ 'coc-browser',
   \ 'coc-css',
   \ 'coc-html',
   \ 'coc-ember',
   \ 'coc-emmet',
   \ 'coc-snippets',
   \ 'coc-eslint',
-  \ 'coc-syntax'
+  \ 'coc-syntax',
+  \ 'coc-actions',
   \ ]
+  " \ 'coc-fzf-preview'
   " \ 'coc-highlight',
