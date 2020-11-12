@@ -13,6 +13,8 @@
     "diagnostic.virtualText": false,
     "diagnostic.checkCurrentLine": true,
     "eslint.autoFixOnSave": false,
+    "eslint.packageManager": "yarn",
+    "eslint.nodePath": ".yarn/sdks",
     "snippets.userSnippetsDirectory": "~/workspace/dotfiles/.vim/snippets",
     "languageserver": {
         "bash": {
@@ -28,8 +30,20 @@
             ]
         }
     },
+    "explorer.file.showHiddenFiles": true,
+    "explorer.icon.enableNerdfont": true,
+    "explorer.width": 30,
+    "explorer.keyMappings.global": {
+        "<cr>": [
+            "expandable?",
+            ["expanded?", "collapse", "expand"],
+            "open"
+        ]
+    },
+    "explorer.file.autoReveal": true,
     "typescript.updateImportsOnFileMove.enable": false,
+    "tsserver.tsdk": ".yarn/sdks/typescript/lib",
     "tsserver.maxTsServerMemory": 3072,
-    "tsserver.log": "verbose",
+    "tsserver.log": "verbose"
     // "tsserver.trace.server": "verbose"
 }
