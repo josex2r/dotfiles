@@ -39,6 +39,10 @@ function key_code() {
   xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'
 }
 
+kill_port() {
+  lsof -t -i tcp:$1 | xargs kill -9
+}
+
 # clean xcode cache data
 xcode_clean_derived() {
   local dir=~/"library/developer/xcode/deriveddata/"
@@ -108,9 +112,33 @@ function run_proxy() {
     --stickycookie=".*"
 }
 
+function semmantic_release() {
+  name=$(git config user.name)
+  email=$(git config user.email)
+
+  export GIT_AUTHOR_NAME=${name}
+  export GIT_AUTHOR_EMAIL=${email}
+  export GIT_COMMITTER_NAME=${name}
+  export GIT_COMMITTER_EMAIL=${email}
+
+  npm run semantic-release -- --no-ci --debug
+}
+
 # Git resolve conflicts
 function resolve_ours() {
   grep -lr '<<<<<<<' $1 | xargs git checkout --ours
+}
+
+# Gitmerge subdirectory from repo to another repo
+function merge_sub_to_repo() {
+  # git filter-branch --subdirectory-filter my/directory -- -- all
+  # 1. add the origin to the new repo
+  #   $ git remote add local ../my-repo
+  # 2. fetch the local repo
+  #   $ git fetch local
+  # 3. Execute
+  #   $ git merge --no-ff -s recursive -X subtree="my/directory/" --allow-unrelated-histories local/master
+  echo 'foo'
 }
 
 function resolve_theirs() {
