@@ -11,6 +11,7 @@ let g:coc_global_extensions = [
   \ 'coc-eslint',
   \ 'coc-syntax',
   \ 'coc-actions',
+  \ 'coc-explorer',
   \ ]
   " \ 'coc-fzf-preview'
   " \ 'coc-highlight',

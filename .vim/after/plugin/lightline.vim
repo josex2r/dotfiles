@@ -14,7 +14,6 @@ let g:lightline = {
       \       [ 'coccustomstatus' ],
       \       [ 'lineinfo' ],
       \	      [ 'percent' ],
-      \	      [ 'fileformat', 'fileencoding', 'filetype' ],
       \       [ 'linter' ],
       \   ]
       \ },
@@ -25,7 +24,6 @@ let g:lightline = {
       \   'right': [
       \       [ 'lineinfo' ],
       \	      [ 'percent' ],
-      \	      [ 'fileformat', 'fileencoding', 'filetype' ],
       \   ]
       \ },
       \ 'component': {
@@ -43,6 +41,7 @@ let g:lightline = {
       \   'path': 'LightlinePath',
       \ }
       \ }
+"      \	      [ 'fileformat', 'fileencoding', 'filetype' ],
 
 function! MyModified()
   " Unidentifies modes uses normal color mode

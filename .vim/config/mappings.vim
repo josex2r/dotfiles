@@ -25,8 +25,8 @@ cnoremap <M-b> <S-Left>
 " }}}
 
 " Speed up viewport scrolling {{{
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
+" nnoremap <C-e> 3<C-e>
+" nnoremap <C-y> 3<C-y>
 " }}}
 
 " Faster split resizing (+,-) {{{
@@ -184,3 +184,13 @@ map <leader>lj :lnext<CR>
 map <leader>lk :lprev<CR>
 map <leader>ll :ll<CR>
 " }}}
+
+" map Mac OS X Terminal.app default Home and End
+map <C-A> <Home>
+imap <C-A> <Home>
+vmap <C-A> <Home>
+cmap <C-A> <Home>
+map <C-E> <End>
+imap <C-E> <End>
+vmap <C-E> <End>
+cmap <C-E> <End>

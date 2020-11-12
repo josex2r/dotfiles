@@ -29,9 +29,7 @@ set backspace=indent,eol,start
 set cursorline " Highlight current line
 set diffopt=filler " Add vertical spaces to keep right and left aligned
 set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
-set diffopt+=internal " Use the internal diff library
-set diffopt+=indent-heuristic " Use the indent heuristic
-set diffopt+=algorithm:patience " Use patience diff algorithm
+set diffopt+=vertical
 " set expandtab " Expand tabs to spaces
 set nofoldenable " Dont enable folding
 " set foldenable " Dont enable folding

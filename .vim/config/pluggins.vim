@@ -26,6 +26,7 @@ Plug 'itchyny/lightline.vim'
 " }}}
 
 " Syntax {{{
+let g:polyglot_disabled = ['md', 'markdown', 'hbs', 'handlebars']
 Plug 'sheerun/vim-polyglot'
 Plug 'joukevandermaas/vim-ember-hbs'
 Plug 'Quramy/vim-js-pretty-template' " JS template strings format
@@ -41,9 +42,9 @@ Plug 'tpope/vim-markdown'
 
 Plug 'mhinz/vim-startify' " start screen to select files
 
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ryanoasis/vim-devicons'
 " }}}
 
@@ -57,7 +58,6 @@ Plug 'tpope/vim-repeat' " Repeat everything
 Plug 'tpope/vim-sleuth' " Autodetect indentation
 " Plug 'tpope/vim-unimpaired' " Pair aliases and toggling options
 Plug 'fcpg/vim-altscreen' " Clean terminal on vim shell commands
-Plug 'mjbrownie/swapit' " <c-a> increments
 Plug 'xtal8/traces.vim' " Search highlight as typing
 Plug 'hauleth/sad.vim' " Change and repeat
 " Plug 'justinmk/vim-sneak' " The missing motion for Vim
@@ -85,7 +85,7 @@ Plug 'ntpeters/vim-better-whitespace'
 
 " Autocompletion {{{
 Plug 'neoclide/coc-neco'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release' }
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'master' }
 " }}}
 
 " Parens, Brackets, etc... {{{
@@ -104,6 +104,7 @@ Plug 'w0rp/ale'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim', { 'do': 'brew install ripgrep && brew install bat' }
+Plug 'antoinemadec/coc-fzf'
 " }}}
 
 " Marks {{{
