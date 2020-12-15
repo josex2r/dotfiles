@@ -14,7 +14,14 @@ sudo vim /etc/shells # /usr/local/bin/zsh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
 # tmux
-brew install tmux
+# brew install tmux
+git clone https://github.com/tmux/tmux.git
+cd tmux
+# modify this file => tty.c:#define TTY_BLOCK_INTERVAL (16666 /* 60fps */)
+sh autogen.sh
+./configure && make && sudo make install
+
+# tmux plugins
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # neovim
