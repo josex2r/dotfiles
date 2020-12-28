@@ -42,7 +42,7 @@
     },
     "explorer.file.autoReveal": true,
     "typescript.updateImportsOnFileMove.enable": false,
-    "tsserver.tsdk": ".yarn/sdks/typescript/lib",
+    // "tsserver.tsdk": ".yarn/sdks/typescript/lib",
     "tsserver.maxTsServerMemory": 3072,
     "tsserver.log": "verbose"
     // "tsserver.trace.server": "verbose"
