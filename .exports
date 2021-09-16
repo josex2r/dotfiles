@@ -26,6 +26,10 @@ eval "$(pyenv virtualenv-init -)"
 # export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/go/bin
 
+# Java
+unset JAVA_HOME
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8.0_261`
+
 # Android SDK
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
 export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools

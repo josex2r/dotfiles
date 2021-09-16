@@ -6,6 +6,7 @@
 if !exists('g:syntax_on')
   syntax enable
 endif
+
 " set t_Co=256 " Terminal colors.
 set encoding=utf-8 nobomb " BOM often causes trouble
 scriptencoding utf-8
@@ -94,10 +95,11 @@ set browsedir=buffer " browse files in same dir as open file
 set wildchar=<TAB> " Character for CLI expansion (TAB-completion)
 set wildignore+=.DS_Store
 set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
-" set wildignore+=*/.git/logs/*,*/.git/refs/*
-" set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+set wildignore+=*/.git/**/*
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 " set wildignore+=*/smarty/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/doc/*,*/source_maps/*,*/dist/*,*/recs/*
-set wildignore+=*/smarty/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/doc/*,*/source_maps/*,*/recs/*
+set wildignore+=*/smarty/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/doc/*,*/source_maps/*,
+set wildignore+=*/recs/*,*/recordings/*,*.har
 set wildmenu " Hitting TAB in command mode will show possible completions above command line
 set wildmode=list:longest,full " Complete only until point of ambiguity
 set wildignorecase
@@ -106,7 +108,7 @@ set wrapscan " Searches wrap around end of file
 set shiftwidth=4 " Fix mixed-indent warning
 set tags+=.tags/tags " Set tags folder.
 set infercase " Improve ignorecase
-set synmaxcol=400 " Enable syntax highlight on the first 200 cols
+set synmaxcol=600 " Enable syntax highlight on the first 200 cols
 set breakindent " Preserve indentation on wrap toggle
 set showbreak=⤷ " String to use on breakindent
 " set autoread " Force check disk file
@@ -120,6 +122,21 @@ set fillchars=fold:-
 set relativenumber " Use relative line numbers. Current line is still in status bar.
 set conceallevel=0 " No conceal
 set timeoutlen=1000
+" [CoC.nvim] Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+set updatetime=200
+set shortmess+=c " Don't pass messages to \|ins-completion-menu\|.
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" let g:node_client_debug = 1
 
 " Neovim only settings.
 if has('nvim')
@@ -162,7 +179,7 @@ runtime! config/*.vim
 " colorscheme solarized
 
 colorscheme one
-" set background=dark
+set background=dark
 call one#highlight('CursorLine', '', '343942', 'none')
 
 " Enable background transparency (terminal defaults)

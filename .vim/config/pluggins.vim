@@ -14,19 +14,16 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Themes {{{
-" Plug 'altercation/vim-colors-solarized'
-" Plug 'drewtempelmeyer/palenight.vim'
-" Plug 'ayu-theme/ayu-vim'
 Plug 'rakr/vim-one'
 " }}}
 
 " Statusbar {{{
 Plug 'itchyny/lightline.vim'
-" Plug 'bling/vim-airline' " Lean & mean status/tabline for vim that's light as air.
 " }}}
 
 " Syntax {{{
 let g:polyglot_disabled = ['md', 'markdown', 'hbs', 'handlebars']
+let g:polyglot_disabled = ['autoindent']
 Plug 'sheerun/vim-polyglot'
 Plug 'joukevandermaas/vim-ember-hbs'
 Plug 'Quramy/vim-js-pretty-template' " JS template strings format
@@ -34,17 +31,7 @@ Plug 'tpope/vim-markdown'
 " }}}
 
 " File tree {{{
-" Plug 'tpope/vim-vinegar' " native netrw
-
-" Plug 'lambdalisue/fern.vim' " another file tree
-" Plug 'lambdalisue/fern-renderer-devicons.vim'
-" Plug 'lambdalisue/fern-mapping-project-top.vim'
-
 Plug 'mhinz/vim-startify' " start screen to select files
-
-" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
-" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-" Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ryanoasis/vim-devicons'
 " }}}
 
@@ -61,14 +48,11 @@ Plug 'fcpg/vim-altscreen' " Clean terminal on vim shell commands
 Plug 'xtal8/traces.vim' " Search highlight as typing
 Plug 'hauleth/sad.vim' " Change and repeat
 " Plug 'justinmk/vim-sneak' " The missing motion for Vim
-Plug 'kopischke/vim-fetch' " Handle line number on filename
-Plug 'tmhedberg/matchit' " Extend % command
 Plug 'junegunn/vim-easy-align' " Align text
 Plug 'Olical/vim-enmasse' " Edit every line in a quickfix list at the same time
 " Plug 'majutsushi/tagbar' " Easy way to browse the tags of the current file
 " Plug 'scrooloose/nerdcommenter' " Intensely orgasmic commenting, changes comments formatting
 " Plug 'godlygeek/tabular' " Run ':Tab' to align text as a table
-" Plug 'tpope/vim-surround' " add/delete/replace surroundings of a sandwiched textobject
 " Plug 'justinmk/vim-sneak' " The missing motion for Vim
 " Plug 'junegunn/vim-peekaboo' " Inspect the contents of the registers
 " }}}
@@ -85,25 +69,19 @@ Plug 'ntpeters/vim-better-whitespace'
 
 " Autocompletion {{{
 Plug 'neoclide/coc-neco'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'master' }
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 " }}}
 
 " Parens, Brackets, etc... {{{
-Plug 'machakann/vim-sandwich' " Surround wrappers
-" }}}
-
-" Snippets {{{
-Plug 'honza/vim-snippets'
-" }}}
-
-" Linter {{{
-Plug 'w0rp/ale'
+" Plug 'machakann/vim-sandwich' " Surround wrappers
+Plug 'tpope/vim-surround' " add/delete/replace surroundings of a sandwiched textobject
 " }}}
 
 " Navigation {{{
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim', { 'do': 'brew install ripgrep && brew install bat' }
+" Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote' }
 Plug 'antoinemadec/coc-fzf'
 " }}}
 
@@ -125,8 +103,6 @@ Plug 'tpope/vim-scriptease'
 " }}}
 "
 " Language Tools {{{
-Plug 'moll/vim-node' " Node
-Plug 'racer-rust/vim-racer' " Rust
 Plug 'mattn/emmet-vim' " HTML shorcuts (crtl+y,)
 Plug 'sukima/vim-javascript-imports'
 Plug 'sukima/vim-ember-imports' " Ember Imports

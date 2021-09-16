@@ -10,6 +10,8 @@
 " :xmap - Display visual mode maps
 " :cmap - Display command-line mode maps
 " :omap - Display operator pending mode maps
+"
+" <M-*> is the 'meta' key (ALT)
 nmap <M-f> <Esc>w
 nmap <M-b> <Esc>b
 vmap <M-f> <S-Right>
@@ -22,11 +24,6 @@ omap <M-f> <Esc>w
 omap <M-b> <Esc>b
 cnoremap <M-f> <S-Right>
 cnoremap <M-b> <S-Left>
-" }}}
-
-" Speed up viewport scrolling {{{
-" nnoremap <C-e> 3<C-e>
-" nnoremap <C-y> 3<C-y>
 " }}}
 
 " Faster split resizing (+,-) {{{
@@ -82,27 +79,10 @@ iabbrev aa λ
 set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
 set fcs=fold:-
 " nnoremap <silent> <leader>c :set nolist!<CR>
-nnoremap <silent> <leader>c zA<CR>
 " }}}
 
 " Clear last search (,qs) {{{
 map <silent> <leader>qs <Esc>:noh<CR>
-" map <silent> <leader>qs <Esc>:let @/ = ""<CR>
-" }}}
-
-" Remap keys for auto-completion menu {{{
-inoremap <expr> <CR>   pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
-" }}}
-
-" Paste toggle (,p) {{{
-"set pastetoggle=<leader>p
-"map <leader>p :set invpaste paste?<CR>
-" }}}
-
-" Yank from cursor to end of line {{{
-nnoremap Y y$
 " }}}
 
 " Search and replace word under cursor (,*) {{{
@@ -110,23 +90,8 @@ nnoremap <leader>* :%s/\<<C-r><C-w>\>//<Left>
 vnoremap <leader>* "hy:%s/\V<C-r>h//<left>
 " }}}
 
-" Strip trailing whitespace (,ss) {{{
-function! StripWhitespace () " {{{
-  let save_cursor = getpos(".")
-  let old_query = getreg('/')
-  :%s/\s\+$//e
-  call setpos('.', save_cursor)
-  call setreg('/', old_query)
-endfunction " }}}
-noremap <leader>ss :call StripWhitespace ()<CR>
-" }}}
-
 " Join lines and restore cursor location (J) {{{
 nnoremap J mjJ`j
-" }}}
-
-" Toggle folds (<Space>) {{{
-"nnoremap <silent> <space> :exe 'silent! normal! '.((foldclosed('.')>0)? 'zMzx' : 'zc')<CR>
 " }}}
 
 " Fix page up and down {{{
@@ -135,10 +100,6 @@ map <PageDown> <C-D>
 imap <PageUp> <C-O><C-U>
 imap <PageDown> <C-O><C-D>
 " }}}
-
-" Close tab and move buffer to new split pane
-" Used after creating new tab with "<C-W>T"
-" nnoremap <C-W>t mNZZ<C-W>`N
 
 " Buffer navigation (,,) (gb) (gB) (,ls) {{{
 map <Leader><Leader> <C-^>

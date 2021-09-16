@@ -75,5 +75,7 @@ function! CocExplorerInited(filetype, bufnr)
   call setbufvar(a:bufnr, '&winblend', 10)
 endfunction
 
-nmap <leader>t :CocCommand explorer --toggle<CR>
+nmap <leader>t :CocCommand explorer --toggle
+    \ --toggle
+    \ --sources=file+<CR>
 nmap <leader>n :CocCommand explorer --toggle<CR>

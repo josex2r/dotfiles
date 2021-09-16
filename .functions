@@ -104,12 +104,17 @@ function run_proxy() {
   mitmproxy \
     -p 8081 \
     --mode reverse:https://${PREFIX}servicios.bbva.es \
-    --setheader "|~q|Host|${PREFIX}servicios.bbva.es" \
-    --setheader "|~q|Origin|https://movil.bbva.es" \
-    --setheader "|~q|Referer|https://movil.bbva.es/" \
-    --replacements "|~s|access-control-allow-origin: (.+)|access-control-allow-origin: http://$HOST:$PORT" \
-    --replacements "|~s|Secure; HttpOnly|" \
+    --modify-headers "|Host|${PREFIX}servicios.bbva.es" \
+    --modify-headers "|Origin|https://movil.bbva.es" \
+    --modify-headers "|Referer|https://movil.bbva.es/" \
+    --modify-headers "|access-control-allow-origin| *" \
+    --modify-headers "|Secure; HttpOnly|" \
+    --set "console_focus_follow=true" \
     --stickycookie=".*"
+}
+
+function searchChange() {
+  git log --follow --stat --pretty=format:%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn] --decorate --date=short -m -p lib/app-shell/inline-content/boot-app.js
 }
 
 function semmantic_release() {
@@ -123,6 +128,14 @@ function semmantic_release() {
 
   npm run semantic-release -- --no-ci --debug
 }
+
+function merge_turn() {
+  branch_origin=$1
+  branch_name=$2
+
+  git fetch --all --quiet && git log --merges --grep="Pull request" --format="%an" --reverse "origin/${branch_origin}..origin/${branch_name}"
+}
+
 
 # Git resolve conflicts
 function resolve_ours() {
@@ -143,6 +156,10 @@ function merge_sub_to_repo() {
 
 function resolve_theirs() {
   grep -lr '<<<<<<<' $1 | xargs git checkout --theirs
+}
+
+function delete_merged_files() {
+  git rm `git status | grep deleted | awk '{print $4}'`
 }
 
 # Shell timing performance

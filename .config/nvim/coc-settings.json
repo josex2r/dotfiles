@@ -1,49 +1,55 @@
 {
-    "suggest.enablePreview": true,
-    "suggest.timeout": 5000,
-    "coc.preferences.colorSupport": true,
-    "coc.preferences.rootPatterns": [
-        "package.json",
-        "tsconfig.json",
-        ".projectroot",
-        ".vim",
-        ".git"
-    ],
-    "diagnostic.displayByAle": true,
-    "diagnostic.virtualText": false,
-    "diagnostic.checkCurrentLine": true,
-    "eslint.autoFixOnSave": false,
-    "eslint.packageManager": "yarn",
-    "eslint.nodePath": ".yarn/sdks",
-    "snippets.userSnippetsDirectory": "~/workspace/dotfiles/.vim/snippets",
-    "languageserver": {
-        "bash": {
-            "command": "bash-language-server",
-            "args": [
-                "start"
-            ],
-            "filetypes": [
-                "sh"
-            ],
-            "ignoredRootPaths": [
-                "~"
-            ]
-        }
-    },
-    "explorer.file.showHiddenFiles": true,
-    "explorer.icon.enableNerdfont": true,
-    "explorer.width": 30,
-    "explorer.keyMappings.global": {
-        "<cr>": [
-            "expandable?",
-            ["expanded?", "collapse", "expand"],
-            "open"
-        ]
-    },
-    "explorer.file.autoReveal": true,
-    "typescript.updateImportsOnFileMove.enable": false,
-    // "tsserver.tsdk": ".yarn/sdks/typescript/lib",
-    "tsserver.maxTsServerMemory": 3072,
-    "tsserver.log": "verbose"
-    // "tsserver.trace.server": "verbose"
+  "suggest.enablePreview": true,
+  "suggest.timeout": 5000,
+
+  "coc.preferences.colorSupport": true,
+  "coc.preferences.rootPatterns": [
+    "package.json",
+    "tsconfig.json",
+    ".projectroot",
+    ".vim",
+    ".git"
+  ],
+
+  "diagnostic.displayByAle": false,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.virtualText": false,
+  /* "diagnostic.messageTarget": "echo", */
+  "diagnostic.virtualTextCurrentLineOnly": true,
+
+  "eslint.autoFixOnSave": false,
+  "eslint.packageManager": "yarn",
+  "eslint.nodePath": ".yarn/sdks",
+
+  "snippets.userSnippetsDirectory": "~/workspace/dotfiles/.vim/snippets",
+
+  "languageserver": {
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    }
+  },
+
+  "sh.enable": true,
+
+  "yaml.schemas": {
+    "kubernetes": ["/*.yaml", "/*.yml"],
+  },
+
+  "explorer.file.showHiddenFiles": true,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.width": 30,
+  "explorer.keyMappings.global": {
+    "<cr>": ["expandable?", ["expanded?", "collapse", "expand"], "open"]
+  },
+  "explorer.file.reveal.auto": true,
+
+  "typescript.updateImportsOnFileMove.enable": false,
+  "javascript.updateImportsOnFileMove.enable": false,
+  "javascript.validate.enable": false,
+  "tsserver.disableAutomaticTypeAcquisition": false,
+  "tsserver.log": "verbose",
+  "tsserver.trace.server": "verbose"
 }

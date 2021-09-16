@@ -14,7 +14,6 @@ let g:lightline = {
       \       [ 'coccustomstatus' ],
       \       [ 'lineinfo' ],
       \	      [ 'percent' ],
-      \       [ 'linter' ],
       \   ]
       \ },
       \ 'inactive': {
@@ -29,10 +28,10 @@ let g:lightline = {
       \ 'component': {
       \   'modified': '%{MyModified()}',
       \   'coccustomstatus': '%{StatusDiagnostic()}',
-      \   'linter': '%{LightlineHints()} %{LightlineWarnings()} %{LightlineErrors()}',
-      \   'hints': '%{LightlineHints()}',
-      \   'warnings': '%{LightlineWarnings()}',
-      \   'errors': '%{LightlineErrors()}',
+      \   'linter': '%{LightlineCocHints()} %{LightlineCocWarnings()} %{LightlineCocErrors()}',
+      \   'hints': '%{LightlineCocHints()}',
+      \   'warnings': '%{LightlineCocWarnings()}',
+      \   'errors': '%{LightlineCocErrors()}',
       \ },
       \ 'component_function': {
       \   'cocstatus': 'coc#status',
@@ -83,19 +82,48 @@ function! CocDiagnosticInfo(type) abort
   return get(l:info, a:type, 0)
 endfunction
 
-function! LightlineHints() abort
+function! LightlineAleHints() abort
   let l:count = AleCount('info') + CocDiagnosticInfo('hint') + CocDiagnosticInfo('information')
   return l:count > 0 ? ' ✓ '.l:count : ''
 endfunction
 
-function! LightlineWarnings() abort
+function! LightlineAleWarnings() abort
   let l:count = AleCount('warning') + CocDiagnosticInfo('warning')
   return l:count > 0 ? ' ⚠ '.l:count : ''
 endfunction
 
-function! LightlineErrors() abort
+function! LightlineAleErrors() abort
   let l:count = AleCount('error') + CocDiagnosticInfo('error')
   return l:count > 0 ? ' ✗ '.l:count : ''
+endfunction
+
+function! s:lightline_coc_diagnostic(kind, sign) abort
+  let info = get(b:, 'coc_diagnostic_info', 0)
+  if empty(info) || get(info, a:kind, 0) == 0
+    return ''
+  endif
+  try
+    let s = g:coc_user_config['diagnostic'][a:sign . 'Sign']
+  catch
+    let s = ''
+  endtry
+  return printf('%s %d', s, info[a:kind])
+endfunction
+
+function! LightlineCocErrors() abort
+  return s:lightline_coc_diagnostic('error', 'error')
+endfunction
+
+function! LightlineCocWarnings() abort
+  return s:lightline_coc_diagnostic('warning', 'warning')
+endfunction
+
+function! LightlineCocInfos() abort
+  return s:lightline_coc_diagnostic('information', 'info')
+endfunction
+
+function! LightlineCocHints() abort
+  return s:lightline_coc_diagnostic('hints', 'hint')
 endfunction
 
 augroup lightline_update
@@ -118,5 +146,5 @@ function! StatusDiagnostic() abort
     call add(msgs, '⚠ ' . info['warning'])
   endif
 
-  return join(msgs, '✓ ') . ' ' . get(g:, 'coc_status', '')
+  return join(msgs, '✓ ') " . ' ' . get(g:, 'coc_status', '')
 endfunction
