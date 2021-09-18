@@ -174,13 +174,8 @@ runtime! config/*.vim
   endif
 " endif
 
-" Color schemes {{{
-" let g:solarized_termtrans = 1
-" colorscheme solarized
-
-colorscheme one
-set background=dark
-call one#highlight('CursorLine', '', '343942', 'none')
+let g:onedark_style = 'darker'
+colorscheme onedark
 
 " Enable background transparency (terminal defaults)
 " hi Normal guibg=NONE ctermbg=NONE

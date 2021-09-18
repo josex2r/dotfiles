@@ -35,7 +35,7 @@
   "sh.enable": true,
 
   "yaml.schemas": {
-    "kubernetes": ["/*.yaml", "/*.yml"],
+    "kubernetes": ["/*.yaml", "/*.yml"]
   },
 
   "explorer.file.showHiddenFiles": true,
@@ -49,7 +49,6 @@
   "typescript.updateImportsOnFileMove.enable": false,
   "javascript.updateImportsOnFileMove.enable": false,
   "javascript.validate.enable": false,
-  "tsserver.disableAutomaticTypeAcquisition": false,
   "tsserver.log": "verbose",
   "tsserver.trace.server": "verbose"
 }

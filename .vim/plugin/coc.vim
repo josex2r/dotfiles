@@ -34,4 +34,5 @@ let g:coc_global_extensions += [
 
 let g:coc_filetype_map = {
   \ 'html.handlebars': 'handlebars',
+  \ 'glimmer': 'handlebars',
   \ }

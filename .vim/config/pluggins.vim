@@ -14,25 +14,26 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Themes {{{
-Plug 'rakr/vim-one'
+Plug 'navarasu/onedark.nvim'
 " }}}
 
 " Statusbar {{{
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
+Plug 'akinsho/bufferline.nvim'
 " }}}
 
 " Syntax {{{
-let g:polyglot_disabled = ['md', 'markdown', 'hbs', 'handlebars']
-let g:polyglot_disabled = ['autoindent']
-Plug 'sheerun/vim-polyglot'
 Plug 'joukevandermaas/vim-ember-hbs'
 Plug 'Quramy/vim-js-pretty-template' " JS template strings format
-Plug 'tpope/vim-markdown'
+" Plug 'tpope/vim-markdown'
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 " }}}
 
 " File tree {{{
-Plug 'mhinz/vim-startify' " start screen to select files
-Plug 'ryanoasis/vim-devicons'
+" Plug 'mhinz/vim-startify' " start screen to select files
+Plug 'glepnir/dashboard-nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 " }}}
 
 " Comments {{{
@@ -79,10 +80,13 @@ Plug 'tpope/vim-surround' " add/delete/replace surroundings of a sandwiched text
 
 " Navigation {{{
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim', { 'do': 'brew install ripgrep && brew install bat' }
-" Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote' }
-Plug 'antoinemadec/coc-fzf'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim', { 'do': 'brew install ripgrep && brew install bat' }
+" Plug 'antoinemadec/coc-fzf'
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'fannheyward/telescope-coc.nvim'
 " }}}
 
 " Marks {{{
