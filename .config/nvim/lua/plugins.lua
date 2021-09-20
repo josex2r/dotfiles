@@ -35,7 +35,6 @@ require('packer').startup(function()
   -- Language Tools
   use 'mattn/emmet-vim' -- HTML shorcuts (crtl+y,)
   use 'sukima/vim-javascript-imports'
-  use { 'sukima/vim-ember-imports', after = 'vim-javascript-imports' } -- Ember Imports
 
   -- LSP
   use 'neovim/nvim-lspconfig'

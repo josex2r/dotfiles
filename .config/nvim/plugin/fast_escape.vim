@@ -7,6 +7,6 @@ let g:loaded_fast_escape = 1
 
 augroup fast_escape
   autocmd!
-  au InsertEnter * set timeoutlen=0
-  au InsertLeave * set timeoutlen=1000
+  " au InsertEnter * set timeoutlen=0
+  " au InsertLeave * set timeoutlen=1000
 augroup END
