@@ -23,6 +23,7 @@ require('packer').startup(function()
 
   -- Statusbar
   use 'akinsho/bufferline.nvim'
+  use { 'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true } }
 
   -- Syntax
   use 'joukevandermaas/vim-ember-hbs'
