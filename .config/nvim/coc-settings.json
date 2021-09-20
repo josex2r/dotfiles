@@ -21,7 +21,7 @@
   "eslint.packageManager": "yarn",
   "eslint.nodePath": ".yarn/sdks",
 
-  "snippets.userSnippetsDirectory": "~/workspace/dotfiles/.vim/snippets",
+  "snippets.userSnippetsDirectory": "~/workspace/dotfiles/.config/nvim/snippets",
 
   "languageserver": {
     "bash": {
