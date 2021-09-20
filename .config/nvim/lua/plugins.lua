@@ -15,6 +15,7 @@ require('packer').startup(function()
 
   -- Navigation
   use 'christoomey/vim-tmux-navigator'
+  use 'nvim-telescope/telescope-fzy-native.nvim'
   use 'nvim-telescope/telescope.nvim'
   use 'fannheyward/telescope-coc.nvim'
   use 'glepnir/dashboard-nvim'
@@ -22,13 +23,14 @@ require('packer').startup(function()
   use 'folke/which-key.nvim' -- Displays a popup with possible key bindings of the command you started typing
 
   -- Statusbar
-  use 'akinsho/bufferline.nvim'
-  use { 'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true } }
+  use { 'romgrk/barbar.nvim', requires = { 'kyazdani42/nvim-web-devicons' } }
+  use { 'hoob3rt/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons' } }
 
   -- Syntax
   use 'joukevandermaas/vim-ember-hbs'
   use 'Quramy/vim-js-pretty-template'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use 'p00f/nvim-ts-rainbow'
 
   -- Language Tools
   use 'mattn/emmet-vim' -- HTML shorcuts (crtl+y,)

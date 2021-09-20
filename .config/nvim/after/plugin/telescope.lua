@@ -37,5 +37,14 @@ require('telescope').setup{
     },
     -- Dont preview binaries
     buffer_previewer_maker = new_maker,
+  },
+  extensions = {
+    fzy_native = {
+      override_generic_sorter = true,
+      override_file_sorter = true,
+    }
   }
 }
+
+require('telescope').load_extension('fzy_native')
+require('telescope').load_extension('coc')

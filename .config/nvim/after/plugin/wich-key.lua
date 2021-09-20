@@ -23,6 +23,17 @@ wk.register({
     w = { "<cmd>Telescope coc workspace_diagnostics<cr>", "Workspace Diagnostics" },
   },
 
+  d = {
+    name = "Dashboard",
+    f = { "<cmd>DashboardFindFile<cr>", "Find File" },
+    h = { "<cmd>DashboardFindHistory<cr>", "Find History" },
+    j = { "<cmd>DashboardJumpMark<cr>", "Jump Mark" },
+    l = { "<cmd>SessionLoad<cr>", "Load Session" },
+    n = { "<cmd>DashboardNewFile<cr>", "New File" },
+    s = { "<cmd>SessionSave<cr>", "Save Session" },
+    w = { "<cmd>DashboardFindWord<cr>", "Find Word" },
+  },
+
   f = {
     name = "Files",
     b = { "<cmd>Telescope buffers<cr>", "Find Buffer" },

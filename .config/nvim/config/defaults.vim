@@ -121,7 +121,7 @@ set listchars=tab:\¦\ ,trail:·,eol:¬,nbsp:_
 set fillchars=fold:-
 set relativenumber " Use relative line numbers. Current line is still in status bar.
 set conceallevel=0 " No conceal
-set timeoutlen=100
+set timeoutlen=0 " Defaults to 1000
 " [CoC.nvim] Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
