@@ -18,6 +18,7 @@ local coc_config = {
   f = { "<cmd>Telescope coc file_code_actions<cr>", "File Code Actions" },
   l = { "<cmd>Telescope coc line_code_actions<cr>", "Line Code Actions" },
   r = { "<cmd>Telescope coc references<cr>", "References" },
+  s = { "<cmd>call coc#refresh()<cr>", "Refresh" },
   t = { "<cmd>CocCommand explorer --toggle --sources=file+<CR>", "File Tree" },
   w = { "<cmd>Telescope coc workspace_diagnostics<cr>", "Workspace Diagnostics" },
 }
@@ -51,10 +52,10 @@ local git_config = {
   s = { "<cmd>Telescope git_status<cr>", "Status" },
 }
 
-local vim_config = {
-  name = "Vim",
+local lsp_config = {
+  name = "LSP",
   c = { "<cmd>Telescope commands<cr>", "Commands" },
-  c = { "<cmd>Telescope filetypes<cr>", "File Types" },
+  f = { "<cmd>Telescope filetypes<cr>", "File Types" },
   k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
   m = { "<cmd>Telescope marks<cr>", "Marks" },
   p = { "<cmd>Telescope pickers<cr>", "Pickers" },
@@ -62,17 +63,26 @@ local vim_config = {
   t = { "<cmd>Telescope tags<cr>", "Tags" },
 }
 
+local vim_config = {
+  name = "Vim",
+  i = { "<cmd>LspInstall<cr>", "Install LSP" },
+  u = { "<cmd>LspUninstall<cr>", "Uninstall LSP" },
+}
+
 wk.register({
   c = coc_config,
   d = dashboard_config,
   f = files_config,
   g = git_config,
-  p = { '<cmd>CocCommand prettier.formatFile', "Prettier" },
+  l = lsp_config,
+  q = { '<cmd>CocCommand prettier.formatFile', "Prettier" },
   v = vim_config,
 }, { prefix = "<leader>" })
 
 wk.register(coc_config, { prefix = "<leader>c" })
 wk.register(dashboard_config, { prefix = "<leader>d" })
 wk.register(files_config, { prefix = "<leader>f" })
+wk.register(git_config, { prefix = "<leader>g" })
+wk.register(lsp_config, { prefix = "<leader>l" })
 wk.register(vim_config, { prefix = "<leader>v" })
 

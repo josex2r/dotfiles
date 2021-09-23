@@ -38,6 +38,11 @@ require('telescope').setup{
     -- Dont preview binaries
     buffer_previewer_maker = new_maker,
   },
+  pickers = {
+    find_files = {
+      hidden = true
+    }
+  },
   extensions = {
     fzy_native = {
       override_generic_sorter = true,

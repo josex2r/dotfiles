@@ -77,7 +77,6 @@ set report=0 " Show all changes
 set ruler " Show the cursor position
 set scrolloff=6 " Start scrolling three lines before horizontal border of window
 set shell=/bin/sh " Use /bin/sh for executing shell commands
-set shortmess=atI " Don't show the intro message when starting vim
 set showtabline=1 " Show tab bar
 set sidescrolloff=3 " Start scrolling three columns before vertical border of window
 set smartcase " Ignore 'ignorecase' if search patter contains uppercase characters
@@ -121,7 +120,7 @@ set listchars=tab:\¦\ ,trail:·,eol:¬,nbsp:_
 set fillchars=fold:-
 set relativenumber " Use relative line numbers. Current line is still in status bar.
 set conceallevel=0 " No conceal
-set timeoutlen=0 " Defaults to 1000
+set timeoutlen=250 " Defaults to 1000
 " [CoC.nvim] Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup

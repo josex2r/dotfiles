@@ -4,7 +4,9 @@ require'lualine'.setup {
     theme = 'auto',
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
-    disabled_filetypes = {}
+    disabled_filetypes = {},
+    path = 1,
+    file_status = true,
   },
   sections = {
     lualine_a = {'mode'},

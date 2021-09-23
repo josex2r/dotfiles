@@ -12,6 +12,11 @@ require('packer').startup(function()
 
   -- Theme
   use 'navarasu/onedark.nvim'
+  use 'kyazdani42/nvim-web-devicons'
+  use {
+    'yamatsum/nvim-nonicons',
+    requires = {'kyazdani42/nvim-web-devicons'}
+  }
 
   -- Navigation
   use 'christoomey/vim-tmux-navigator'
@@ -19,7 +24,6 @@ require('packer').startup(function()
   use 'nvim-telescope/telescope.nvim'
   use 'fannheyward/telescope-coc.nvim'
   use 'glepnir/dashboard-nvim'
-  use 'kyazdani42/nvim-web-devicons'
   use 'folke/which-key.nvim' -- Displays a popup with possible key bindings of the command you started typing
 
   -- Statusbar
@@ -37,7 +41,24 @@ require('packer').startup(function()
   use 'sukima/vim-javascript-imports'
 
   -- LSP
-  use 'neovim/nvim-lspconfig'
+  -- use 'neovim/nvim-lspconfig'
+  -- use 'onsails/lspkind-nvim'
+  -- -- use 'tamago324/nlsp-settings.nvim'
+  -- use 'kabouzeid/nvim-lspinstall'
+  -- use {
+  --   'hrsh7th/nvim-cmp',
+  --   requires = {
+  --     -- 'L3MON4D3/LuaSnip',
+  --     -- 'saadparwaiz1/cmp_luasnip',
+  --     'hrsh7th/cmp-buffer',
+  --     'hrsh7th/cmp-nvim-lsp',
+  --     'hrsh7th/cmp-nvim-lua',
+  --     'hrsh7th/cmp-path',
+  --     'hrsh7th/cmp-calc',
+  --     'f3fora/cmp-spell',
+  --     'hrsh7th/cmp-emoji',
+  --   }
+  -- }
   use 'neoclide/coc-neco'
   use { 'neoclide/coc.nvim', branch = 'master', run = 'yarn install --frozen-lockfile' }
 
@@ -46,6 +67,7 @@ require('packer').startup(function()
   use 'airblade/vim-gitgutter' -- Git gutter marks
 
   -- Misc
+  use 'rafamadriz/friendly-snippets'
   use 'editorconfig/editorconfig-vim'
   use 'tpope/vim-repeat' -- Repeat everything
   use 'tpope/vim-sleuth' -- Autodetect indentation
