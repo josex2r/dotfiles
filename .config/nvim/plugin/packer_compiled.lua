@@ -69,33 +69,17 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  LuaSnip = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/LuaSnip"
-  },
   ["barbar.nvim"] = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/barbar.nvim"
   },
-  ["cmp-buffer"] = {
+  ["coc-neco"] = {
     loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/cmp-buffer"
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/coc-neco"
   },
-  ["cmp-nvim-lsp"] = {
+  ["coc.nvim"] = {
     loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp"
-  },
-  ["cmp-nvim-lua"] = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/cmp-nvim-lua"
-  },
-  ["cmp-path"] = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/cmp-path"
-  },
-  cmp_luasnip = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/cmp_luasnip"
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/coc.nvim"
   },
   ["dashboard-nvim"] = {
     loaded = true,
@@ -113,6 +97,14 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/friendly-snippets"
   },
+  ["gitsigns.nvim"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
+  },
+  hop = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/hop"
+  },
   ["impatient.nvim"] = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/impatient.nvim"
@@ -121,21 +113,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
-  ["nlsp-settings.nvim"] = {
+  ["nvim-neoclip.lua"] = {
     loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nlsp-settings.nvim"
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-neoclip.lua"
   },
-  ["nvim-cmp"] = {
+  ["nvim-nonicons"] = {
     loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-cmp"
-  },
-  ["nvim-lspconfig"] = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
-  },
-  ["nvim-lspinstall"] = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-lspinstall"
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-nonicons"
   },
   ["nvim-treesitter"] = {
     loaded = true,
@@ -169,9 +153,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/telescope-coc.nvim"
   },
-  ["telescope-fzy-native.nvim"] = {
+  ["telescope-fzf-native.nvim"] = {
     loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/telescope-fzy-native.nvim"
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
@@ -204,10 +188,6 @@ _G.packer_plugins = {
   ["vim-fugitive"] = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-fugitive"
-  },
-  ["vim-gitgutter"] = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-gitgutter"
   },
   ["vim-javascript-imports"] = {
     loaded = true,

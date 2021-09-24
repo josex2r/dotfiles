@@ -71,6 +71,7 @@ set noshowmode " Don't show the current mode (statusline takes care of us)
 set nostartofline " Don't reset cursor to start of line when moving around
 set nowrap " Do not wrap lines
 set number " Enable line numbers
+set norelativenumber " Disable relative line numbers
 set omnifunc=syntaxcomplete#Complete " Set omni-completion method
 " set regexpengine=1 " Use the old regular expression engine (it's faster for certain language syntaxes)
 set report=0 " Show all changes
@@ -118,7 +119,6 @@ set cmdheight=2 " avoid hit-enter prompts
 set clipboard=unnamed
 set listchars=tab:\¦\ ,trail:·,eol:¬,nbsp:_
 set fillchars=fold:-
-set relativenumber " Use relative line numbers. Current line is still in status bar.
 set conceallevel=0 " No conceal
 set timeoutlen=250 " Defaults to 1000
 " [CoC.nvim] Some servers have issues with backup files, see #649.

@@ -30,7 +30,6 @@ let g:coc_global_extensions += [
   \ 'coc-actions',
   \ 'coc-explorer',
   \ 'coc-fzf-preview',
-  \ 'coc-git',
   \ 'coc-marketplace',
   \ ]
 

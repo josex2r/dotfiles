@@ -11,5 +11,12 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     extended_mode = true,
     max_file_lines = nil,
+  },
+  matchup = {
+    enable = true,              -- mandatory, false will disable the whole extension
+    disable = { "c", "ruby" },  -- optional, list of language that will be disabled
+  },
+  context_commentstring = {
+    enable = true
   }
 }

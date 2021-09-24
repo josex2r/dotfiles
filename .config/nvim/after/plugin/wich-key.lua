@@ -10,6 +10,12 @@ wk.setup {
   },
 }
 
+local registers_config = {
+  name = "Registers",
+  ['"'] = { "<cmd>Telescope neoclip<cr>", "Neooclip" },
+  ['2'] = { "<cmd>Telescope neoclip unnamed<cr>", "Neooclip unnamed" },
+}
+
 local coc_config = {
   name = "CoC",
   a = { "<cmd>Telescope coc code_actions<cr>", "Code Actions" },
@@ -46,10 +52,30 @@ local files_config = {
 
 local git_config = {
   name = "Git",
-  b = { "<cmd>Telescope git_branches<cr>", "Branches" },
-  c = { "<cmd>Telescope git_commits<cr>", "Commits" },
-  d = { "<cmd>Telescope d<cr>", "Buffer Commits" },
-  s = { "<cmd>Telescope git_status<cr>", "Status" },
+  b = { "<cmd>Git blame<CR>", "Blame File" },
+  B = { "<cmd>lua require'gitsigns'.blame_line(true)<CR>", "Blame Line" },
+  c = { "<cmd>Git commit<CR>", "Commit Changes" },
+  d = { "<cmd>Git diff<CR>", "Diffview Index" },
+  D = { "<cmd>DiffviewOpen<CR>", "Diffview Index" },
+  e = { "<cmd>DiffviewClose<CR>", "Diffview Close" },
+  m = { "<cmd>Git mergetool<CR>", "Mergetool" },
+  p = { "<cmd>lua require'gitsigns'.preview_hunk()<CR>", "Preview Hunk" },
+  r = { "<cmd>lua require'gitsigns'.reset_hunk()<CR>", "Reset Hunk" },
+  R = { "<cmd>lua require'gitsigns'.reset_buffer()<CR>", "Reset Buffer" },
+  s = { "<cmd>lua require'gitsigns'.stage_hunk()<CR>", 'Stage Hunk' },
+  S = { "<cmd>lua require'gitsigns'.stage_buffer()<CR>", "Stage Buffer" },
+  u = { "<cmd>lua require'gitsigns'.undo_stage_hunk()<CR>", 'Undo Stage Hunk' },
+  U = { "<cmd>lua require'gitsigns'.reset_buffer_index()<CR>", "Reset Buffer Index" },
+  w = { "<cmd>Telescope git_branches<cr>", "Branches" },
+  x = { "<cmd>Telescope git_commits<cr>", "Commits" },
+  y = { "<cmd>Telescope git_bcommits<cr>", "Buffer Commits" },
+  z = { "<cmd>Telescope git_status<cr>", "Status" },
+}
+
+local git_visual_config = {
+  name = "Git",
+  b = { "<cmd>lua require'gitsigns'.stage_hunk({vim.fn.line('.'), vim.fn.line('v')})<CR>", "Stage Hunk" },
+  r = { "<cmd>lua require'gitsigns'.reset_hunk({vim.fn.line('.'), vim.fn.line('v')})<CR>", "Reset Hunk" },
 }
 
 local lsp_config = {
@@ -63,6 +89,19 @@ local lsp_config = {
   t = { "<cmd>Telescope tags<cr>", "Tags" },
 }
 
+local search_config = {
+  name = "Buffer Search",
+  c = { "<cmd>HopChar1<cr>", "Jump to Char" },
+  C = { "<cmd>HopChar2<cr>", "Jump to Chars" },
+  f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Search curr. File" },
+  l = { "<cmd>HopLine<cr>", "Jump to Line" },
+  p = { "<cmd>HopLine<cr>", "Jump to Line" },
+  r = { "<cmd>HopPattern<cr>", "Jump to Regex" },
+  s = { "<cmd>lua require('spectre').open()<cr>", "Search Window" },
+  S = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Search curr. Word" },
+  w = { "<cmd>HopWord<cr>", "Jump to Word" },
+}
+
 local vim_config = {
   name = "Vim",
   i = { "<cmd>LspInstall<cr>", "Install LSP" },
@@ -70,19 +109,28 @@ local vim_config = {
 }
 
 wk.register({
+  ['"'] = registers_config,
   c = coc_config,
   d = dashboard_config,
   f = files_config,
   g = git_config,
   l = lsp_config,
   q = { '<cmd>CocCommand prettier.formatFile', "Prettier" },
+  s = search_config,
   v = vim_config,
 }, { prefix = "<leader>" })
 
+wk.register({
+  g = git_visual_config,
+}, { mode = "v", prefix = "<leader>" })
+
+wk.register(registers_config, { prefix = '"' })
 wk.register(coc_config, { prefix = "<leader>c" })
 wk.register(dashboard_config, { prefix = "<leader>d" })
 wk.register(files_config, { prefix = "<leader>f" })
 wk.register(git_config, { prefix = "<leader>g" })
+wk.register(git_visual_config, { mode = "v", prefix = "<leader>g" })
 wk.register(lsp_config, { prefix = "<leader>l" })
+wk.register(search_config, { prefix = "<leader>s" })
 wk.register(vim_config, { prefix = "<leader>v" })
 
