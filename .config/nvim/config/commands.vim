@@ -36,14 +36,6 @@ endfunction " }}}
 
 command! -nargs=0 WP call s:WordProcessorMode()
 
-"
-" Create find command.
-"
-if exists('g:loaded_find') || !executable('rg')
-  finish
-endif
-let g:loaded_find = 1
-
 " Note we extract the column as well as the file and line number
 " set grepprg=rg\ --no-heading\ --vimgrep\ --smart-case\ --color=never\ --ignore-case\ --hidden --exclude=shellescape(&wildignore)
 set grepprg=rg\ --no-heading\ --vimgrep\ --smart-case

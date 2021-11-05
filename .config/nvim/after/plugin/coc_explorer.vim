@@ -1,3 +1,5 @@
+finish
+
 if !exists('g:did_coc_loaded')
   finish
 endif

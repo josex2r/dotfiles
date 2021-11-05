@@ -1,3 +1,5 @@
+finish
+
 " LSP
 let g:coc_global_extensions = [
   \ 'coc-browser',
@@ -13,7 +15,6 @@ let g:coc_global_extensions = [
   \ 'coc-vimtex',
   \ 'coc-vimlsp',
   \ 'coc-yaml',
-  \ 'coc-sumneko-lua',
   \ 'coc-webpack',
   \ ]
 
@@ -28,8 +29,6 @@ let g:coc_global_extensions += [
 " Utils
 let g:coc_global_extensions += [
   \ 'coc-actions',
-  \ 'coc-explorer',
-  \ 'coc-fzf-preview',
   \ 'coc-marketplace',
   \ ]
 

@@ -10,34 +10,25 @@ wk.setup {
   },
 }
 
-local registers_config = {
-  name = "Registers",
-  ['"'] = { "<cmd>Telescope neoclip<cr>", "Neooclip" },
-  ['2'] = { "<cmd>Telescope neoclip unnamed<cr>", "Neooclip unnamed" },
-}
-
-local coc_config = {
-  name = "CoC",
-  a = { "<cmd>Telescope coc code_actions<cr>", "Code Actions" },
-  c = { "<cmd>Telescope coc commands<cr>", "Code Commands" },
-  d = { "<cmd>Telescope coc diagnostics<cr>", "Diagnostics" },
-  f = { "<cmd>Telescope coc file_code_actions<cr>", "File Code Actions" },
-  l = { "<cmd>Telescope coc line_code_actions<cr>", "Line Code Actions" },
-  r = { "<cmd>Telescope coc references<cr>", "References" },
-  s = { "<cmd>call coc#refresh()<cr>", "Refresh" },
-  t = { "<cmd>CocCommand explorer --toggle --sources=file+<CR>", "File Tree" },
-  w = { "<cmd>Telescope coc workspace_diagnostics<cr>", "Workspace Diagnostics" },
-}
-
 local dashboard_config = {
   name = "Dashboard",
-  f = { "<cmd>DashboardFindFile<cr>", "Find File" },
-  h = { "<cmd>DashboardFindHistory<cr>", "Find History" },
-  j = { "<cmd>DashboardJumpMark<cr>", "Jump Mark" },
-  l = { "<cmd>SessionLoad<cr>", "Load Session" },
-  n = { "<cmd>DashboardNewFile<cr>", "New File" },
-  s = { "<cmd>SessionSave<cr>", "Save Session" },
-  w = { "<cmd>DashboardFindWord<cr>", "Find Word" },
+  f = { "Find File" },
+  h = { "Find History" },
+  j = { "Jump Mark" },
+  l = { "Load Session" },
+  n = { "New File" },
+  s = { "Save Session" },
+  w = { "Find Word" },
+}
+
+local diagnostics_config = {
+  name = "Diagnostics (Trouble)",
+  d = { "Document" },
+  l = { "Location List" },
+  q = { "Quickfix" },
+  r = { "References" },
+  s = { "LSP" },
+  w = { "Workspace" },
 }
 
 local files_config = {
@@ -47,7 +38,7 @@ local files_config = {
   g = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
   h = { "<cmd>Telescope help_tags<cr>", "Help Tags" },
   r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-  t = { "<cmd>Telescope file_browser<cr>", "Workspace Tree View" },
+  w = { "<cmd>Telescope file_browser<cr>", "Workspace Tree View" },
 }
 
 local git_config = {
@@ -82,11 +73,21 @@ local lsp_config = {
   name = "LSP",
   c = { "<cmd>Telescope commands<cr>", "Commands" },
   f = { "<cmd>Telescope filetypes<cr>", "File Types" },
+  i = { "<cmd>LspInfo<cr>", "Lsp Info" },
   k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
   m = { "<cmd>Telescope marks<cr>", "Marks" },
   p = { "<cmd>Telescope pickers<cr>", "Pickers" },
   q = { "<cmd>Telescope quickfix<cr>", "Quickfix" },
   t = { "<cmd>Telescope tags<cr>", "Tags" },
+}
+
+local code_config = {
+  name = "LSP Code",
+  a = { "Code Action" },
+  d = { "Buff Definitions" },
+  f = { "Format" },
+  r = { "Buff Rename" },
+  q = { "Loclist" },
 }
 
 local search_config = {
@@ -109,24 +110,25 @@ local vim_config = {
 }
 
 wk.register({
-  ['"'] = registers_config,
-  c = coc_config,
-  d = dashboard_config,
+  c = code_config,
+  d = diagnostics_config,
+  D = dashboard_config,
   f = files_config,
   g = git_config,
+  i = "JS Import",
   l = lsp_config,
-  q = { '<cmd>CocCommand prettier.formatFile', "Prettier" },
   s = search_config,
   v = vim_config,
 }, { prefix = "<leader>" })
 
 wk.register({
   g = git_visual_config,
+  t = { '<cmd>lua vim.lsp.buf.range_formatting()<cr>', "Format Selected" },
 }, { mode = "v", prefix = "<leader>" })
 
-wk.register(registers_config, { prefix = '"' })
-wk.register(coc_config, { prefix = "<leader>c" })
-wk.register(dashboard_config, { prefix = "<leader>d" })
+wk.register(code_config, { prefix = "<leader>c" })
+wk.register(diagnostics_config, { prefix = "<leader>d" })
+wk.register(dashboard_config, { prefix = "<leader>D" })
 wk.register(files_config, { prefix = "<leader>f" })
 wk.register(git_config, { prefix = "<leader>g" })
 wk.register(git_visual_config, { mode = "v", prefix = "<leader>g" })

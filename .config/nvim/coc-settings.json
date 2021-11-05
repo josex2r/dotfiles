@@ -3,10 +3,13 @@
   "coc.preferences.rootPatterns": [
     "package.json",
     "tsconfig.json",
+    "jsconfig.json",
     ".projectroot",
     ".vim",
     ".git"
   ],
+
+  /* "workspace.bottomUpFiletypes": ["typescript", "typescriptreact"], */
 
   "suggest.enablePreview": true,
   "suggest.timeout": 5000,
@@ -73,9 +76,10 @@
   },
   "explorer.file.reveal.auto": true,
 
-  "typescript.updateImportsOnFileMove.enable": false,
+  "typescript.updateImportsOnFileMove.enable": true,
   "javascript.updateImportsOnFileMove.enable": false,
   "javascript.validate.enable": false,
+  "tsserver.maxTsServerMemory": 3072,
   "tsserver.log": "verbose",
   "tsserver.trace.server": "verbose"
 }

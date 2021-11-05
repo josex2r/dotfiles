@@ -1,25 +1,7 @@
 local actions = require('telescope.actions')
 local previewers = require('telescope.previewers')
 local Job = require('plenary.job')
-
-local new_maker = function(filepath, bufnr, opts)
-  filepath = vim.fn.expand(filepath)
-  Job:new({
-    command = 'file',
-    args = { '--mime-type', '-b', filepath },
-    on_exit = function(j)
-      local mime_type = vim.split(j:result()[1], '/')[1]
-      if mime_type == "text" then
-        previewers.buffer_previewer_maker(filepath, bufnr, opts)
-      else
-        -- maybe we want to write something to the buffer here
-        vim.schedule(function()
-          vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { 'BINARY' })
-        end)
-      end
-    end
-  }):sync()
-end
+-- local trouble = require("trouble.providers.telescope")
 
 vim.cmd [[
   " File
@@ -29,19 +11,28 @@ vim.cmd [[
 
 require('telescope').setup{
   defaults = {
+    file_ignore_patterns = {
+      "^.lint-todo/",
+      "^node_modules/",
+    },
     mappings = {
       -- Mapping <Esc> to quit in insert mode
       i = {
-        ["<esc>"] = actions.close
+        ["<esc>"] = actions.close,
+        -- ["<c-t>"] = trouble.open_with_trouble,
+      },
+      n = {
+        -- ["<c-t>"] = trouble.open_with_trouble,
       },
     },
-    -- Dont preview binaries
-    buffer_previewer_maker = new_maker,
   },
   pickers = {
     find_files = {
       hidden = true
-    }
+    },
+    buffers = {
+      sort_lastused = false,
+    },
   }
 }
 

@@ -50,7 +50,6 @@ imap <C-v> <ESC>"+pa
 
 " Sudo write (,W) {{{
 noremap <leader>w :w<CR>
-noremap <leader>W :w !sudo tee %<CR>
 " }}}
 
 " Remap :W to :w {{{
