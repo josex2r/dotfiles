@@ -52,6 +52,8 @@ rm -rf ~/.zshrc && ln -s ~/workspace/dotfiles/.zshrc ~/.zshrc
 rm -rf ~/.zfunctions && ln -s ~/workspace/dotfiles/.zfunctions ~/.zfunctions
 rm -rf ~/.vim && ln -s ~/workspace/dotfiles/.vim ~/.vim
 rm -rf ~/.config && ln -s ~/workspace/dotfiles/.config ~/.config
+rm -rf ~/screen-256color-it.terminfo && ln -s ~/workspace/dotfiles/screen-256color-it.terminfo ~/screen-256color-it.terminfo
+tic ~/screen-256color-it.terminfo
 
 # nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
