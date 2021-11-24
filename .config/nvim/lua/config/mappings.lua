@@ -53,12 +53,6 @@ end
 
 local keys = {
   insert_mode = {
-    -- 'jk' for quitting insert mode
-    ["jk"] = "<ESC>",
-    -- 'kj' for quitting insert mode
-    ["kj"] = "<ESC>",
-    -- 'jj' for quitting insert mode
-    ["jj"] = "<ESC>",
     -- Move current line / block with Alt-j/k ala vscode.
     ["<A-j>"] = "<Esc>:m .+1<CR>==gi",
     -- Move current line / block with Alt-j/k ala vscode.
@@ -68,10 +62,6 @@ local keys = {
     ["<A-Down>"] = "<C-\\><C-N><C-w>j",
     ["<A-Left>"] = "<C-\\><C-N><C-w>h",
     ["<A-Right>"] = "<C-\\><C-N><C-w>l",
-    -- navigate tab completion with <c-j> and <c-k>
-    -- runs conditionally
-    ["<C-j>"] = { 'pumvisible() ? "\\<down>" : "\\<C-j>"', { expr = true, noremap = true } },
-    ["<C-k>"] = { 'pumvisible() ? "\\<up>" : "\\<C-k>"', { expr = true, noremap = true } },
   },
 
   normal_mode = {
@@ -161,7 +151,7 @@ end
 local generic_options = { noremap = false, silent = true }
 
 local key_mapper = function(mode, key, result, options)
-  options = optins or generic_options
+  options = options or generic_options
 
   vim.api.nvim_set_keymap(
     mode,
@@ -212,8 +202,8 @@ key_mapper('n', '<M-k>', '<Esc>:m .-2<CR>==gi')
 -- Make y and p copy/paste to system clipboard
 key_mapper('v', '<C-c>', '"+yi')
 key_mapper('v', '<C-x>', '"+c')
-key_mapper('v', '<C-v>', 'c<ESC>"+p')
-key_mapper('i', '<C-v>', '<ESC>"+pa')
+-- key_mapper('v', '<C-v>', 'c<ESC>"+p')
+-- key_mapper('i', '<C-v>', '<ESC>"+pa')
 
 -- Sudo write (,W)
 key_mapper('n', '<leader>w', '<Esc>:w<CR>')

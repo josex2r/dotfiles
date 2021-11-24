@@ -1,6 +1,10 @@
 local M = {}
 
-local default_options = {
+M.options = {
+  leader = " ",
+}
+
+M.vim_options = {
   autoindent = true, -- copy indent from last line when starting new line
   backspace = "indent,eol,start",
   backup = false, -- creates a backup file
@@ -47,18 +51,8 @@ local default_options = {
   spelllang = "en",
   scrolloff = 8, -- start scrolling three lines before horizontal border of window
   sidescrolloff = 8,
-}
-
-M.init = function()
-  vim.opt.shortmess:append "c"
-
-  for k, v in pairs(default_options) do
-    vim.opt[k] = v
-  end
-
-  vim.opt.listchars = { tab = '→ ', eol = '↲', extends = '⟩', precedes = '⟨' }
-
-  vim.opt.wildignore = {
+  listchars = { tab = '→ ', eol = '↲', extends = '⟩', precedes = '⟨' },
+  wildignore = {
     ".DS_STORE",
     "*.har",
     "*.jpg",
@@ -75,7 +69,7 @@ M.init = function()
     "*/recs/*",
     "*/recordings/*",
     "*/tmp/*",
-  }
-end
+  },
+}
 
 return M

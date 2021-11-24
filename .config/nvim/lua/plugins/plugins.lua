@@ -1,4 +1,4 @@
-require('packer').startup(function()
+require('packer').startup(function(use)
   -- This plugin will eventually be merged into Neovim core via this PR:
   -- https://github.com/neovim/neovim/pull/15436
   use "lewis6991/impatient.nvim"
@@ -12,9 +12,10 @@ require('packer').startup(function()
   -- Theme
   use "navarasu/onedark.nvim"
   use "kyazdani42/nvim-web-devicons"
-  use { "yamatsum/nvim-nonicons", requires = { "kyazdani42/nvim-web-devicons" } }
+  -- use { "yamatsum/nvim-nonicons", requires = { "kyazdani42/nvim-web-devicons" } }
   use "glepnir/dashboard-nvim" -- Init NeoVim screen
   use "norcalli/nvim-colorizer.lua" -- Colorize hex colors
+  use "Xuyuanp/scrollbar.nvim"
 
   -- Navigation
   use "christoomey/vim-tmux-navigator" -- Move cursor between panes
@@ -64,8 +65,6 @@ require('packer').startup(function()
   use { "jose-elias-alvarez/null-ls.nvim" }
   use { "jose-elias-alvarez/nvim-lsp-ts-utils" }
   use { "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" }
-  -- use "neoclide/coc-neco"
-  -- use { "neoclide/coc.nvim", branch = "master", run = "yarn install --frozen-lockfile" }
   use "github/copilot.vim"
 
   -- Git

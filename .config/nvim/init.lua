@@ -1,16 +1,13 @@
 local plugins = require("plugins")
+local config = require("config")
 
-plugins.ensure_packer()
+-- Load plugins
+plugins.init()
 
--- Impatient needs to be setup before any other lua plugin is loaded so it is recommended you add the following near the start of your init.vim.
-require('impatient')
-
-plugins.load_plugins()
-
--- Load config directory
-require("config/defaults").init()
-require("config/mappings").init()
-require("config/theme").init()
+-- Load config
+config.load_vim_config()
+config.load_mappings()
+config.load_theme()
 
 vim.cmd [[
     runtime! config/commands.vim

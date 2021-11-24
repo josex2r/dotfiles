@@ -44,8 +44,8 @@ map <C-L> <C-W>l
 " Make y and p copy/paste to system clipboard
 vmap <C-c> "+yi
 vmap <C-x> "+c
-vmap <C-v> c<ESC>"+p
-imap <C-v> <ESC>"+pa
+" vmap <C-v> c<ESC>"+p
+" imap <C-v> <ESC>"+pa
 " }}}
 
 " Sudo write (,W) {{{

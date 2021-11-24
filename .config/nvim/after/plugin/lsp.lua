@@ -24,17 +24,17 @@ vim.diagnostic.config({
 
 -- Redefine diagnostics signs
 vim.cmd[[
-	sign define DiagnosticSignError text=✗ texthl=DiagnosticSignError
-	sign define DiagnosticSignWarn text=⚠ texthl=DiagnosticSignWarn
-	sign define DiagnosticSignInfo text=ℹ texthl=DiagnosticSignInfo
-	sign define DiagnosticSignHint text= texthl=DiagnosticSignHint
+	sign define DiagnosticSignError text= texthl=DiagnosticSignError numhl=DiagnosticSignError
+	sign define DiagnosticSignWarn text=  texthl=DiagnosticSignWarn numhl=DiagnosticSignWarn
+	sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo numhl=DiagnosticSignInfo
+	sign define DiagnosticSignHint text= texthl=DiagnosticSignHint numhl=DiagnosticSignHint
 ]]
 
 -- Show diagnostics when hovering over an error
 vim.cmd[[
   augroup lsp_diagnostics
     autocmd!
-    autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})
+    autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({ focusable = false, border = "single" })
   augroup END
 ]]
 
@@ -56,8 +56,8 @@ local function common_on_attach(_, bufnr)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>', opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<space>cd', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<space>cn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
