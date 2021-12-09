@@ -25,6 +25,9 @@ alias vim="nvim"
 alias vi="nvim"
 alias vimdiff='nvim -d'
 
+# tmux
+alias attach='TERM=screen-256color tmux new-session -A -s woody'
+
 # NVM
 # alias node='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; node $@'
 # alias npm='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; npm $@'
