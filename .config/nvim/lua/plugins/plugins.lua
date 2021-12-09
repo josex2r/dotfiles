@@ -63,7 +63,6 @@ require('packer').startup(function(use)
     }
   }
   use { "jose-elias-alvarez/null-ls.nvim" }
-  use { "jose-elias-alvarez/nvim-lsp-ts-utils" }
   use { "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" }
   use "github/copilot.vim"
 

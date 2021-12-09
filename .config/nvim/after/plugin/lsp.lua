@@ -40,7 +40,7 @@ vim.cmd[[
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local function common_on_attach(_, bufnr)
+local function common_on_attach(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -59,25 +59,60 @@ local function common_on_attach(_, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>', opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>cd', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>cn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', '<space>cf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  buf_set_keymap('n', '<space>cq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<leader>cd', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<leader>cn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', '<leader>cf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', '<leader>cq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
   -- Format on save
-  vim.cmd[[
-    augroup lsp_format
-      autocmd!
-      autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()
-    augroup END
-  ]]
+  -- vim.cmd[[
+  --   augroup lsp_format
+  --     autocmd!
+  --     autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()
+  --   augroup END
+  -- ]]
+  if client.resolved_capabilities.format_on_save then
+    -- vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+  end
 
 end
 
 -- Init "null-ls" for code formatting
-require("null-ls").config({})
-require("lspconfig")["null-ls"].setup({ on_attach = common_on_attach })
+local null_ls = require("null-ls")
+null_ls.config({
+  debug = true,
+  debounce = 250,
+  sources = {
+    -- formating
+    null_ls.builtins.formatting.prettier.with({
+      prefer_local = "node_modules/.bin",
+      filetypes = { "html", "json", "yaml", "markdown", "handlebars", "typescript", "javascript", "typescriptreact", "javascriptreact" },
+    }),
+    null_ls.builtins.formatting.stylua,
+    -- diagnostics
+    null_ls.builtins.diagnostics.write_good,
+    null_ls.builtins.diagnostics.eslint_d.with({
+      cwd = function(params)
+        return require("lspconfig")["tsserver"].get_root_dir(params.bufname)
+      end,
+      prefer_local = "node_modules/.bin"
+    }),
+    -- code actions
+    null_ls.builtins.code_actions.gitsigns,
+    null_ls.builtins.code_actions.eslint_d.with({
+      prefer_local = "node_modules/.bin",
+      cwd = function(params)
+        return require("lspconfig")["tsserver"].get_root_dir(params.bufname)
+      end,
+    }),
+  }
+})
+require("lspconfig")["null-ls"].setup({
+  on_attach = common_on_attach,
+})
+
+-- vim.lsp.set_log_level("debug")
 
 -- Common server capabilities
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -89,6 +124,8 @@ module.on_server_ready(function(server)
     on_attach = common_on_attach,
     capabilities = capabilities,
   }
+
+  -- print("LSP server ready: " .. vim.inspect(server.name))
 
   if server.name == 'sumneko_lua' then
     opts.settings = {
@@ -110,22 +147,20 @@ module.on_server_ready(function(server)
     end
   end
 
+  -- if server.name == "ember" then
+  --   opts.on_attach = function (client, bufnr)
+  --     client.resolved_capabilities.format_on_save = true
+  --     common_on_attach(client, bufnr)
+  --   end
+  -- end
+
   if server.name == "tsserver" then
     opts.root_dir = util.root_pattern("tsconfig.json", "jsconfig.json")
     opts.on_attach = function (client, bufnr)
       -- Disable tsserver formatting
       client.resolved_capabilities.document_formatting = false
       client.resolved_capabilities.document_range_formatting = false
-
-      local ts_utils = require("nvim-lsp-ts-utils")
-      ts_utils.setup({
-        eslint_bin = "eslint_d",
-        eslint_enable_diagnostics = true,
-        eslint_enable_code_actions = true,
-        enable_formatting = true,
-        formatter = "prettier",
-      })
-      ts_utils.setup_client(client)
+      client.resolved_capabilities.format_on_save = true
 
       common_on_attach(client, bufnr)
     end
