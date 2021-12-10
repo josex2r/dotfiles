@@ -11,6 +11,14 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     extended_mode = true,
     max_file_lines = nil,
+    colors = {
+      "#cc241d",
+      "#b16286",
+      "#d79921",
+      "#689d6a",
+      "#d65d0e",
+      "#458588"
+    }
   },
   matchup = {
     enable = true,              -- mandatory, false will disable the whole extension

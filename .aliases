@@ -5,6 +5,10 @@ else # OS X `ls`
   colorflag="-G"
 fi
 
+# List all installed brew packages of top level
+alias brew-list-top-level='brew leaves | xargs -n1 brew desc'
+alias brew-list-top-installed='brew leaves --installed-on-request | xargs -n1 brew desc'
+
 alias sed='gsed'
 
 # List all files colorized in long format

@@ -9,8 +9,11 @@ require('packer').startup(function(use)
    -- lua utilities
   use "nvim-lua/plenary.nvim"
 
-  -- Theme
+-- Colorscheme
   use "navarasu/onedark.nvim"
+  use "catppuccin/nvim"
+
+  -- Theme
   use "kyazdani42/nvim-web-devicons"
   -- use { "yamatsum/nvim-nonicons", requires = { "kyazdani42/nvim-web-devicons" } }
   use "glepnir/dashboard-nvim" -- Init NeoVim screen
@@ -21,7 +24,6 @@ require('packer').startup(function(use)
   use "christoomey/vim-tmux-navigator" -- Move cursor between panes
   use "nvim-telescope/telescope.nvim" -- Fuzzy finder
   use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" } -- Use FZF algorithm
-  use "fannheyward/telescope-coc.nvim" -- Coc sources for telescope
   use "folke/which-key.nvim" -- Displays a popup with possible key bindings of the command you started typing
   use { "phaazon/hop.nvim", as = "hop" } -- Jump anywhere in a document with as few keystrokes as possible
   use "nacro90/numb.nvim" -- Peeks lines of the buffer in non-obtrusive way.
@@ -80,6 +82,12 @@ require('packer').startup(function(use)
   use "xtal8/traces.vim" -- Search highlight as typing
   use "junegunn/vim-easy-align" -- Align text
   use { "windwp/nvim-spectre", requires = { "nvim-lua/plenary.nvim" } } -- A search panel for neovim.
+  use {
+    'VonHeikemen/searchbox.nvim',
+    requires = {
+      {'MunifTanjim/nui.nvim'}
+    }
+  }
 
   -- Parens, Brackets, etc...
   use "tpope/vim-commentary" -- comments using "gcc"

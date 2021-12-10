@@ -13,7 +13,7 @@ require'lualine'.setup {
     lualine_b = {
       -- 'branch',
       'diff',
-      {'diagnostics', sources={ 'nvim_lsp', 'coc' }}
+      {'diagnostics', sources={ 'nvim' }}
     },
     lualine_c = {'filename'},
     lualine_x = {'encoding', 'fileformat', 'filetype'},

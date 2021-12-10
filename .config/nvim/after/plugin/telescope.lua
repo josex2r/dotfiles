@@ -1,7 +1,8 @@
 local actions = require('telescope.actions')
 local previewers = require('telescope.previewers')
 local Job = require('plenary.job')
--- local trouble = require("trouble.providers.telescope")
+local trouble = require("trouble.providers.telescope")
+local telescope = require('telescope')
 
 vim.cmd [[
   " File
@@ -9,7 +10,7 @@ vim.cmd [[
   nnoremap <leader>p <cmd>Telescope buffers<cr>
 ]]
 
-require('telescope').setup{
+telescope.setup{
   defaults = {
     file_ignore_patterns = {
       "^%.lint%-todo/",
@@ -20,7 +21,8 @@ require('telescope').setup{
       -- Mapping <Esc> to quit in insert mode
       i = {
         ["<esc>"] = actions.close,
-        -- ["<c-t>"] = trouble.open_with_trouble,
+        ["<C-h>"] = "which_key",
+        ["<c-t>"] = trouble.open_with_trouble,
       },
       n = {
         -- ["<c-t>"] = trouble.open_with_trouble,
@@ -32,7 +34,7 @@ require('telescope').setup{
       hidden = true
     },
     buffers = {
-      sort_lastused = false,
+      sort_lastused = true,
     },
   },
   extensions = {
@@ -46,5 +48,4 @@ require('telescope').setup{
   },
 }
 
-require('telescope').load_extension('fzf')
-require('telescope').load_extension('coc')
+telescope.load_extension('fzf')

@@ -14,4 +14,11 @@ function M.check_backspace()
   end
 end
 
+-- function M.check_backspace()
+--   local col = vim.api.nvim_win_get_cursor(0)[2]
+--   local line = vim.api.nvim_get_current_line()
+--   local result = col == 0 or line:sub(col, col):match("%s")
+--   return result and true
+-- end
+
 return M
