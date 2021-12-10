@@ -1,0 +1,10 @@
+# working files
+.config/nvim/viminfo
+.config/nvim/swaps/*
+.config/nvim/undo
+.config/nvim/undodir
+.config/nvim/plugged
+.config/nvim/.netrwhist
+.config/nvim/shada
+
+tags
