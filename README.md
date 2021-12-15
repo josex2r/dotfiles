@@ -24,6 +24,9 @@ sh autogen.sh
 # tmux plugins
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
+# Fonts
+cp -r "fonts/*" ~/Library/Fonts
+
 # neovim
 brew install --HEAD neovim
 
