@@ -19,6 +19,7 @@ require('packer').startup(function(use)
   use "glepnir/dashboard-nvim" -- Init NeoVim screen
   use "norcalli/nvim-colorizer.lua" -- Colorize hex colors
   use "Xuyuanp/scrollbar.nvim"
+  use "stevearc/dressing.nvim"
 
   -- Navigation
   use "christoomey/vim-tmux-navigator" -- Move cursor between panes
@@ -67,6 +68,7 @@ require('packer').startup(function(use)
   use { "jose-elias-alvarez/null-ls.nvim" }
   use { "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" }
   use "github/copilot.vim"
+  use "b0o/schemastore.nvim"
 
   -- Git
   use "tpope/vim-fugitive" -- Git commands
