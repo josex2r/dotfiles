@@ -12,18 +12,16 @@
 " :omap - Display operator pending mode maps
 "
 " <M-*> is the 'meta' key (ALT)
-nmap <M-f> <Esc>w
-nmap <M-b> <Esc>b
+nmap <M-f> <S-Right>
+nmap <M-b> <S-Left>
 vmap <M-f> <S-Right>
 vmap <M-b> <S-Left>
 imap <M-f> <S-Right>
 imap <M-b> <S-Left>
-cmap <M-f> <Esc>w
-cmap <M-b> <Esc>b
-omap <M-f> <Esc>w
-omap <M-b> <Esc>b
-cnoremap <M-f> <S-Right>
-cnoremap <M-b> <S-Left>
+cmap <M-f> <S-Right>
+cmap <M-b> <S-Left>
+omap <M-f> <S-Right>
+omap <M-b> <S-Left>
 " }}}
 
 " Faster split resizing (+,-) {{{
