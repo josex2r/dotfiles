@@ -1,10 +1,14 @@
 local exists, cmp = pcall(require, "cmp")
 local utils = require("utils")
 local lspkind = require('lspkind')
+local cmp_buffer = require "cmp_buffer"
 
 if not exists then
   return
 end
+
+-- Load vscode snippets
+require("luasnip/loaders/from_vscode").lazy_load()
 
 cmp.setup {
   snippet = {
@@ -66,11 +70,25 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
     { name = 'buffer' },
-    { name = 'luasnip' },
+    { name = 'luasnip', priority = 9999 },
     { name = 'path' },
+    { name = "treesitter" },
   }),
   documentation = {
     border = "rounded",
+  },
+  comparators = {
+    function(...)
+      cmp_buffer:compare_locality(...)
+    end,
+    cmp.config.compare.offset,
+    cmp.config.compare.exact,
+    cmp.config.compare.score,
+    cmp.config.compare.recently_used,
+    cmp.config.compare.kind,
+    cmp.config.compare.sort_text,
+    cmp.config.compare.length,
+    cmp.config.compare.order,
   },
   formatting = {
     format = lspkind.cmp_format({
@@ -80,7 +98,7 @@ cmp.setup {
         nvim_lsp = "[LSP]",
         nvim_lua = "[Lua]",
         buffer = "[Buffer]",
-        vsnip = "[Snip]",
+        luasnip = "[Snip]",
         path = "[Path]",
         cmdline = "[CMD]",
       }

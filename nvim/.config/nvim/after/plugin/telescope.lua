@@ -14,6 +14,8 @@ telescope.setup{
   defaults = {
     file_ignore_patterns = {
       "^%.lint%-todo/",
+      "^%.git/",
+      "^recordings/",
       "^node_modules/",
       "^bower_components/",
     },

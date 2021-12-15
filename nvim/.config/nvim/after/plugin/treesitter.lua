@@ -1,5 +1,6 @@
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", 
+  ensure_installed = "maintained",
+  incremental_selection = { enable = true },
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
@@ -22,6 +23,7 @@ require'nvim-treesitter.configs'.setup {
   },
   matchup = {
     enable = true,              -- mandatory, false will disable the whole extension
+    include_match_words = true,
     disable = { "c", "ruby" },  -- optional, list of language that will be disabled
   },
   context_commentstring = {
