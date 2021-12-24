@@ -1,44 +1,82 @@
 # dotfiles
-dotfiles
 
-## Install
+## Install zsh
 
 ```bash
 # use brew zsh
 brew install zsh
+
 sudo vim /etc/shells # /usr/local/bin/zsh
+
 # fix insecure directories
 # for f in $(compaudit);do sudo chmod -R 755 $f;done;
+```
 
-# brew
+## Install brew
+
+```zsh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
 
-# tmux
-# brew install tmux
+## Install tmux
+
+```bash
+brew install tmux
+```
+
+### Build tmux & speedup render in Alacritty
+
+```bash
 git clone https://github.com/tmux/tmux.git
 cd tmux
 # modify this file => tty.c:#define TTY_BLOCK_INTERVAL (16666 /* 60fps */)
 sh autogen.sh
 ./configure && make && sudo make install
+```
 
-# tmux plugins
+### Add tmux plugin manager
+
+```bash
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
 
-# Fonts
+### Install fonts
+
+```bash
 cp -r "fonts/*" ~/Library/Fonts
+```
 
-# neovim
+## Install neovim
+
+```bash
 brew install --HEAD neovim
+```
 
-# oh-my-zsh
+## Install oh-my-zsh
+
+```bash
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
 
-# Dotfiles
+## Install nvm
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+```
+
+## Install fzf
+
+```bash
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+``
+
+## Setup dotfiles
+
+```bash
 cd ~
-mkdir workspace
-cd workspace
+
 git clone https://github.com/josex2r/dotfiles.git
-cd ~
 
 # stow
 brew install stow
@@ -52,11 +90,7 @@ stow --verbose karabiner
 stow --verbose nvim
 stow --verbose tmux
 stow --verbose zsh
-rm -rf ~/.vimrc && ln -s ~/workspace/dotfiles/.vimrc ~/.vimrc
-rm -rf ~/.config && ln -s ~/workspace/dotfiles/.config ~/.config
 
+# Allow italics in terminal+nvim
 tic ./screen-256color-it.terminfo
-
-# nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 ```

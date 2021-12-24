@@ -9,6 +9,8 @@ fi
 alias brew-list-top-level='brew leaves | xargs -n1 brew desc'
 alias brew-list-top-installed='brew leaves --installed-on-request | xargs -n1 brew desc'
 
+kill_fucking_tracker="sudo ps aux | grep -i mcafee | grep -v grep | awk '{ print $2 }' | xargs sudo kill"
+
 alias sed='gsed'
 
 # List all files colorized in long format
@@ -31,9 +33,3 @@ alias vimdiff='nvim -d'
 
 # tmux
 alias attach='TERM=screen-256color tmux new-session -A -s woody'
-
-# NVM
-# alias node='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; node $@'
-# alias npm='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; npm $@'
-# alias npx='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; npx $@'
-# alias nvm='unalias nvm; unalias node; unalias npm; unalias npx; nvm_load; nvm $@'

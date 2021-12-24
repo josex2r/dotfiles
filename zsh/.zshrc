@@ -11,23 +11,16 @@ export ZSH=~/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.config/ohmyzsh/custom
 export PATH="/usr/local/sbin:$PATH"
 
-# Load nvm without autoload option
-export NVM_DIR="$HOME/.nvm"
-# \. "$NVM_DIR/nvm.sh" --no-use
-# Async nvm loading
-function nvm_load() {
-  . "$NVM_DIR/nvm.sh" && . "$NVM_DIR/bash_completion";
-}
-nvm_load
-
-# Setup fzf (fuzzy-finder)
-[ -s ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # set autoload path
 fpath=(
   "$HOME/.zfunctions"
   $fpath
 )
+
+# Load the shell dotfiles (.zsources)
+for file in ~/.zsources/.{exports,aliases,functions,extra}; do
+  [ -r "$file" ] && source "$file"
+done
 
 # On slow systems, checking the cached .zcompdump file to see if it must be
 # regenerated adds a noticable delay to zsh startup.  This little hack restricts
@@ -40,9 +33,9 @@ fpath=(
 # - 'mh+24' matches files (or directories or whatever) that are older than 24 hours.
 autoload -Uz compinit
 if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-	compinit;
+  compinit;
 else
-	compinit -C;
+  compinit -C;
 fi;
 
 autoload -Uz bip bcp bup cani fp kp
@@ -63,71 +56,23 @@ pasteinit() {
 pastefinish() {
   zle -N self-insert $OLD_SELF_INSERT
 }
+
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
 #source $ZSH/oh-my-zsh.sh
-source $HOME/workspace/dotfiles/antigen/antigen.zsh
+source $HOME/dotfiles/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-# plugins=(git autojump osx brew sudo node zsh-autosuggestions z zsh-completions)
-
-# antigen bundle brew
+antigen bundle brew
 antigen bundle colorize
 antigen bundle tmux
 antigen bundle z
 antigen bundle git
-# antigen bundle sudo
-# antigen bundle autojump
 antigen bundle node
-antigen bundle osx
-# antigen bundle common-aliases
+antigen bundle macos
 
 # Third party bundles
 antigen bundle djui/alias-tips
@@ -135,110 +80,12 @@ antigen bundle unixorn/tumult.plugin.zsh
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 
-# Pure theme
-# antigen bundle mafredri/zsh-async
-# antigen bundle sindresorhus/pure # prompt
+# Theme
 antigen theme denysdovhan/spaceship-prompt
-
 antigen bundle zsh-users/zsh-syntax-highlighting
 
-# Tell antigen that you're done.
+# Load plugins
 antigen apply
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
 
 # Disable profiling
 # zprof
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/jose.represa/Desktop/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jose.represa/Desktop/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/jose.represa/Desktop/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jose.represa/Desktop/google-cloud-sdk/completion.zsh.inc'; fi
-
-# Load the shell dotfiles, and then some:
-for file in ~/.{exports,aliases,functions,extra}; do
-  [ -r "$file" ] && source "$file"
-done
-
-# ORDER
-SPACESHIP_PROMPT_ORDER=(
-  time     #
-  vi_mode  # these sections will be
-  user     # before prompt char
-  host     #
-  dir
-  git
-  node
-  ruby
-  xcode
-  swift
-  golang
-  docker
-  venv
-  pyenv
-  char
-)
-
-SPACESHIP_CHAR_PREFIX="\n"
-SPACESHIP_PROMPT_ADD_NEWLINE=true
-SPACESHIP_PROMPT_SEPARATE_LINE=true
-
-# USER
-SPACESHIP_USER_PREFIX="" # remove `with` before username
-SPACESHIP_USER_SUFFIX="" # remove space before host
-
-# HOST
-# Result will look like this:
-#   username@:(hostname)
-SPACESHIP_HOST_PREFIX="@:("
-SPACESHIP_HOST_SUFFIX=") "
-
-# DIR
-SPACESHIP_DIR_COLOR=grey
-# SPACESHIP_DIR_TRUNC='3' # show only last 3 chunks of the directory
-
-# GIT
-SPACESHIP_GIT_SYMBOL=""
-SPACESHIP_GIT_PREFIX=""
-SPACESHIP_GIT_SUFFIX=""
-SPACESHIP_GIT_BRANCH_COLOR=blue
-SPACESHIP_GIT_STATUS_PREFIX=" "
-SPACESHIP_GIT_STATUS_SUFFIX=""
-
-# NODE
-SPACESHIP_NODE_PREFIX=" "
-SPACESHIP_NODE_SUFFIX=""
-
-# RUBY
-SPACESHIP_RUBY_PREFIX=" "
-SPACESHIP_RUBY_SUFFIX=""
-
-# XCODE
-SPACESHIP_XCODE_PREFIX=" "
-SPACESHIP_XCODE_SUFFIX=""
-
-# SWIFT
-SPACESHIP_SWIFT_PREFIX=" "
-SPACESHIP_SWIFT_SUFFIX=""
-
-# GOLANG
-SPACESHIP_GOLANG_PREFIX=" "
-SPACESHIP_GOLANG_SUFFIX=""
-
-# DOCKER
-SPACESHIP_DOCKER_PREFIX=" "
-SPACESHIP_DOCKER_SUFFIX=" "
-
-# VENV
-SPACESHIP_VENV_PREFIX="venv:("
-SPACESHIP_VENV_SUFFIX=") "
-
-# PYENV
-SPACESHIP_PYENV_PREFIX=" "
-SPACESHIP_PYENV_SUFFIX=""
