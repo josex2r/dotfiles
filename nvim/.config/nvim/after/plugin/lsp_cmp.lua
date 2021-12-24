@@ -23,14 +23,22 @@ cmp.setup {
     ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
     ['<Up>'] = cmp.config.disable,
     ['<Down>'] = cmp.config.disable,
+    ["<C-g>"] = cmp.mapping(function()
+      if vim.b._copilot_suggestion then
+        vim.fn["copilot#Accept"]()
+      end
+    end, { "i", "s" }),
     ["<C-e>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.close()
       elseif vim.b._copilot_suggestion then
         vim.fn["copilot#Dismiss"]()
       end
-      -- Continue doind what this key does
-      fallback()
+
+      if not cmp.visible() then
+        -- Continue doing what this key does
+        fallback()
+      end
     end, { "i", "s" }),
     ['<CR>'] = cmp.mapping.confirm({
       -- behavior = cmp.ConfirmBehavior.Replace,
@@ -67,6 +75,7 @@ cmp.setup {
     end,
   },
   sources = cmp.config.sources({
+    { name = 'copilot' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
     { name = 'buffer' },
@@ -95,6 +104,7 @@ cmp.setup {
       with_text = true,
       maxwidth = 50,
       menu = {
+        copilot = "[Copilot]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[Lua]",
         buffer = "[Buffer]",

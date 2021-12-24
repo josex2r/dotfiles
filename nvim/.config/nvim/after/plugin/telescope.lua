@@ -1,6 +1,4 @@
 local actions = require('telescope.actions')
-local previewers = require('telescope.previewers')
-local Job = require('plenary.job')
 local trouble = require("trouble.providers.telescope")
 local telescope = require('telescope')
 
@@ -12,6 +10,11 @@ vim.cmd [[
 
 telescope.setup{
   defaults = {
+    layout_config = {
+      horizontal = {
+        preview_cutoff = 0,
+      },
+    },
     file_ignore_patterns = {
       "^%.lint%-todo/",
       "^%.git/",
@@ -27,7 +30,8 @@ telescope.setup{
         ["<c-t>"] = trouble.open_with_trouble,
       },
       n = {
-        -- ["<c-t>"] = trouble.open_with_trouble,
+        ["<C-h>"] = "which_key",
+        ["<c-t>"] = trouble.open_with_trouble,
       },
     },
   },

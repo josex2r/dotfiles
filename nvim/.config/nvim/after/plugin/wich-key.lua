@@ -112,12 +112,13 @@ local vim_config = {
 }
 
 wk.register({
+  a = { "Aerial" },
   c = code_config,
   d = diagnostics_config,
   D = dashboard_config,
   f = files_config,
   g = git_config,
-  i = "JS Import",
+  i = { "Ember Import" },
   l = lsp_config,
   s = search_config,
   v = vim_config,
@@ -127,14 +128,3 @@ wk.register({
   g = git_visual_config,
   t = { '<cmd>lua vim.lsp.buf.range_formatting()<cr>', "Format Selected" },
 }, { mode = "v", prefix = "<leader>" })
-
-wk.register(code_config, { prefix = "<leader>c" })
-wk.register(diagnostics_config, { prefix = "<leader>d" })
-wk.register(dashboard_config, { prefix = "<leader>D" })
-wk.register(files_config, { prefix = "<leader>f" })
-wk.register(git_config, { prefix = "<leader>g" })
-wk.register(git_visual_config, { mode = "v", prefix = "<leader>g" })
-wk.register(lsp_config, { prefix = "<leader>l" })
-wk.register(search_config, { prefix = "<leader>s" })
-wk.register(vim_config, { prefix = "<leader>v" })
-

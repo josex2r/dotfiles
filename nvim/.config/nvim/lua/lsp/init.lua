@@ -1,3 +1,5 @@
+local aerial = require("aerial")
+
 local M = {}
 
 -- Use an on_attach function to only map the following keys
@@ -26,6 +28,9 @@ M.on_attach = function (client, bufnr)
   buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '<leader>cf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   buf_set_keymap('n', '<leader>cq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+
+  -- Add code symbols
+  aerial.on_attach(client)
 
   -- Format on save
   if client.resolved_capabilities.format_on_save then

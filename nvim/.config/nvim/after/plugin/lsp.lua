@@ -50,11 +50,9 @@ vim.cmd [[
 -- Init "null-ls" for code formatting
 local null_ls = require("null-ls")
 local null_ls_config = require("lsp.servers.null_ls").config
-null_ls.config(null_ls_config)
 
-require("lspconfig")["null-ls"].setup({
-  on_attach = lsp.on_attach,
-})
+null_ls_config.on_attach = lsp.on_attach
+require("null-ls").setup(null_ls_config)
 
 -- Common server capabilities
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())

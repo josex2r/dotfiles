@@ -43,7 +43,6 @@ require('packer').startup(function(use)
   -- Treesitter
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
   use "JoosepAlviste/nvim-ts-context-commentstring" -- fix comments when multiple langs exists on same file
-  use "windwp/nvim-ts-autotag" -- Close HTML tags
   use "p00f/nvim-ts-rainbow" -- colorize brackets
 
   -- Language Tools
@@ -69,19 +68,19 @@ require('packer').startup(function(use)
   use { "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" }
   use "github/copilot.vim"
   use "b0o/schemastore.nvim"
+  use "stevearc/aerial.nvim" -- Show symbols
 
   -- Git
   use "tpope/vim-fugitive" -- Git commands
   use { "lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }
-  use "sindrets/diffview.nvim"
+  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+  use "rhysd/conflict-marker.vim" -- Mappings for conflicts
 
   -- Misc
-  use "rafamadriz/friendly-snippets"
   use "editorconfig/editorconfig-vim"
   use "tpope/vim-repeat" -- Repeat everything
   use "tpope/vim-sleuth" -- Autodetect indentation
   use "fcpg/vim-altscreen" -- Clean terminal on vim shell commands
-  use "xtal8/traces.vim" -- Search highlight as typing
   use "junegunn/vim-easy-align" -- Align text
   use { "windwp/nvim-spectre", requires = { "nvim-lua/plenary.nvim" } } -- A search panel for neovim.
   use {
