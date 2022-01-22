@@ -7,7 +7,11 @@ if not exists then
   return
 end
 
--- Load vscode snippets
+-- Navigator.lua
+vim.cmd("autocmd FileType guihua lua require('cmp').setup.buffer { enabled = false }")
+vim.cmd("autocmd FileType guihua_rust lua require('cmp').setup.buffer { enabled = false }")-- Load vscode snippets
+
+-- Snippets
 require("luasnip/loaders/from_vscode").lazy_load()
 
 cmp.setup {
@@ -90,10 +94,10 @@ cmp.setup {
     function(...)
       cmp_buffer:compare_locality(...)
     end,
+    cmp.config.compare.recently_used,
     cmp.config.compare.offset,
     cmp.config.compare.exact,
     cmp.config.compare.score,
-    cmp.config.compare.recently_used,
     cmp.config.compare.kind,
     cmp.config.compare.sort_text,
     cmp.config.compare.length,

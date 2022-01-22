@@ -23,10 +23,10 @@ vim.diagnostic.config({
 
 -- Redefine diagnostics signs
 vim.cmd[[
-	sign define DiagnosticSignError text= texthl=DiagnosticSignError numhl=DiagnosticSignError
-	sign define DiagnosticSignWarn text=  texthl=DiagnosticSignWarn numhl=DiagnosticSignWarn
-	sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo numhl=DiagnosticSignInfo
-	sign define DiagnosticSignHint text= texthl=DiagnosticSignHint numhl=DiagnosticSignHint
+  sign define DiagnosticSignError text= texthl=DiagnosticSignError numhl=DiagnosticSignError
+  sign define DiagnosticSignWarn text=  texthl=DiagnosticSignWarn numhl=DiagnosticSignWarn
+  sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo numhl=DiagnosticSignInfo
+  sign define DiagnosticSignHint text= texthl=DiagnosticSignHint numhl=DiagnosticSignHint
 ]]
 
 -- Show diagnostics when hovering over an error
@@ -48,7 +48,6 @@ vim.cmd [[
 
 
 -- Init "null-ls" for code formatting
-local null_ls = require("null-ls")
 local null_ls_config = require("lsp.servers.null_ls").config
 
 null_ls_config.on_attach = lsp.on_attach

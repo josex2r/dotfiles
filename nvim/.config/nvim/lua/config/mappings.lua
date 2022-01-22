@@ -74,12 +74,6 @@ local keys = {
     ["<C-k>"] = "<C-w>k",
     ["<C-l>"] = "<C-w>l",
 
-    -- Resize with arrows
-    ["<C-Up>"] = ":resize -2<CR>",
-    ["<C-Down>"] = ":resize +2<CR>",
-    ["<C-Left>"] = ":vertical resize -2<CR>",
-    ["<C-Right>"] = ":vertical resize +2<CR>",
-
     -- Tab switch buffer
     ["<S-l>"] = ":BufferNext<CR>",
     ["<S-h>"] = ":BufferPrevious<CR>",

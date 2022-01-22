@@ -10,6 +10,8 @@ M.config = {
   debug = true,
   debounce = 250,
   sources = {
+    null_ls.builtins.code_actions.refactoring,
+
     -- ---------------
     -- -  formating  -
     -- ---------------

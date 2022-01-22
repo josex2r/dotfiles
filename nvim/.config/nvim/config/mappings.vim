@@ -91,11 +91,11 @@ map <leader>ll :ll<CR>
 " }}}
 
 " map Mac OS X Terminal.app default Home and End
-map <C-A> <Home>
-imap <C-A> <Home>
-vmap <C-A> <Home>
-cmap <C-A> <Home>
-map <C-E> <End>
-imap <C-E> <End>
-vmap <C-E> <End>
-cmap <C-E> <End>
+" map <C-A> <Home>
+" imap <C-A> <Home>
+" vmap <C-A> <Home>
+" cmap <C-A> <Home>
+" map <C-E> <End>
+" imap <C-E> <End>
+" vmap <C-E> <End>
+" cmap <C-E> <End>

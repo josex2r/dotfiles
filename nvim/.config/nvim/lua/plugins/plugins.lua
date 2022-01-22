@@ -60,8 +60,10 @@ local startup_plugins = function(use)
   use "nvim-telescope/telescope-dap.nvim" -- DAP for telescope
 
   -- LSP
-  use "neovim/nvim-lspconfig"
-  use "williamboman/nvim-lsp-installer"
+  use {
+    'neovim/nvim-lspconfig',
+    'williamboman/nvim-lsp-installer',
+  }
   use "onsails/lspkind-nvim"
   use {
     "hrsh7th/nvim-cmp",

@@ -9,10 +9,11 @@ M.init = function()
 
   vim.o.termguicolors = true
 
-  vim.cmd [[
-    let g:onedark_style = 'darker'
-    colorscheme onedark
-  ]]
+  -- onedark
+  require('onedark').setup {
+    style = 'darker'
+  }
+  require('onedark').load()
 end
 
 return M

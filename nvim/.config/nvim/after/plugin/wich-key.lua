@@ -73,7 +73,8 @@ local lsp_config = {
   name = "LSP",
   c = { "<cmd>Telescope commands<cr>", "Commands" },
   f = { "<cmd>Telescope filetypes<cr>", "File Types" },
-  i = { "<cmd>LspInfo<cr>", "Lsp Info" },
+  i = { "<cmd>LspInstallInfo<cr>", "Install LSP Server" },
+  I = { "<cmd>LspInfo<cr>", "Lsp Servers Info" },
   k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
   m = { "<cmd>Telescope marks<cr>", "Marks" },
   p = { "<cmd>Telescope pickers<cr>", "Pickers" },
@@ -86,6 +87,7 @@ local code_config = {
   a = { "Code Action" },
   d = { "Buff Definitions" },
   f = { "Format" },
+  k = { "Signature Help" },
   r = { "Buff Rename" },
   q = { "Loclist" },
 }
@@ -107,8 +109,38 @@ local search_config = {
 
 local vim_config = {
   name = "Vim",
-  i = { "<cmd>LspInstall<cr>", "Install LSP" },
+  i = { "<cmd>LspInstallInfo<cr>", "Install LSP" },
   u = { "<cmd>LspUninstall<cr>", "Uninstall LSP" },
+}
+
+local dap_config = {
+  name = "Debugging (DAP)",
+  b = { "Breakpoints" },
+  c = { "Commands" },
+  f = { "Frames" },
+  m = { "Test Method" },
+  M = { "Test Class" },
+  u = { "UI" },
+  v = { "Variables" },
+  x = { "Configurations" },
+}
+
+local dap_run_config = {
+  name = "Debugging (Playback)",
+  a = { "Continue" },
+  s = { "Step Over" },
+  d = { "step Into" },
+  f = { "Step Out" },
+  z = { "Toggle Breakpoint" },
+  x = { "Conditional Breakpoint" },
+  c = { "Log Breakpoint" },
+  r = { "REPL" },
+  l = { "Run last" },
+}
+
+local dap_visual_config = {
+  name = "Debugging (DAP)",
+  d = { "Debug Selection" },
 }
 
 wk.register({
@@ -122,9 +154,12 @@ wk.register({
   l = lsp_config,
   s = search_config,
   v = vim_config,
+  x = dap_config,
+  z = dap_run_config,
 }, { prefix = "<leader>" })
 
 wk.register({
+  d = dap_visual_config,
   g = git_visual_config,
   t = { '<cmd>lua vim.lsp.buf.range_formatting()<cr>', "Format Selected" },
 }, { mode = "v", prefix = "<leader>" })
