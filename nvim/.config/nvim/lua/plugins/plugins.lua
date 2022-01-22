@@ -9,47 +9,39 @@ local startup_plugins = function(use)
 	use("navarasu/onedark.nvim")
 	use("catppuccin/nvim")
 
-	-- Theme
+	-- UI
 	use("kyazdani42/nvim-web-devicons")
-	-- use { "yamatsum/nvim-nonicons", requires = { "kyazdani42/nvim-web-devicons" } }
-	use("glepnir/dashboard-nvim") -- Init NeoVim screen
-	use("norcalli/nvim-colorizer.lua") -- Colorize hex colors
-	use("petertriho/nvim-scrollbar") -- Scrollbar
-	use("kevinhwang91/nvim-hlslens") -- Info about search in virtual text
-	use("stevearc/dressing.nvim")
-
-	-- Navigation
-	use("christoomey/vim-tmux-navigator") -- Move cursor between panes
-	use("nvim-telescope/telescope.nvim") -- Fuzzy finder
-	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- Use FZF algorithm
-	use("folke/which-key.nvim") -- Displays a popup with possible key bindings of the command you started typing
-	use({ "phaazon/hop.nvim", as = "hop" }) -- Jump anywhere in a document with as few keystrokes as possible
-	use("nacro90/numb.nvim") -- Peeks lines of the buffer in non-obtrusive way.
-	use("ggandor/lightspeed.nvim") -- Use "s <char>" to move cursor
-	use("andymass/vim-matchup") -- Navigate, and operate on sets of matching text
-
+	use("glepnir/dashboard-nvim") -- NeoVim init screen
+	use("norcalli/nvim-colorizer.lua") -- Colorize hex colors in buffers
+	use("kevinhwang91/nvim-hlslens") -- Info about current search in virtual text
+	use("stevearc/dressing.nvim") -- UI components
+	use("p00f/nvim-ts-rainbow") -- Colorize brackets
 	-- Statusbar
 	use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
 	use({ "hoob3rt/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
 	use({ "kyazdani42/nvim-tree.lua", requires = { "kyazdani42/nvim-web-devicons" } })
-	-- use { "sidebar-nvim/sidebar.nvim" }
 
-	-- Syntax
+	-- Navigation
+	use("petertriho/nvim-scrollbar") -- Scrollbar
+	use("christoomey/vim-tmux-navigator") -- Move cursor between panes
+	use("nvim-telescope/telescope.nvim") -- Fuzzy finder
+	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- Use FZF algorithm
+	use("folke/which-key.nvim") -- Displays a popup with possible key bindings of the command you started typing
+	use("nacro90/numb.nvim") -- Peeks lines of the buffer in non-obtrusive way.
+	use({ "phaazon/hop.nvim", as = "hop" }) -- Jump anywhere in a document with as few keystrokes as possible
+	use("ggandor/lightspeed.nvim") -- Use "s <char>" to move cursor
+	use("andymass/vim-matchup") -- Navigate, and operate on sets of matching text
+	use("stevearc/aerial.nvim") -- Move using Treesitter symbols
+
+	-- Syntax highlighting
 	use("joukevandermaas/vim-ember-hbs")
 	use("Quramy/vim-js-pretty-template")
-
 	-- Treesitter
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-	use("JoosepAlviste/nvim-ts-context-commentstring") -- fix comments when multiple langs exists on same file
-	use("p00f/nvim-ts-rainbow") -- colorize brackets
-	use("ray-x/lsp_signature.nvim")
-	-- use {
-	--   "ray-x/navigator.lua",
-	--   requires = { "ray-x/guihua.lua", run = "cd lua/fzy && make" }
-	-- }
+	use("JoosepAlviste/nvim-ts-context-commentstring") -- Fix comments when multiple langs exists on same file
+	use("ray-x/lsp_signature.nvim") -- Show function signature when you type
 
 	-- Language Tools
-	use("mattn/emmet-vim") -- HTML shorcuts (crtl+y,)
 	use("sukima/vim-javascript-imports") -- Import JS files + ember
 
 	-- Debugging
@@ -80,8 +72,7 @@ local startup_plugins = function(use)
 	use({ "jose-elias-alvarez/nvim-lsp-ts-utils" })
 	use({ "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" })
 	use("github/copilot.vim")
-	use("b0o/schemastore.nvim")
-	use("stevearc/aerial.nvim") -- Show symbols
+	use("b0o/schemastore.nvim") -- JSON schemas for "jsonls" LSP
 
 	-- Git
 	use("tpope/vim-fugitive") -- Git commands
@@ -90,13 +81,12 @@ local startup_plugins = function(use)
 	use("rhysd/conflict-marker.vim") -- Mappings for conflicts
 
 	-- Misc
-	use("editorconfig/editorconfig-vim")
-	use("tpope/vim-repeat") -- Repeat everything
-	use("tpope/vim-sleuth") -- Autodetect indentation
-	use("fcpg/vim-altscreen") -- Clean terminal on vim shell commands
+	use("editorconfig/editorconfig-vim") -- Read ".editorconfig" file
+	use("tpope/vim-repeat") -- Repeat everything using "."
+	use("fcpg/vim-altscreen") -- Clean terminal when running a vim shell commands
 	use("junegunn/vim-easy-align") -- Align text
 	use({ "windwp/nvim-spectre", requires = { "nvim-lua/plenary.nvim" } }) -- A search panel for neovim.
-	use({ "VonHeikemen/searchbox.nvim", requires = { "MunifTanjim/nui.nvim" } })
+	use({ "VonHeikemen/searchbox.nvim", requires = { "MunifTanjim/nui.nvim" } }) -- Searchbox
 	use("windwp/nvim-autopairs") -- Auto close char groups
 
 	-- Parens, Brackets, etc...

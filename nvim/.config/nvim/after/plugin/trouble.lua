@@ -43,21 +43,12 @@ require("trouble").setup {
   use_lsp_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
 }
 
-vim.api.nvim_set_keymap("n", "<leader>dd", "<cmd>TroubleToggle<cr>",
-  {silent = true, noremap = true}
-)
-vim.api.nvim_set_keymap("n", "<leader>dw", "<cmd>TroubleToggle lsp_workspace_diagnostics<cr>",
-  {silent = true, noremap = true}
-)
-vim.api.nvim_set_keymap("n", "<leader>ds", "<cmd>TroubleToggle lsp_document_diagnostics<cr>",
-  {silent = true, noremap = true}
-)
-vim.api.nvim_set_keymap("n", "<leader>dl", "<cmd>TroubleToggle loclist<cr>",
-  {silent = true, noremap = true}
-)
-vim.api.nvim_set_keymap("n", "<leader>dq", "<cmd>TroubleToggle quickfix<cr>",
-  {silent = true, noremap = true}
-)
-vim.api.nvim_set_keymap("n", "gr", "<cmd>TroubleToggle lsp_references<cr>",
-  {silent = true, noremap = true}
-)
+-- Mappings
+local opts = { silent = true, noremap = true }
+
+vim.api.nvim_set_keymap("n", "<leader>dd", "<cmd>TroubleToggle<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>dl", "<cmd>TroubleToggle loclist<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>dq", "<cmd>TroubleToggle quickfix<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>dr", "<cmd>TroubleToggle lsp_references<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>ds", "<cmd>TroubleToggle lsp_document_diagnostics<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>dw", "<cmd>TroubleToggle lsp_workspace_diagnostics<cr>", opts)
