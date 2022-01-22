@@ -16,7 +16,7 @@ local function setup_packer()
     autocmd!
     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
   augroup end
-]])
+  ]])
 end
 
 local function install_packer()

@@ -154,11 +154,6 @@ _G.packer_plugins = {
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/hop",
     url = "https://github.com/phaazon/hop.nvim"
   },
-  ["impatient.nvim"] = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/impatient.nvim",
-    url = "https://github.com/lewis6991/impatient.nvim"
-  },
   ["lightspeed.nvim"] = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/lightspeed.nvim",
@@ -293,11 +288,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/onedark.nvim",
     url = "https://github.com/navarasu/onedark.nvim"
-  },
-  ["packer.nvim"] = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/packer.nvim",
-    url = "https://github.com/wbthomason/packer.nvim"
   },
   ["plenary.nvim"] = {
     loaded = true,
