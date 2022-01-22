@@ -1,15 +1,11 @@
-require('packer').startup(function(use)
-  -- This plugin will eventually be merged into Neovim core via this PR:
-  -- https://github.com/neovim/neovim/pull/15436
-  use "lewis6991/impatient.nvim"
+local packer = require('packer')
+local M = {}
 
-  -- Add you plugins here like:
-  use "wbthomason/packer.nvim"
-
-   -- lua utilities
+local startup_plugins = function(use)
+  -- lua utilities
   use "nvim-lua/plenary.nvim"
 
--- Colorscheme
+  -- Colorscheme
   use "navarasu/onedark.nvim"
   use "catppuccin/nvim"
 
@@ -18,7 +14,8 @@ require('packer').startup(function(use)
   -- use { "yamatsum/nvim-nonicons", requires = { "kyazdani42/nvim-web-devicons" } }
   use "glepnir/dashboard-nvim" -- Init NeoVim screen
   use "norcalli/nvim-colorizer.lua" -- Colorize hex colors
-  use "Xuyuanp/scrollbar.nvim"
+  use "petertriho/nvim-scrollbar" -- Scrollbar
+  use "kevinhwang91/nvim-hlslens" -- Info about search in virtual text
   use "stevearc/dressing.nvim"
 
   -- Navigation
@@ -35,6 +32,7 @@ require('packer').startup(function(use)
   use { "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" } }
   use { "hoob3rt/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } }
   use { "kyazdani42/nvim-tree.lua", requires = { "kyazdani42/nvim-web-devicons" } }
+  -- use { "sidebar-nvim/sidebar.nvim" }
 
   -- Syntax
   use "joukevandermaas/vim-ember-hbs"
@@ -44,10 +42,22 @@ require('packer').startup(function(use)
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
   use "JoosepAlviste/nvim-ts-context-commentstring" -- fix comments when multiple langs exists on same file
   use "p00f/nvim-ts-rainbow" -- colorize brackets
+  use "ray-x/lsp_signature.nvim"
+  -- use {
+  --   "ray-x/navigator.lua",
+  --   requires = { "ray-x/guihua.lua", run = "cd lua/fzy && make" }
+  -- }
 
   -- Language Tools
   use "mattn/emmet-vim" -- HTML shorcuts (crtl+y,)
-  use "sukima/vim-javascript-imports"
+  use "sukima/vim-javascript-imports" -- Import JS files + ember
+
+  -- Debugging
+  use "mfussenegger/nvim-dap" -- Inspect variables in vim
+  use "mfussenegger/nvim-dap-python" -- Python inspect config
+  use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } } -- UI for DAP
+  use { "theHamsta/nvim-dap-virtual-text", requires = { "mfussenegger/nvim-dap" } } -- UI for virtualtext
+  use "nvim-telescope/telescope-dap.nvim" -- DAP for telescope
 
   -- LSP
   use "neovim/nvim-lspconfig"
@@ -63,8 +73,9 @@ require('packer').startup(function(use)
       "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-path",
     }
-  }
+   }
   use { "jose-elias-alvarez/null-ls.nvim" }
+  use { "jose-elias-alvarez/nvim-lsp-ts-utils" }
   use { "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" }
   use "github/copilot.vim"
   use "b0o/schemastore.nvim"
@@ -83,16 +94,23 @@ require('packer').startup(function(use)
   use "fcpg/vim-altscreen" -- Clean terminal on vim shell commands
   use "junegunn/vim-easy-align" -- Align text
   use { "windwp/nvim-spectre", requires = { "nvim-lua/plenary.nvim" } } -- A search panel for neovim.
-  use {
-    'VonHeikemen/searchbox.nvim',
-    requires = {
-      {'MunifTanjim/nui.nvim'}
-    }
-  }
+  use { "VonHeikemen/searchbox.nvim", requires = { "MunifTanjim/nui.nvim" } }
+  use "windwp/nvim-autopairs" -- Auto close char groups
 
   -- Parens, Brackets, etc...
   use "tpope/vim-commentary" -- comments using "gcc"
   use "tpope/vim-surround" -- add/delete/replace surroundings of a sandwiched textobject
   use "kshenoy/vim-signature" -- Show marks
+end
 
-end)
+M.load_plugins = function(should_sync)
+  packer.startup(function(use)
+    startup_plugins(use)
+
+    if should_sync then
+      packer.sync()
+    end
+  end)
+end
+
+return M

@@ -1,47 +1,39 @@
+local load_plugins = require("plugins/plugins").load_plugins
 local M = {}
--- load packer plugins
+
 local function setup_packer()
   local packer = require("packer")
   local util = require("packer.util")
 
+  -- Setup download dir: ~/.local/share/nvim/site/pack/packer/start
   packer.init({
     package_root = util.join_paths(vim.fn.stdpath("data"), "site", "pack")
   })
 end
 
 local function install_packer()
-  local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
+  local should_sync = false
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 
-  if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    vim.api.nvim_command("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
-    vim.api.nvim_command("packadd packer.nvim")
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    should_sync = true
   end
 
-  vim.cmd('packadd packer.nvim')
-end
-
--- install packer if not exists
-M.ensure_packer = function()
-  local hasPacker, packer = pcall(require, "packer")
-
-  if not(hasPacker) then
-    install_packer()
-  end
-
-  setup_packer()
-end
-
-M.load_plugins = function()
-  require("plugins/plugins")
+  return should_sync
 end
 
 M.init = function()
-  M.ensure_packer()
+  local should_sync = install_packer()
 
-  -- Impatient needs to be setup before any other lua plugin is loaded so it is recommended you add the following near the start of your init.vim.
-  require('impatient')
+  setup_packer()
 
-  M.load_plugins()
+  load_plugins()
+
+  if should_sync then
+    require('packer').sync()
+  end
 end
 
 return M
