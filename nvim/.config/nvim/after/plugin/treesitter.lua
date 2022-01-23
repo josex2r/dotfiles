@@ -7,6 +7,9 @@ end
 treesitter.setup({
 	ensure_installed = "maintained",
 	incremental_selection = { enable = true },
+  autopairs = {
+    enable = true,
+  },
 	highlight = {
 		enable = true,
 		additional_vim_regex_highlighting = false,

@@ -131,6 +131,7 @@ local search_config = {
 local vim_config = {
 	name = "Vim",
 	c = { "Change Theme" },
+	p = { "Select Project" },
 	s = { "Toggle Darker Theme" },
 }
 

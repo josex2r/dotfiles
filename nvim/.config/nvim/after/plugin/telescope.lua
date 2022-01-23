@@ -9,6 +9,8 @@ local trouble = require("trouble.providers.telescope")
 
 telescope.setup({
 	defaults = {
+    prompt_prefix = "  ",
+    selection_caret = "  ",
 		layout_config = {
 			horizontal = {
 				preview_cutoff = 0,

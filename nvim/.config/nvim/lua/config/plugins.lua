@@ -43,6 +43,7 @@ packer.init({
 
 -- Install your plugins here
 return packer.startup(function(use)
+	use("wbthomason/packer.nvim")
 	use("nvim-lua/plenary.nvim")
 
 	-- Colorscheme
@@ -129,9 +130,10 @@ return packer.startup(function(use)
 	use({ "windwp/nvim-spectre", requires = { "nvim-lua/plenary.nvim" } }) -- A search panel for neovim.
 	use({ "VonHeikemen/searchbox.nvim", requires = { "MunifTanjim/nui.nvim" } }) -- Searchbox
 	use("windwp/nvim-autopairs") -- Auto close char groups
+	use("ahmedkhalf/project.nvim") -- Project management
 
 	-- Parens, Brackets, etc...
-	use("tpope/vim-commentary") -- comments using "gcc"
+	use("numToStr/Comment.nvim") -- comments using "gcc"
 	use("tpope/vim-surround") -- add/delete/replace surroundings of a sandwiched textobject
 	use("kshenoy/vim-signature") -- Show marks
 
