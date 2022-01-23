@@ -139,11 +139,6 @@ _G.packer_plugins = {
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/editorconfig-vim",
     url = "https://github.com/editorconfig/editorconfig-vim"
   },
-  ["emmet-vim"] = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/emmet-vim",
-    url = "https://github.com/mattn/emmet-vim"
-  },
   ["gitsigns.nvim"] = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
@@ -248,6 +243,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
+  },
+  ["nvim-notify"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-notify",
+    url = "https://github.com/rcarriga/nvim-notify"
   },
   ["nvim-scrollbar"] = {
     loaded = true,
@@ -373,11 +373,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-signature",
     url = "https://github.com/kshenoy/vim-signature"
-  },
-  ["vim-sleuth"] = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-sleuth",
-    url = "https://github.com/tpope/vim-sleuth"
   },
   ["vim-surround"] = {
     loaded = true,

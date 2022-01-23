@@ -119,6 +119,7 @@ local search_config = {
 local vim_config = {
 	name = "Vim",
 	c = { "Change Theme" },
+	s = { "Toggle Darker Theme" },
 }
 
 local dap_config = {

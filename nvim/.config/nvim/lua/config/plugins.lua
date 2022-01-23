@@ -1,8 +1,48 @@
-local packer = require("packer")
-local M = {}
+local fn = vim.fn
 
-local startup_plugins = function(use)
-	-- lua utilities
+-- Automatically install packer
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+if fn.empty(fn.glob(install_path)) > 0 then
+	PACKER_BOOTSTRAP = fn.system({
+		"git",
+		"clone",
+		"--depth",
+		"1",
+		"https://github.com/wbthomason/packer.nvim",
+		install_path,
+	})
+	print("Installing packer close and reopen Neovim...")
+	vim.cmd([[packadd packer.nvim]])
+end
+
+-- Autocommand that reloads neovim whenever you save the plugins.lua file
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+  augroup end
+]])
+
+-- Use a protected call so we don't error out on first use
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
+	return
+end
+
+local util = require("packer.util")
+
+-- Have packer use a popup window
+packer.init({
+	package_root = util.join_paths(vim.fn.stdpath("data"), "site", "pack"),
+	display = {
+		open_fn = function()
+			return require("packer.util").float({ border = "rounded" })
+		end,
+	},
+})
+
+-- Install your plugins here
+return packer.startup(function(use)
 	use("nvim-lua/plenary.nvim")
 
 	-- Colorscheme
@@ -16,6 +56,7 @@ local startup_plugins = function(use)
 	use("kevinhwang91/nvim-hlslens") -- Info about current search in virtual text
 	use("stevearc/dressing.nvim") -- UI components
 	use("p00f/nvim-ts-rainbow") -- Colorize brackets
+	use("rcarriga/nvim-notify") -- Notifications
 	-- Statusbar
 	use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
 	use({ "hoob3rt/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
@@ -93,16 +134,10 @@ local startup_plugins = function(use)
 	use("tpope/vim-commentary") -- comments using "gcc"
 	use("tpope/vim-surround") -- add/delete/replace surroundings of a sandwiched textobject
 	use("kshenoy/vim-signature") -- Show marks
-end
 
-M.load_plugins = function(should_sync)
-	packer.startup(function(use)
-		startup_plugins(use)
-
-		if should_sync then
-			packer.sync()
-		end
-	end)
-end
-
-return M
+	-- Automatically set up your configuration after cloning packer.nvim
+	-- Put this at the end after all plugins
+	if PACKER_BOOTSTRAP then
+		require("packer").sync()
+	end
+end)

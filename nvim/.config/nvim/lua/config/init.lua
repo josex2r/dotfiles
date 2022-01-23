@@ -1,23 +1,19 @@
 local M = {}
 
 M.load_vim_config = function()
-  local defaults = require('config.defaults')
-
-  vim.opt.shortmess:append "c"
-
-  vim.g.mapleader = defaults.options.leader
-
-  for k, v in pairs(defaults.vim_options) do
-    vim.opt[k] = v
-  end
+  require('config.defaults')
 end
 
 M.load_mappings = function()
-  require('config.mappings').init()
+  require('config.mappings')
+end
+
+M.load_plugins = function()
+  require('config.plugins')
 end
 
 M.load_theme = function()
-  require('config.theme').init()
+  require('config.theme')
 end
 
 return M
