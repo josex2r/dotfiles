@@ -1,9 +1,7 @@
-local exists, cmp = pcall(require, "cmp")
+local status_ok, cmp = pcall(require, "cmp")
 local utils = require("utils")
-local lspkind = require("lspkind")
-local cmp_buffer = require("cmp_buffer")
 
-if not exists then
+if not status_ok then
 	return
 end
 
@@ -92,7 +90,7 @@ cmp.setup({
 	},
 	comparators = {
 		function(...)
-			cmp_buffer:compare_locality(...)
+			require("cmp_buffer"):compare_locality(...)
 		end,
 		cmp.config.compare.recently_used,
 		cmp.config.compare.offset,
@@ -104,7 +102,7 @@ cmp.setup({
 		cmp.config.compare.order,
 	},
 	formatting = {
-		format = lspkind.cmp_format({
+		format = require("lspkind").cmp_format({
 			with_text = true,
 			maxwidth = 50,
 			menu = {

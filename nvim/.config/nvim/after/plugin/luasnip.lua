@@ -1,5 +1,11 @@
+local status_ok, luasnip = pcall(require, "luasnip/loaders/from_vscode")
+
+if not status_ok then
+	return
+end
+
 -- Setup Luasnip
-require("luasnip/loaders/from_vscode").lazy_load()
+luasnip.lazy_load()
 
 vim.cmd([[
   imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'

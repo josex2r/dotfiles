@@ -1,4 +1,10 @@
-require("nvim-tree").setup({})
+local status_ok, tree = pcall(require, "nvim-tree")
+
+if not status_ok then
+	return
+end
+
+tree.setup({})
 
 -- Mappings
 local opts = { noremap = true, silent = true }
@@ -6,7 +12,7 @@ local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>t",
-	"<cmd>lua if vim.api.nvim_buf_get_name(0) == '' then require('nvim-tree').toggle() else require('nvim-tree').find_file(true) end<CR>",
+	"<cmd>lua require('utils.tree').find_file()<CR>",
 	opts
 )
-vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>NvimTreeFindFile<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>:lua require('utils.tree').toggle()<CR>", opts)

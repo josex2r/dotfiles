@@ -1,4 +1,10 @@
-require("colorizer").setup({
+local status_ok, colorizer = pcall(require, "colorizer")
+
+if not status_ok then
+	return
+end
+
+colorizer.setup({
 	"*", -- Highlight all files, but customize some others.
 	"!vim", -- Exclude vim from highlighting.
 	css = { rgb_fn = true }, -- Enable parsing rgb(...) functions in css.
