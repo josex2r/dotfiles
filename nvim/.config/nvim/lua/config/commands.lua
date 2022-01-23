@@ -1,10 +1,5 @@
-" Override system filetype.vim
-if exists('g:did_load_commands')
-  finish
-endif
-let g:did_load_commands = 1
+vim.cmd([[
 
-"
 " Copy current file full path.
 "
 command! -nargs=0 CopyFullPath execute "let @+ = expand('%:p')"
@@ -43,3 +38,4 @@ set grepformat=%f:%l:%c:%m,%f:%l:%m
 
 " Make the command.
 command! -nargs=+ -complete=dir Find execute 'silent grep!' <q-args> | copen | redraw!
+]])

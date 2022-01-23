@@ -1,15 +1,15 @@
 local M = {}
 
 M.setup = function(server, opts)
-  -- print("LSP server ready: " .. vim.inspect(server.name))
+	-- print("LSP server ready: " .. vim.inspect(server.name))
 
-  opts.settings = {
-    json = {
-      schemas = require('schemastore').json.schemas(),
-    }
-  }
+	opts.settings = {
+		json = {
+			schemas = require("schemastore").json.schemas(),
+		},
+	}
 
-  return opts
+	return opts
 end
 
 return M

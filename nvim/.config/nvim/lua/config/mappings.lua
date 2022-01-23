@@ -51,3 +51,63 @@ keymap("v", "p", '"_dP', opts)
 -- keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 -- keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 -- keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
+
+-- Jump words
+-- How to get the first char? Use CRTL+V and press the key in command mode
+-- How to get the second char? Use CRTL+K and press the key in command mode
+-- <Esc> means escape char (<Esc>b === ^[b)
+--
+-- <M-*> is the 'meta' key (ALT)
+keymap("n", "<M-f>", "<Esc>w", opts)
+keymap("n", "<M-b>", "<Esc>b", opts)
+keymap("v", "<M-f>", "<S-Right>", opts)
+keymap("v", "<M-b>", "<S-Left>", opts)
+keymap("i", "<M-f>", "<S-Right>", opts)
+keymap("i", "<M-b>", "<S-Left>", opts)
+keymap("c", "<M-f>", "<Esc>w", opts)
+keymap("c", "<M-b>", "<Esc>b", opts)
+keymap("o", "<M-f>", "<S-Right>", opts)
+keymap("o", "<M-b>", "<S-Left>", opts)
+vim.cmd([[
+omap <M-f> <Esc>w
+omap <M-b> <Esc>b
+cnoremap <M-f> <S-Right>
+cnoremap <M-b> <S-Left>
+]])
+
+-- Copy & paste {{{
+-- Make y and p copy/paste to system clipboard
+keymap("v", "<C-c>", '"+yi', opts)
+keymap("v", "<C-x>", '"+c', opts)
+-- vmap <C-v> c<ESC>"+p
+-- imap <C-v> <ESC>"+pa
+
+-- Fast saving file
+keymap("n", "<leader>w", "<ESC>:w<CR>", opts)
+keymap("n", "<leader>W", "<ESC>:w<CR>", opts)
+
+-- Clear last search
+keymap("n", "<leader>q", "<ESC>:noh<CR>", opts)
+
+-- Return to the last buffer
+keymap("n", "<leader><leader>", "<C-^>", opts)
+
+-- Join lines and restore cursor location
+keymap("n", "J", "mjJ`j", opts)
+
+-- Fix page up and down
+keymap("n", "<PageUp>", "<C-U>", opts)
+keymap("n", "<PageDown>", "<C-D>", opts)
+keymap("i", "<PageUp>", "<C-O><C-U>", opts)
+keymap("i", "<PageDown>", "<C-O><C-D>", opts)
+
+-- Faster split resizing
+keymap("n", "+", "<C-W>+", opts)
+keymap("n", "-", "<C-W>-", opts)
+
+-- Quickfix navigation
+keymap("n", "<leader>qq", "<ESC>:cclose<CR>", opts)
+keymap("n", "<leader>qo", "<ESC>:copen<CR>", opts)
+keymap("n", "<leader>qj", "<ESC>:cnext<CR>", opts)
+keymap("n", "<leader>qk", "<ESC>:cprev<CR>", opts)
+keymap("n", "<leader>qc", "<ESC>:cc<CR>", opts)

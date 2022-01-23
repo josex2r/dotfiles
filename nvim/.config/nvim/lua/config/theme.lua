@@ -14,7 +14,7 @@ if status_ok then
 
 	onedark.setup({
 		style = "deep",
-    toggle_style_key = '<leader>vs', -- Default keybinding to toggle
+		toggle_style_key = "<leader>vs", -- Default keybinding to toggle
 	})
 	onedark.load()
 end

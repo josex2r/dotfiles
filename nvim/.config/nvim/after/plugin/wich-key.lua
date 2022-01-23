@@ -102,6 +102,14 @@ local packer_config = {
 	u = { "<cmd>PackerUpdate<cr>", "Update" },
 }
 
+local quickfix_config = {
+	name = "Packer",
+  k = { "Prev" },
+	j = { "Next" },
+	o = { "Open" },
+	q = { "Close" },
+}
+
 local search_config = {
 	name = "Buffer Search",
 	c = { "<cmd>HopChar1<cr>", "Jump to Char" },
@@ -163,6 +171,7 @@ wk.register({
 	l = lsp_config,
 	n = { "Find in Tree" },
   p = packer_config,
+  q = quickfix_config,
 	s = search_config,
   t = { "Toggle Tree" },
 	v = vim_config,

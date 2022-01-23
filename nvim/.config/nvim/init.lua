@@ -5,8 +5,6 @@ config.load_vim_config()
 config.load_mappings()
 config.load_plugins()
 config.load_theme()
+config.load_commands()
 
-vim.cmd [[
-    runtime! config/commands.vim
-    runtime! config/mappings.vim
-]]
+require("lsp")

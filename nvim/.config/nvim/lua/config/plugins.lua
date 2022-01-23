@@ -73,6 +73,7 @@ return packer.startup(function(use)
 	use("ggandor/lightspeed.nvim") -- Use "s <char>" to move cursor
 	use("andymass/vim-matchup") -- Navigate, and operate on sets of matching text
 	use("stevearc/aerial.nvim") -- Move using Treesitter symbols
+	use({ "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" }) -- Navigate diagnostics
 
 	-- Syntax highlighting
 	use("joukevandermaas/vim-ember-hbs")
@@ -94,12 +95,12 @@ return packer.startup(function(use)
 
 	-- LSP
 	use({
-		"neovim/nvim-lspconfig",
-		"williamboman/nvim-lsp-installer",
+		"neovim/nvim-lspconfig", -- LSP
+		"williamboman/nvim-lsp-installer", -- LSP server install commands
 	})
-	use("onsails/lspkind-nvim")
+	use("onsails/lspkind-nvim") -- Adds vscode-like pictograms to neovim built-in lsp
 	use({
-		"hrsh7th/nvim-cmp",
+		"hrsh7th/nvim-cmp", -- Autocomplete
 		requires = {
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
@@ -109,10 +110,9 @@ return packer.startup(function(use)
 			"hrsh7th/cmp-path",
 		},
 	})
-	use({ "jose-elias-alvarez/null-ls.nvim" })
-	use({ "jose-elias-alvarez/nvim-lsp-ts-utils" })
-	use({ "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" })
-	use("github/copilot.vim")
+	use({ "jose-elias-alvarez/null-ls.nvim" }) -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
+	use({ "jose-elias-alvarez/nvim-lsp-ts-utils" }) -- Null_LS config for TypeScript
+	use("github/copilot.vim") -- LSP for copilot
 	use("b0o/schemastore.nvim") -- JSON schemas for "jsonls" LSP
 
 	-- Git
