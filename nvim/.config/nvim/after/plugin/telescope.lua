@@ -9,8 +9,8 @@ local trouble = require("trouble.providers.telescope")
 
 telescope.setup({
 	defaults = {
-    prompt_prefix = "  ",
-    selection_caret = "  ",
+		prompt_prefix = "  ",
+		selection_caret = "  ",
 		layout_config = {
 			horizontal = {
 				preview_cutoff = 0,
@@ -39,6 +39,22 @@ telescope.setup({
 	pickers = {
 		find_files = {
 			hidden = true,
+			find_command = {
+				"rg",
+				"--files",
+				"--hidden",
+				"--glob",
+				"!.git/*",
+				"--glob",
+				"!.lint-todo/*",
+				"--glob",
+				"!recordings/*",
+				"--glob",
+				"!node_modules/*",
+				"--glob",
+				"!bower_components/*",
+				"--follow",
+			},
 		},
 		buffers = {
 			sort_lastused = true,

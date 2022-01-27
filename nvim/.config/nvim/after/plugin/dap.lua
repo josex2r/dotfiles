@@ -10,17 +10,17 @@ local dapui = require("dapui")
 dapui.setup()
 
 -- Auto open/close UI on debug
-dap.listeners.after.event_initialized["dapui_config"] = function()
-	dapui.open()
-end
-
-dap.listeners.before.event_terminated["dapui_config"] = function()
-	dapui.close()
-end
-
-dap.listeners.before.event_exited["dapui_config"] = function()
-	dapui.close()
-end
+-- dap.listeners.after.event_initialized["dapui_config"] = function()
+-- 	dapui.open()
+-- end
+--
+-- dap.listeners.before.event_terminated["dapui_config"] = function()
+-- 	dapui.close()
+-- end
+--
+-- dap.listeners.before.event_exited["dapui_config"] = function()
+-- 	dapui.close()
+-- end
 
 -- Remove statusline from UI
 -- vim.cmd [[
@@ -32,11 +32,22 @@ end
 -- autocmd FileType dap-repl set statusline=\
 
 -- Setup icons
-vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
-vim.fn.sign_define("DapBreakpointCondition", { text = "🟡", texthl = "", linehl = "", numhl = "" })
-vim.fn.sign_define("DapLogPoint", { text = "🔵", texthl = "", linehl = "", numhl = "" })
-vim.fn.sign_define("DapStopped", { text = "⏸", texthl = "", linehl = "", numhl = "" })
-vim.fn.sign_define("DapBreakpointRejected", { text = "🚫", texthl = "", linehl = "", numhl = "" })
+vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "DiagnosticError", linehl = "", numhl = "" })
+vim.fn.sign_define("DapBreakpointCondition", { text = "●", texthl = "DiagnosticWarn", linehl = "", numhl = "" })
+vim.fn.sign_define("DapLogPoint", { text = "●", texthl = "DiagnosticInfo", linehl = "", numhl = "" })
+vim.fn.sign_define("DapStopped", { text = "→", texthl = "DiagnosticHint", linehl = "", numhl = "" })
+vim.fn.sign_define("DapBreakpointRejected", { text = "✕", texthl = "DiagnosticError", linehl = "", numhl = "" })
+
+-- Autocomplete in REPL
+vim.cmd([[
+au FileType dap-repl lua require('dap.ext.autocompl').attach()
+]])
+
+-- Close floating on pressing "q|<ESC>"
+vim.cmd([[
+  autocmd FileType dap-float nnoremap <buffer><silent> q <cmd>close!<CR>
+  autocmd FileType dap-float nnoremap <buffer><silent> <ESC> <cmd>close!<CR>
+]])
 
 -- DAP Python
 
@@ -73,7 +84,7 @@ vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Telescope dap configurations<CR
 vim.api.nvim_set_keymap("n", "<leader>xb", "<cmd>Telescope dap list_breakpoints<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>xv", "<cmd>Telescope dap variables<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>xf", "<cmd>Telescope dap frames<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>xf", "<cmd>Telescope dap frames<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>xh", "<cmd>lua require('dap.ui.widgets').hover()<CR>", opts)
 
 vim.api.nvim_set_keymap("n", "<leader>xm", '<cmd>lua require("dap-python").test_method()<CR>', opts)
 vim.api.nvim_set_keymap("n", "<leader>xM", '<cmd>lua require("dap-python").test_class()<CR>', opts)
@@ -81,11 +92,12 @@ vim.api.nvim_set_keymap("v", "<leader>xd", '<cmd>lua require("dap-python").debug
 
 vim.api.nvim_set_keymap("n", "<leader>xu", '<cmd>lua require("dapui").toggle()<CR>', opts)
 
-vim.api.nvim_set_keymap("n", "<leader>za", '<cmd>lua require("dap").continue()<CR>', opts)
-vim.api.nvim_set_keymap("n", "<leader>zs", '<cmd>lua require("dap").step_over()<CR>', opts)
-vim.api.nvim_set_keymap("n", "<leader>zd", '<cmd>lua require("dap").step_into()<CR>', opts)
-vim.api.nvim_set_keymap("n", "<leader>zf", '<cmd>lua require("dap").step_out()<CR>', opts)
+vim.api.nvim_set_keymap("n", "<leader>z1", '<cmd>lua require("dap").continue()<CR>', opts)
+vim.api.nvim_set_keymap("n", "<leader>z2", '<cmd>lua require("dap").step_over()<CR>', opts)
+vim.api.nvim_set_keymap("n", "<leader>z3", '<cmd>lua require("dap").step_into()<CR>', opts)
+vim.api.nvim_set_keymap("n", "<leader>z4", '<cmd>lua require("dap").step_out()<CR>', opts)
 vim.api.nvim_set_keymap("n", "<leader>zz", '<cmd>lua require("dap").toggle_breakpoint()<CR>', opts)
+vim.api.nvim_set_keymap("n", "<leader>zh", "<cmd>lua require('dap.ui.widgets').hover()<CR>", opts)
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>zx",

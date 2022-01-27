@@ -3,6 +3,11 @@ local signature = require("lsp_signature")
 
 local M = {}
 
+-- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "rounded",
+})
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 M.on_attach = function(client, bufnr)
@@ -22,14 +27,18 @@ M.on_attach = function(client, bufnr)
 
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	-- buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	buf_set_keymap("n", "gd", "<cmd>Telescope lsp_definitions()<CR>", opts)
 	buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	-- buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+	buf_set_keymap("n", "gi", "<cmd>Telescope implementations<CR>", opts)
+	-- buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	buf_set_keymap("n", "gr", "<cmd>Telescope references<CR>", opts)
 	buf_set_keymap("n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>', opts)
 	buf_set_keymap("n", "]d", '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>', opts)
 	buf_set_keymap("n", "<leader>ck", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	buf_set_keymap("n", "<leader>cd", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+	-- buf_set_keymap("n", "<leader>cd", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+	buf_set_keymap("n", "<leader>cd", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 	buf_set_keymap("n", "<leader>cn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 	buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	buf_set_keymap("v", "<leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)

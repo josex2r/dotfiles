@@ -16,6 +16,7 @@ treesitter.setup({
 	},
 	indent = {
 		enable = true,
+    disable = { "python" },
 	},
 	rainbow = {
 		enable = true,

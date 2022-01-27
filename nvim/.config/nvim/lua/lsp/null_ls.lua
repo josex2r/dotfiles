@@ -21,7 +21,6 @@ local config = {
 		-- ---------------
 		-- - diagnostics -
 		-- ---------------
-		null_ls.builtins.diagnostics.write_good,
 		-- null_ls.builtins.diagnostics.eslint_d.with({
 		--   prefer_local = "node_modules/.bin",
 		--   cwd = function(params)
