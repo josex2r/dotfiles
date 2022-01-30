@@ -18,17 +18,9 @@ export PATH=$(python -m site --user-base)/bin:${PATH}
 # Python 3 binaries.
 export PATH=$(python3 -m site --user-base)/bin:${PATH}
 
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
 # Go binaries
 # export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/go/bin
-
-# Java
-unset JAVA_HOME
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8.0_261`
 
 # Android SDK
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk

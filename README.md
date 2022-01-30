@@ -58,10 +58,11 @@ brew install --HEAD neovim
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-## Install nvm
+## Install asdf
 
 ```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+brew install asdf
+# install plugins like node, python, ...
 ```
 
 ## Install fzf
