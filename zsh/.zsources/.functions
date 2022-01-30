@@ -1,21 +1,9 @@
 #!/bin/bash
 
-function book() {
-  cd ~/workspace/restaurant-reservation
-  node index.js book maruca 2020-10-10 14:00 -p2 &
-  node index.js book maruca 2020-10-10 14:15 -p2 &
-  node index.js book maruca 2020-10-10 14:30 -p2 &
-  node index.js book maruca 2020-10-10 21:00 -p2 &
-  node index.js book maruca 2020-10-10 21:15 -p2 &
-  node index.js book maruca 2020-10-10 21:30 -p2 &
-  node index.js book maruca 2020-10-10 21:45 -p2 &
-  node index.js book maruca 2020-10-10 22:00 -p2 &
-}
+# Kitty
 
-function book2() {
-  cd ~/workspace/restaurant-reservation
-  node index.js book maruca 2020-10-10 14:00 -p2 &
-  node index.js book maruca 2020-10-10 21:00 -p2 &
+function kt_theme() {
+  cd ~/.config/kitty/themes && fzf | xargs -I FILE echo "$PWD/"FILE | xargs -I FILE kitty @ set-colors --all --configured FILE; cd -
 }
 
 # Change current .npmrc file (swap npm registry)
