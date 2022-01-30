@@ -19,7 +19,7 @@ end
 vim.cmd([[
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+    " autocmd BufWritePost plugins.lua source <afile> | PackerSync
   augroup end
 ]])
 
@@ -63,9 +63,12 @@ return packer.startup(function(use)
 	use({ "hoob3rt/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
 	use({ "kyazdani42/nvim-tree.lua", requires = { "kyazdani42/nvim-web-devicons" } })
 
+  -- Terminal navigation
+	use("christoomey/vim-tmux-navigator") -- Move cursor between panes
+	-- use("knubie/vim-kitty-navigator") -- Move cursor between panes
+
 	-- Navigation
 	use("petertriho/nvim-scrollbar") -- Scrollbar
-	use("christoomey/vim-tmux-navigator") -- Move cursor between panes
 	use("nvim-telescope/telescope.nvim") -- Fuzzy finder
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- Use FZF algorithm
 	use("folke/which-key.nvim") -- Displays a popup with possible key bindings of the command you started typing
