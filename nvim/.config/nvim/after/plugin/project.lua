@@ -27,6 +27,7 @@ project.setup({
 	---@usage patterns used to detect root dir, when **"pattern"** is in detection_methods
 	patterns = {
     "!>packages", -- exclude JS monorepos
+    "!>package.json", -- exclude JS monorepos
     "!>lib", -- exclude Woody JS fake monorepo
     ".git",
     "_darcs",
@@ -34,7 +35,7 @@ project.setup({
     ".bzr",
     ".svn",
     "Makefile",
-    "package.json"
+    -- "package.json"
   },
 
 	---@ Show hidden files in telescope when searching for files in a project
@@ -58,7 +59,7 @@ if not tele_status_ok then
 	return
 end
 
--- telescope.load_extension('projects')
+telescope.load_extension('projects')
 
 -- Mappings
 local opts = { noremap = true, silent = true }

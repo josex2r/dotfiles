@@ -25,16 +25,11 @@ cmp.setup({
 		["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
 		["<Up>"] = cmp.config.disable,
 		["<Down>"] = cmp.config.disable,
-		["<C-g>"] = cmp.mapping(function()
-			if vim.b._copilot_suggestion then
-				vim.fn["copilot#Accept"]()
-			end
-		end, { "i", "s" }),
 		["<C-e>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.close()
 			elseif vim.b._copilot_suggestion then
-				vim.fn["copilot#Dismiss"]()
+				vim.cmd["copilot#Dismiss"]()
 			end
 
 			if not cmp.visible() then

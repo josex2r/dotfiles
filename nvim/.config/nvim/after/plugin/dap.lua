@@ -1,3 +1,4 @@
+local os = require('os')
 local status_ok, dap = pcall(require, "dap")
 
 if not status_ok then
@@ -8,6 +9,8 @@ local dapui = require("dapui")
 
 -- Setup DAP UI
 dapui.setup()
+
+dap.defaults.fallback.terminal_win_cmd = '80vsplit new'
 
 -- Auto open/close UI on debug
 -- dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -56,7 +59,10 @@ vim.cmd([[
 -- cd .virtualenvs
 -- python -m venv debugpy
 -- debugpy/bin/python -m pip install debugpy
-require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
+local venv_path = os.getenv("VIRTUAL_ENV")
+local python_path = venv_path and venv_path .. "/bin/python" or "~/.virtualenvs/debugpy/bin/python"
+
+require("dap-python").setup(python_path)
 -- lua require('dap-python').test_runner = 'pytest' -- 'unittest' as default value
 
 require("nvim-dap-virtual-text").setup({
@@ -73,7 +79,9 @@ require("nvim-dap-virtual-text").setup({
 	virt_text_win_col = nil, -- position the virtual text at a fixed window column (starting from the first text column) ,
 	-- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
 })
+vim.g.dap_virtual_text = true
 
+-- Telescope extension
 require("telescope").load_extension("dap")
 
 -- Mappings

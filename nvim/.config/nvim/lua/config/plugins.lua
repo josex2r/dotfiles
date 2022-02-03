@@ -56,7 +56,6 @@ return packer.startup(function(use)
 	use("norcalli/nvim-colorizer.lua") -- Colorize hex colors in buffers
 	use("kevinhwang91/nvim-hlslens") -- Info about current search in virtual text
 	use("stevearc/dressing.nvim") -- UI components
-	use("p00f/nvim-ts-rainbow") -- Colorize brackets
 	use("rcarriga/nvim-notify") -- Notifications
 	-- Statusbar
 	use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
@@ -76,7 +75,7 @@ return packer.startup(function(use)
 	use({ "phaazon/hop.nvim", as = "hop" }) -- Jump anywhere in a document with as few keystrokes as possible
 	use("ggandor/lightspeed.nvim") -- Use "s <char>" to move cursor
 	use("andymass/vim-matchup") -- Navigate, and operate on sets of matching text
-	use("stevearc/aerial.nvim") -- Move using Treesitter symbols
+	use("stevearc/aerial.nvim") -- Move using Treesitter symbols, check "simrat39/symbols-outline.nvim"
 	use({ "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" }) -- Navigate diagnostics
 
 	-- Syntax highlighting
@@ -86,6 +85,7 @@ return packer.startup(function(use)
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 	use("JoosepAlviste/nvim-ts-context-commentstring") -- Fix comments when multiple langs exists on same file
 	use("ray-x/lsp_signature.nvim") -- Show function signature when you type
+	use("p00f/nvim-ts-rainbow") -- Colorize brackets
 
 	-- Language Tools
 	use("sukima/vim-javascript-imports") -- Import JS files + ember
@@ -134,6 +134,7 @@ return packer.startup(function(use)
 	use({ "VonHeikemen/searchbox.nvim", requires = { "MunifTanjim/nui.nvim" } }) -- Searchbox
 	use("windwp/nvim-autopairs") -- Auto close char groups
 	use("ahmedkhalf/project.nvim") -- Project management
+  use("lukas-reineke/indent-blankline.nvim") -- Indentation guides
 
 	-- Parens, Brackets, etc...
 	use("numToStr/Comment.nvim") -- comments using "gcc"

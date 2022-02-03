@@ -7,5 +7,6 @@ vim.g.copilot_filetypes = {
 
 -- Mappings
 vim.cmd([[
+  let g:copilot_no_tab_map = v:true
   imap <silent><script><expr> <C-g> copilot#Accept("\<CR>")
 ]])
