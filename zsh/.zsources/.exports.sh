@@ -58,6 +58,7 @@ SPACESHIP_PROMPT_ORDER=(
   docker
   venv
   pyenv
+  asdfpython
   char
 )
 
@@ -112,7 +113,7 @@ SPACESHIP_DOCKER_PREFIX=" "
 SPACESHIP_DOCKER_SUFFIX=" "
 
 # VENV
-SPACESHIP_VENV_PREFIX="venv:("
+SPACESHIP_VENV_PREFIX=" venv:("
 SPACESHIP_VENV_SUFFIX=") "
 
 # PYENV

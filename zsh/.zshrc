@@ -17,8 +17,10 @@ fpath=(
   $fpath
 )
 
+autoload -Uz bip bcp bup cani fp kp
+
 # Load the shell dotfiles (.zsources)
-for file in ~/.zsources/.{exports,aliases,functions,extra}; do
+for file in ~/.zsources/.{functions,exports,aliases,extra}.sh; do
   [ -r "$file" ] && source "$file"
 done
 
@@ -37,8 +39,6 @@ if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
 else
   compinit -C;
 fi;
-
-autoload -Uz bip bcp bup cani fp kp
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/

@@ -296,3 +296,23 @@ gifify() {
 function nullify() {
   "$@" >/dev/null 2>&1
 }
+
+####################
+# Spaceship prompt #
+####################
+spaceship_asdfpython() {
+  [[ $SPACESHIP_PYENV_SHOW == false ]] && return
+
+  # Show pyenv python version only for Python-specific folders
+  [[ -f requirements.txt ]] || [[ -n *.py(#qN^/) ]] || return
+
+  spaceship::exists asdf || return # Do nothing if pyenv is not installed
+
+  local python_version=${$(asdf current python | awk '{print $2}')//:/ }
+
+  spaceship::section \
+    "$SPACESHIP_PYENV_COLOR" \
+    "$SPACESHIP_PYENV_PREFIX" \
+    "${SPACESHIP_PYENV_SYMBOL}${python_version}" \
+    "$SPACESHIP_PYENV_SUFFIX"
+}
