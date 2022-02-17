@@ -5,7 +5,7 @@ local M = {}
 
 -- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "rounded",
+	border = "rounded",
 })
 
 -- Use an on_attach function to only map the following keys
@@ -54,7 +54,15 @@ M.on_attach = function(client, bufnr)
 	aerial.on_attach(client)
 
 	-- Signature help for function arguments
-	signature.on_attach()
+	signature.on_attach({
+		bind = true, -- This is mandatory, otherwise border config won't get registered.
+		handler_opts = {
+			border = "rounded",
+		},
+    floating_window_off_x = 5,
+    floating_window_off_y = 20,
+    hi_parameter = "DiagnosticHint",
+	}, bufnr)
 
 	-- Format on save
 	if client.resolved_capabilities.format_on_save then

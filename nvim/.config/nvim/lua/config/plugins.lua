@@ -50,24 +50,23 @@ return packer.startup(function(use)
 	use("navarasu/onedark.nvim")
 	use("catppuccin/nvim")
 
-	-- UI
-	use("kyazdani42/nvim-web-devicons")
+	-- UI (IDE style)
+	use("kyazdani42/nvim-web-devicons") -- Web devicons
 	use("glepnir/dashboard-nvim") -- NeoVim init screen
 	use("norcalli/nvim-colorizer.lua") -- Colorize hex colors in buffers
 	use("kevinhwang91/nvim-hlslens") -- Info about current search in virtual text
 	use("stevearc/dressing.nvim") -- UI components
 	use("rcarriga/nvim-notify") -- Notifications
-	-- Statusbar
-	use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
-	use({ "hoob3rt/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
-	use({ "kyazdani42/nvim-tree.lua", requires = { "kyazdani42/nvim-web-devicons" } })
+	use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" } }) -- Buffer TabBar
+	use({ "hoob3rt/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } }) -- Statusbar
+	use({ "kyazdani42/nvim-tree.lua", requires = { "kyazdani42/nvim-web-devicons" } }) -- Tree view
+	use("petertriho/nvim-scrollbar") -- Scrollbar
 
-  -- Terminal navigation
+	-- Terminal navigation
 	use("christoomey/vim-tmux-navigator") -- Move cursor between panes
 	-- use("knubie/vim-kitty-navigator") -- Move cursor between panes
 
 	-- Navigation
-	use("petertriho/nvim-scrollbar") -- Scrollbar
 	use("nvim-telescope/telescope.nvim") -- Fuzzy finder
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- Use FZF algorithm
 	use("folke/which-key.nvim") -- Displays a popup with possible key bindings of the command you started typing
@@ -81,10 +80,8 @@ return packer.startup(function(use)
 	-- Syntax highlighting
 	use("joukevandermaas/vim-ember-hbs")
 	use("Quramy/vim-js-pretty-template")
-	-- Treesitter
-	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }) -- Treesitter
 	use("JoosepAlviste/nvim-ts-context-commentstring") -- Fix comments when multiple langs exists on same file
-	use("ray-x/lsp_signature.nvim") -- Show function signature when you type
 	use("p00f/nvim-ts-rainbow") -- Colorize brackets
 
 	-- Language Tools
@@ -96,6 +93,7 @@ return packer.startup(function(use)
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }) -- UI for DAP
 	use({ "theHamsta/nvim-dap-virtual-text", requires = { "mfussenegger/nvim-dap" } }) -- UI for virtualtext
 	use("nvim-telescope/telescope-dap.nvim") -- DAP for telescope
+	use({ "rcarriga/vim-ultest", requires = { "vim-test/vim-test" }, run = ":UpdateRemotePlugins" }) -- The ultimate testing plugin for NeoVim
 
 	-- LSP
 	use({
@@ -116,30 +114,37 @@ return packer.startup(function(use)
 	})
 	use({ "jose-elias-alvarez/null-ls.nvim" }) -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
 	use({ "jose-elias-alvarez/nvim-lsp-ts-utils" }) -- Null_LS config for TypeScript
-	use("github/copilot.vim") -- LSP for copilot
+	use("github/copilot.vim") -- Github Copilot suggestions
 	use("b0o/schemastore.nvim") -- JSON schemas for "jsonls" LSP
+	use("j-hui/fidget.nvim") -- LSP progress info in the bottom right corner
+	use("ray-x/lsp_signature.nvim") -- Show function signature when you type
 
 	-- Git
 	use("tpope/vim-fugitive") -- Git commands
 	use({ "lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } })
 	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
-	use("rhysd/conflict-marker.vim") -- Mappings for conflicts
 
 	-- Misc
 	use("editorconfig/editorconfig-vim") -- Read ".editorconfig" file
 	use("tpope/vim-repeat") -- Repeat everything using "."
 	use("fcpg/vim-altscreen") -- Clean terminal when running a vim shell commands
-	use("junegunn/vim-easy-align") -- Align text
+	-- use("junegunn/vim-easy-align") -- Align text
 	use({ "windwp/nvim-spectre", requires = { "nvim-lua/plenary.nvim" } }) -- A search panel for neovim.
-	use({ "VonHeikemen/searchbox.nvim", requires = { "MunifTanjim/nui.nvim" } }) -- Searchbox
 	use("windwp/nvim-autopairs") -- Auto close char groups
 	use("ahmedkhalf/project.nvim") -- Project management
-  use("lukas-reineke/indent-blankline.nvim") -- Indentation guides
+	use("lukas-reineke/indent-blankline.nvim") -- Indentation guides
+	use({
+		"danymat/neogen",
+		requires = "nvim-treesitter/nvim-treesitter",
+		-- Uncomment next line if you want to follow only stable versions
+		-- tag = "*"
+	}) -- Generate function documentation
+  use("dstein64/vim-startuptime") -- Show startup time graph when running nvim with "--startuptime" and ":StartupTime"
 
 	-- Parens, Brackets, etc...
 	use("numToStr/Comment.nvim") -- comments using "gcc"
 	use("tpope/vim-surround") -- add/delete/replace surroundings of a sandwiched textobject
-	use("kshenoy/vim-signature") -- Show marks
+	use("kshenoy/vim-signature") -- Toggle/Show marks in tabline
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

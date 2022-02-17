@@ -51,4 +51,4 @@ tree.setup({
 local opts = { noremap = true, silent = true }
 
 vim.api.nvim_set_keymap("n", "<leader>t", "<cmd>lua require('utils.tree').find_file()<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>:lua require('utils.tree').toggle()<CR>", opts)
+-- vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>:lua require('utils.tree').toggle()<CR>", opts)

@@ -48,6 +48,8 @@ telescope.setup({
 				"--glob",
 				"!.lint-todo/*",
 				"--glob",
+				"!recs/*",
+				"--glob",
 				"!recordings/*",
 				"--glob",
 				"!node_modules/*",

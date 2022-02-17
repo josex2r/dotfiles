@@ -5,6 +5,8 @@ if not status_ok then
 	return
 end
 
+local types = require("cmp.types")
+
 -- Navigator.lua
 vim.cmd("autocmd FileType guihua lua require('cmp').setup.buffer { enabled = false }")
 vim.cmd("autocmd FileType guihua_rust lua require('cmp').setup.buffer { enabled = false }") -- Load vscode snippets
@@ -83,18 +85,18 @@ cmp.setup({
 	documentation = {
 		border = "rounded",
 	},
-	comparators = {
-		function(...)
-			require("cmp_buffer"):compare_locality(...)
-		end,
-		cmp.config.compare.recently_used,
-		cmp.config.compare.offset,
-		cmp.config.compare.exact,
-		cmp.config.compare.score,
-		cmp.config.compare.kind,
-		cmp.config.compare.sort_text,
-		cmp.config.compare.length,
-		cmp.config.compare.order,
+	sorting = {
+    priority_weight = 2,
+		comparators = {
+			cmp.config.compare.offset,
+			cmp.config.compare.exact,
+			cmp.config.compare.score,
+			cmp.config.compare.recently_used,
+			cmp.config.compare.kind,
+			cmp.config.compare.sort_text,
+			cmp.config.compare.length,
+			cmp.config.compare.order,
+		},
 	},
 	formatting = {
 		format = require("lspkind").cmp_format({

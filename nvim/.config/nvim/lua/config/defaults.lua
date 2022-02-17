@@ -10,7 +10,7 @@ local vim_options = {
 	backspace = "indent,eol,start",
 	backup = false, -- creates a backup file
 	clipboard = "unnamedplus", -- allows neovim to access the system clipboard
-	cmdheight = 2, -- more space in the neovim command line for displaying messages
+	cmdheight = 1, -- more space in the neovim command line for displaying messages
 	colorcolumn = "99999", -- fixes indentline for now
 	completeopt = { "menuone", "noselect" },
 	conceallevel = 0, -- so that `` is visible in markdown files
@@ -47,7 +47,15 @@ local vim_options = {
 	wrap = false, -- display lines as one long line
 	scrolloff = 8, -- start scrolling three lines before horizontal border of window
 	sidescrolloff = 8,
-	listchars = { tab = "→ ", eol = "↲", extends = "⟩", precedes = "⟨" },
+	listchars = {
+    tab = "  →",
+    eol = "↲",
+    extends = "⟩",
+    precedes = "⟨",
+    lead = "·",
+    trail = "·",
+    nbsp = "·",
+  },
 	wildignore = {
 		".DS_STORE",
 		"*.har",

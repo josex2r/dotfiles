@@ -5,34 +5,8 @@ if not status_ok then
 	return
 end
 
-local dapui = require("dapui")
-
--- Setup DAP UI
-dapui.setup()
-
 dap.defaults.fallback.terminal_win_cmd = '80vsplit new'
 
--- Auto open/close UI on debug
--- dap.listeners.after.event_initialized["dapui_config"] = function()
--- 	dapui.open()
--- end
---
--- dap.listeners.before.event_terminated["dapui_config"] = function()
--- 	dapui.close()
--- end
---
--- dap.listeners.before.event_exited["dapui_config"] = function()
--- 	dapui.close()
--- end
-
--- Remove statusline from UI
--- vim.cmd [[
---   autocmd FileType dapui_scopes set statusline=\
---   autocmd FileType dapui_breakpoints set statusline=\
---   autocmd FileType dapui_stacks set statusline=\
---   autocmd FileType dapui_watches set statusline=\
--- ]]
--- autocmd FileType dap-repl set statusline=\
 
 -- Setup icons
 vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "DiagnosticError", linehl = "", numhl = "" })
@@ -51,38 +25,6 @@ vim.cmd([[
   autocmd FileType dap-float nnoremap <buffer><silent> q <cmd>close!<CR>
   autocmd FileType dap-float nnoremap <buffer><silent> <ESC> <cmd>close!<CR>
 ]])
-
--- DAP Python
-
--- cd ~
--- mkdir .virtualenvs
--- cd .virtualenvs
--- python -m venv debugpy
--- debugpy/bin/python -m pip install debugpy
-local venv_path = os.getenv("VIRTUAL_ENV")
-local python_path = venv_path and venv_path .. "/bin/python" or "~/.virtualenvs/debugpy/bin/python"
-
-require("dap-python").setup(python_path)
--- lua require('dap-python').test_runner = 'pytest' -- 'unittest' as default value
-
-require("nvim-dap-virtual-text").setup({
-	enabled = true, -- enable this plugin (the default)
-	enabled_commands = true, -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
-	highlight_changed_variables = true, -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
-	highlight_new_as_changed = false, -- highlight new variables in the same way as changed variables (if highlight_changed_variables)
-	show_stop_reason = true, -- show stop reason when stopped for exceptions
-	commented = false, -- prefix virtual text with comment string
-	-- experimental features:
-	virt_text_pos = "eol", -- position of virtual text, see `:h nvim_buf_set_extmark()`
-	all_frames = false, -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
-	virt_lines = false, -- show virtual lines instead of virtual text (will flicker!)
-	virt_text_win_col = nil, -- position the virtual text at a fixed window column (starting from the first text column) ,
-	-- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
-})
-vim.g.dap_virtual_text = true
-
--- Telescope extension
-require("telescope").load_extension("dap")
 
 -- Mappings
 local opts = { noremap = true, silent = true }
