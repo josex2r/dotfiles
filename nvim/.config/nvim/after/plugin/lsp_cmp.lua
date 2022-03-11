@@ -23,7 +23,8 @@ cmp.setup({
 	mapping = {
 		["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+		["<C-Tab>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+		["<C-k>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 		["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
 		["<Up>"] = cmp.config.disable,
 		["<Down>"] = cmp.config.disable,
@@ -50,13 +51,7 @@ cmp.setup({
 			elseif require("luasnip").expand_or_jumpable() then
 				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
 			else
-				local copilot_keys = vim.fn["copilot#Accept"]()
-
-				-- Complete with copilot if there is any suggestion
-				if copilot_keys ~= "" then
-					vim.api.nvim_feedkeys(copilot_keys, "i", true)
-					-- Insert tab if prev char is a space
-				elseif utils.keymap.check_backspace() then
+				if utils.keymap.check_backspace() then
 					fallback()
 					-- Otherwise open cmp
 				else
@@ -74,7 +69,6 @@ cmp.setup({
 		end,
 	},
 	sources = cmp.config.sources({
-		{ name = "copilot" },
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
 		{ name = "buffer" },
@@ -86,7 +80,7 @@ cmp.setup({
 		border = "rounded",
 	},
 	sorting = {
-    priority_weight = 2,
+		priority_weight = 2,
 		comparators = {
 			cmp.config.compare.offset,
 			cmp.config.compare.exact,
@@ -103,7 +97,6 @@ cmp.setup({
 			with_text = true,
 			maxwidth = 50,
 			menu = {
-				copilot = "[Copilot]",
 				nvim_lsp = "[LSP]",
 				nvim_lua = "[Lua]",
 				buffer = "[Buffer]",

@@ -7,19 +7,19 @@ end
 treesitter.setup({
 	ensure_installed = "maintained",
 	incremental_selection = { enable = true },
-  autopairs = {
-    enable = true,
-  },
+	autopairs = {
+		enable = true,
+	},
 	highlight = {
 		enable = true,
 		additional_vim_regex_highlighting = false,
 	},
 	indent = {
 		enable = true,
-    disable = { "python" },
+		disable = { "python" },
 	},
 	rainbow = {
-		enable = true,
+		enable = false,
 		extended_mode = true,
 		max_file_lines = nil,
 		colors = {
@@ -40,3 +40,13 @@ treesitter.setup({
 		enable = true,
 	},
 })
+
+-- Folds
+-- vim.cmd([[
+-- set foldmethod=expr
+-- set foldexpr=nvim_treesitter#foldexpr()
+--
+-- augroup fold
+--   autocmd Syntax * normal zR
+-- augroup END
+-- ]])

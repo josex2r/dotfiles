@@ -16,8 +16,4 @@ M.load_plugins = function()
   require('config.plugins')
 end
 
-M.load_theme = function()
-  require('config.theme')
-end
-
 return M

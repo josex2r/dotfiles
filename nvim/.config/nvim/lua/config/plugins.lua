@@ -48,7 +48,7 @@ return packer.startup(function(use)
 
 	-- Colorscheme
 	use("navarasu/onedark.nvim")
-	use("catppuccin/nvim")
+	use({ "catppuccin/nvim", as = "catppuccin" })
 
 	-- UI (IDE style)
 	use("kyazdani42/nvim-web-devicons") -- Web devicons
@@ -57,7 +57,7 @@ return packer.startup(function(use)
 	use("kevinhwang91/nvim-hlslens") -- Info about current search in virtual text
 	use("stevearc/dressing.nvim") -- UI components
 	use("rcarriga/nvim-notify") -- Notifications
-	use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" } }) -- Buffer TabBar
+	use({ "akinsho/bufferline.nvim", requires = "kyazdani42/nvim-web-devicons" }) -- Buffer TabBar
 	use({ "hoob3rt/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } }) -- Statusbar
 	use({ "kyazdani42/nvim-tree.lua", requires = { "kyazdani42/nvim-web-devicons" } }) -- Tree view
 	use("petertriho/nvim-scrollbar") -- Scrollbar
@@ -73,16 +73,15 @@ return packer.startup(function(use)
 	use("nacro90/numb.nvim") -- Peeks lines of the buffer in non-obtrusive way.
 	use({ "phaazon/hop.nvim", as = "hop" }) -- Jump anywhere in a document with as few keystrokes as possible
 	use("ggandor/lightspeed.nvim") -- Use "s <char>" to move cursor
-	use("andymass/vim-matchup") -- Navigate, and operate on sets of matching text
 	use("stevearc/aerial.nvim") -- Move using Treesitter symbols, check "simrat39/symbols-outline.nvim"
 	use({ "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" }) -- Navigate diagnostics
 
 	-- Syntax highlighting
 	use("joukevandermaas/vim-ember-hbs")
-	use("Quramy/vim-js-pretty-template")
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }) -- Treesitter
 	use("JoosepAlviste/nvim-ts-context-commentstring") -- Fix comments when multiple langs exists on same file
 	use("p00f/nvim-ts-rainbow") -- Colorize brackets
+	use("fladson/vim-kitty")
 
 	-- Language Tools
 	use("sukima/vim-javascript-imports") -- Import JS files + ember
@@ -139,7 +138,7 @@ return packer.startup(function(use)
 		-- Uncomment next line if you want to follow only stable versions
 		-- tag = "*"
 	}) -- Generate function documentation
-  use("dstein64/vim-startuptime") -- Show startup time graph when running nvim with "--startuptime" and ":StartupTime"
+	use("dstein64/vim-startuptime") -- Show startup time graph when running nvim with "--startuptime" and ":StartupTime"
 
 	-- Parens, Brackets, etc...
 	use("numToStr/Comment.nvim") -- comments using "gcc"

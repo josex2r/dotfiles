@@ -7,18 +7,24 @@ end
 autopairs.setup({
 	enable_check_bracket_line = false,
 	ignored_next_char = "[%w%.%'%\"]", -- will ignore alphanumeric and `.` `"` `'` symbols
-	disable_filetype = { "TelescopePrompt", "guihua", "guihua_rust", "clap_input", "spectre_panel" }, -- Natigator.lua
-  fast_wrap = {
-    map = "<C-e>",
-    chars = { "{", "[", "(", '"', "'" },
-    pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
-    offset = 0, -- Offset from pattern match
-    end_key = "$",
-    keys = "qwertyuiopzxcvbnmasdfghjkl",
-    check_comma = true,
-    highlight = "PmenuSel",
-    highlight_grey = "LineNr",
-  },
+	disable_filetype = {
+		"TelescopePrompt",
+		"guihua",
+		"guihua_rust",
+		"clap_input",
+		"spectre_panel",
+	}, -- Natigator.lua
+	fast_wrap = {
+		map = "<C-e>",
+		chars = { "{", "[", "(", '"', "'" },
+		pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
+		offset = 0, -- Offset from pattern match
+		end_key = "$",
+		keys = "qwertyuiopzxcvbnmasdfghjkl",
+		check_comma = true,
+		highlight = "PmenuSel",
+		highlight_grey = "LineNr",
+	},
 })
 
 -- If you want insert `(` after select function or method item

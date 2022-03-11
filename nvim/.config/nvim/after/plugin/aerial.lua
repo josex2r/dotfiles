@@ -5,6 +5,7 @@ if not status_ok then
 end
 
 aerial.setup({
+  backends = { "lsp", "treesitter", "markdown" },
 	filter_kind = false,
 	max_width = 50,
 	min_width = 20,
