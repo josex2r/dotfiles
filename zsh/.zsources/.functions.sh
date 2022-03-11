@@ -102,7 +102,8 @@ function run_proxy() {
 }
 
 function searchChange() {
-  git log --follow --stat --pretty=format:%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn] --decorate --date=short -m -p lib/app-shell/inline-content/boot-app.js
+  file=$1
+  git log --follow --stat --pretty="format:%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short -m -p $1
 }
 
 function semmantic_release() {
