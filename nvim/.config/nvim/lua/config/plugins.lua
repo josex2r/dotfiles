@@ -45,6 +45,7 @@ packer.init({
 return packer.startup(function(use)
 	use("wbthomason/packer.nvim")
 	use("nvim-lua/plenary.nvim")
+	use("lewis6991/impatient.nvim")
 
 	-- Colorscheme
 	use("navarasu/onedark.nvim")

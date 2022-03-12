@@ -1,7 +1,11 @@
 local M = {}
 
-function M.t(str)
+function M.t(str, mode)
 	return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+M.fek = function(str, mode)
+  vim.fn.feedkeys(M.t(str), mode)
 end
 
 -- Check if prev character is a space

@@ -1,10 +1,3 @@
--- Shorten function name
-local keymap = vim.api.nvim_set_keymap
-
-local options = {
-	leader = " ",
-}
-
 local vim_options = {
 	autoindent = true, -- copy indent from last line when starting new line
 	backspace = "indent,eol,start",
@@ -14,6 +7,7 @@ local vim_options = {
 	colorcolumn = "99999", -- fixes indentline for now
 	completeopt = { "menuone", "noselect" },
 	conceallevel = 0, -- so that `` is visible in markdown files
+	encoding = "utf-8",
 	fileencoding = "utf-8", -- the encoding written to a file
 	foldmethod = "manual", -- folding, set to "expr" for treesitter based folding
 	foldexpr = "", -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
@@ -23,6 +17,15 @@ local vim_options = {
 	history = 1000, -- increase history from 20 default to 1000
 	ignorecase = true, -- ignore case in search patterns
 	list = true, -- enable listchars
+	listchars = {
+		tab = "  →",
+		eol = "↲",
+		extends = "⟩",
+		precedes = "⟨",
+		lead = "·",
+		trail = "·",
+		nbsp = "·",
+	},
 	mouse = "a", -- allow the mouse to be used in neovim
 	pumheight = 10, -- pop up menu height
 	showmode = false, -- we don't need to see things like -- INSERT -- anymore
@@ -43,19 +46,10 @@ local vim_options = {
 	number = true, -- set numbered lines
 	relativenumber = false, -- set relative numbered lines
 	numberwidth = 4, -- set number column width to 2 {default 4}
-	signcolumn = "yes:2", -- always show the sign column, otherwise it would shift the text each time
+	signcolumn = "yes:1", -- always show the sign column, otherwise it would shift the text each time
 	wrap = false, -- display lines as one long line
 	scrolloff = 8, -- start scrolling three lines before horizontal border of window
 	sidescrolloff = 8,
-	listchars = {
-    tab = "  →",
-    eol = "↲",
-    extends = "⟩",
-    precedes = "⟨",
-    lead = "·",
-    trail = "·",
-    nbsp = "·",
-  },
 	wildignore = {
 		".DS_STORE",
 		"*.har",
@@ -76,13 +70,17 @@ local vim_options = {
 	},
 }
 
-vim.opt.shortmess:append("c")
+local options = {
+  grepprg = [[rg --no-heading --vimgrep --smart-case  --follow]],
+  grepformat = [[%f:%l:%c:%m,%f:%l:%m]]
+}
 
---Remap leader key
-keymap("", "<Space>", "<Nop>", { noremap = true, silent = true })
-vim.g.mapleader = options.leader
-vim.g.maplocalleader = options.leader
+vim.opt.shortmess:append("c")
 
 for k, v in pairs(vim_options) do
 	vim.opt[k] = v
+end
+
+for k, v in pairs(options) do
+	vim.o[k] = v
 end

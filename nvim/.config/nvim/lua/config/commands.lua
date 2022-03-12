@@ -1,41 +1,33 @@
-vim.cmd([[
+local debug = require("utils.debug")
 
-" Copy current file full path.
-"
-command! -nargs=0 CopyFullPath execute "let @+ = expand('%:p')"
+-- alias can help create new vim command.
+-- @param cmd The user command
+-- @param repl The actual command or function
+-- @param force force create command? boolean
+local alias = function(cmd, repl, force)
+	local command
 
-"
-" Copy current file path.
-"
-command! -nargs=0 CopyPath execute "let @+ = expand('%')"
+	if force then
+		command = "command! " .. cmd .. " " .. repl
+	else
+		command = "command " .. cmd .. " " .. repl
+	end
 
-"
-" Copy current file path.
-"
-command! -nargs=0 CopyName execute "let @+ = expand('%:t')"
+	local ok, err = pcall(vim.cmd, command)
 
-"
-" Word processor mode
-"
-function! WordProcessorMode() " {{{
-    setlocal formatoptions=t1
-    map j gj
-    map k gk
-    setlocal smartindent
-    setlocal spell spelllang=es_ES
-    setlocal noexpandtab
-    setlocal wrap
-    setlocal linebreak
-    " Goyo 100
-endfunction " }}}
+	if not ok then
+		debug.log.error("setting cmd: " .. cmd .. " " .. err, "config.ommands.lua")
+	end
+end
 
-command! -nargs=0 WP call s:WordProcessorMode()
+-- Copy current file full path
+alias("CopyFullPath", [[execute "let @+ = expand('%:p')"]])
 
-" Note we extract the column as well as the file and line number
-" set grepprg=rg\ --no-heading\ --vimgrep\ --smart-case\ --color=never\ --ignore-case\ --hidden --exclude=shellescape(&wildignore)
-set grepprg=rg\ --no-heading\ --vimgrep\ --smart-case
-set grepformat=%f:%l:%c:%m,%f:%l:%m
+-- Copy current file path
+alias("CopyPath", [[execute "let @+ = expand('%')"]])
 
-" Make the command.
-command! -nargs=+ -complete=dir Find execute 'silent grep!' <q-args> | copen | redraw!
-]])
+-- Copy current file path
+alias("CopyName", [[execute "let @+ = expand('%:t')"]])
+
+-- RipGrep alias
+alias("-nargs=+ -complete=dir Find", [[execute 'silent grep!' <q-args> | copen | redraw!]])
