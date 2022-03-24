@@ -1,6 +1,7 @@
 local status_ok, notify = pcall(require, "notify")
 
 if not status_ok then
+	require("utils.debug").log.error("Couldn't load plugin", "notify.lua")
 	return
 end
 

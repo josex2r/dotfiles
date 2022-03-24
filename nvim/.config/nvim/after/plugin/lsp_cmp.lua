@@ -2,6 +2,7 @@ local status_ok, cmp = pcall(require, "cmp")
 local utils = require("utils")
 
 if not status_ok then
+	require("utils.debug").log.error("Couldn't load plugin", "lsp_cmp.lua")
 	return
 end
 

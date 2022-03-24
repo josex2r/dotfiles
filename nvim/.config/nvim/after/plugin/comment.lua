@@ -1,6 +1,7 @@
 local status_ok, comment = pcall(require, "Comment")
 
 if not status_ok then
+	require("utils.debug").log.error("Couldn't load plugin", "Comment.lua")
 	return
 end
 

@@ -1,6 +1,7 @@
 local status_ok, diffview = pcall(require, "diffview")
 
 if not status_ok then
+	require("utils.debug").log.error("Couldn't load plugin", "diffview.lua")
 	return
 end
 

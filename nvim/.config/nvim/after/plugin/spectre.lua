@@ -1,6 +1,7 @@
 local status_ok, spectre = pcall(require, "spectre")
 
 if not status_ok then
+	require("utils.debug").log.error("Couldn't load plugin", "spectre.lua")
 	return
 end
 

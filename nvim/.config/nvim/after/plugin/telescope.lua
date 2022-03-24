@@ -1,6 +1,7 @@
 local status_ok, telescope = pcall(require, "telescope")
 
 if not status_ok then
+	require("utils.debug").log.error("Couldn't load plugin", "telescope.lua")
 	return
 end
 

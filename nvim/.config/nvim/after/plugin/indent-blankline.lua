@@ -1,6 +1,7 @@
 local status_ok, indent_blankline = pcall(require, "indent_blankline")
 
 if not status_ok then
+	require("utils.debug").log.error("Couldn't load plugin", "indent_blankline.lua")
 	return
 end
 

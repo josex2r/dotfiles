@@ -1,6 +1,7 @@
 local status_ok, colorizer = pcall(require, "colorizer")
 
 if not status_ok then
+	require("utils.debug").log.error("Couldn't load plugin", "colorizer.lua")
 	return
 end
 

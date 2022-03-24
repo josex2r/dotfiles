@@ -1,6 +1,7 @@
 local status_ok, scrollbar = pcall(require, "scrollbar")
 
 if not status_ok then
+	require("utils.debug").log.error("Couldn't load plugin", "scrollbar.lua")
 	return
 end
 

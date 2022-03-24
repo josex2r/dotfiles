@@ -1,6 +1,7 @@
 local status_ok, wk = pcall(require, "which-key")
 
 if not status_ok then
+	require("utils.debug").log.error("Couldn't load plugin", "which-key.lua")
 	return
 end
 

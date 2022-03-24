@@ -1,6 +1,7 @@
 local status_ok, luasnip = pcall(require, "luasnip/loaders/from_vscode")
 
 if not status_ok then
+	require("utils.debug").log.error("Couldn't load plugin", "luasnip.lua")
 	return
 end
 

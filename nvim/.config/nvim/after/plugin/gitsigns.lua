@@ -1,6 +1,7 @@
 local status_ok, gitsigns = pcall(require, "gitsigns")
 
 if not status_ok then
+	require("utils.debug").log.error("Couldn't load plugin", "gitsigns.lua")
 	return
 end
 

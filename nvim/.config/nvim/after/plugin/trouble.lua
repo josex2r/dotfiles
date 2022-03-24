@@ -1,6 +1,7 @@
 local status_ok, trouble = pcall(require, "trouble")
 
 if not status_ok then
+	require("utils.debug").log.error("Couldn't load plugin", "trouble.lua")
 	return
 end
 

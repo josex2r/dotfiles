@@ -1,6 +1,5 @@
 local status_ok, aerial = pcall(require, "aerial")
 
-	require("utils.debug").log.error("Couldn't load plugin", "aerial.lua")
 if not status_ok then
 	require("utils.debug").log.error("Couldn't load plugin", "aerial.lua")
 	return

@@ -1,6 +1,7 @@
 local status_ok, autopairs = pcall(require, "nvim-autopairs")
 
 if not status_ok then
+	require("utils.debug").log.error("Couldn't load plugin", "autopairs.lua")
 	return
 end
 
