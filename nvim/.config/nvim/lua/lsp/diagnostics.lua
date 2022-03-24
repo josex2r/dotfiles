@@ -22,17 +22,19 @@ vim.diagnostic.config({
 	severity_sort = true,
 	float = {
 		focusable = false,
+    header = "",
 		style = "minimal",
 		border = "rounded",
 		source = "always",
-		header = "",
 		prefix = "",
 	},
 	virtual_text = {
 		prefix = "●",
 		spacing = 2,
-		severity_limit = "Warning",
 		source = "always",
+    severity = {
+      min = vim.diagnostic.severity.WARN,
+    },
 	},
 })
 

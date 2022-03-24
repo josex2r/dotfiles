@@ -35,13 +35,16 @@ local progress = function()
 	return chars[index]
 end
 
+local disabled_filetypes = vim.o.laststatus == 3 and {} or { "dashboard", "NvimTree", "Outline" }
+
 lualine.setup({
 	options = {
 		icons_enabled = true,
 		theme = "auto",
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
-		disabled_filetypes = { "dashboard", "NvimTree", "Outline" },
+		disabled_filetypes = disabled_filetypes,
+    globalstatus = vim.o.laststatus == 3,
 		path = 1,
 		file_status = true,
 	},

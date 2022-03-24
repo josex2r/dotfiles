@@ -38,3 +38,10 @@ vim.api.nvim_set_keymap("n", "<leader>Dl", "<cmd>SessionLoad<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>Dn", "<cmd>DashboardNewFile<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>Ds", "<cmd>SessionSave<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>Dw", "<cmd>DashboardFindWord<cr>", opts)
+
+-- Force Pikachu color to yellow
+vim.cmd([[
+augroup pikachu_color
+  autocmd FileType dashboard highlight DashboardHeader ctermfg=3 guifg=#f6cf57
+augroup END
+]])

@@ -18,3 +18,7 @@ local python_path = venv_path and venv_path .. "/bin/python" or "~/.virtualenvs/
 dpython.setup(python_path)
 
 -- dpython.test_runner = 'pytest' -- 'unittest' as default value
+
+vim.cmd([[
+let g:python3_host_prog="~/.virtualenvs/debugpy/bin/python"
+]])

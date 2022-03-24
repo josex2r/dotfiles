@@ -6,9 +6,9 @@ end
 
 local lsp_handlers = require("lsp.handlers")
 local cmp = require("cmp_nvim_lsp")
+local null_ls = require("lsp.null_ls")
 
--- Setup null_ls
-require("lsp.null_ls").setup()
+null_ls.setup()
 
 -- Setup diagnostics
 require("lsp.diagnostics")

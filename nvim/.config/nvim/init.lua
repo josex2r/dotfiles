@@ -1,20 +1,16 @@
-local config = require("config")
 
 -- Try to call the cache plugin
 pcall(require, "impatient")
 
-function setup_theme()
-	local theme = require("theme")
-
-	theme.setup()
-	theme.load_theme("onedark")
-end
+local config = require("config")
+local theme = require("theme")
 
 -- Load config
 config.load_vim_config()
 config.load_mappings()
 config.load_plugins()
 config.load_commands()
-setup_theme()
+theme.setup()
+theme.load_theme("nightfox")
 
 require("lsp")

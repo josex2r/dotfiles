@@ -103,6 +103,10 @@ keymap("n", "<PageDown>", "<C-D>", opts)
 keymap("i", "<PageUp>", "<C-O><C-U>", opts)
 keymap("i", "<PageDown>", "<C-O><C-D>", opts)
 
+-- Split pane like tmux
+keymap("n", "<leader>-", "<ESC>:split<CR>", opts)
+keymap("n", "<leader>|", "<ESC>:vs<CR>", opts)
+
 -- Faster split resizing
 keymap("n", "+", "<C-W>+", opts)
 keymap("n", "-", "<C-W>-", opts)

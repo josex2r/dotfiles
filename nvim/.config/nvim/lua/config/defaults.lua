@@ -17,6 +17,7 @@ local vim_options = {
 	history = 1000, -- increase history from 20 default to 1000
 	ignorecase = true, -- ignore case in search patterns
 	list = true, -- enable listchars
+	laststatus = 3, -- show global status bar
 	listchars = {
 		tab = "  →",
 		eol = "↲",
@@ -71,8 +72,8 @@ local vim_options = {
 }
 
 local options = {
-  grepprg = [[rg --no-heading --vimgrep --smart-case  --follow]],
-  grepformat = [[%f:%l:%c:%m,%f:%l:%m]]
+	grepprg = [[rg --no-heading --vimgrep --smart-case  --follow]],
+	grepformat = [[%f:%l:%c:%m,%f:%l:%m]],
 }
 
 vim.opt.shortmess:append("c")

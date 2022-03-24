@@ -73,9 +73,21 @@ local git_visual_config = {
 	r = { "Reset Hunk" },
 }
 
+local harpoon_config = {
+	name = "Harpoon",
+	a = { "Add mark" },
+	c = { "Clear all mark" },
+	h = { "Telescope finder" },
+	n = { "Next" },
+	p = { "Prev" },
+	r = { "Remove mark" },
+	t = { "Toggle mark" },
+}
+
 local lsp_config = {
 	name = "LSP",
 	c = { "Commands" },
+	d = { "<cmd>lua vim.lsp.set_log_level('debug')<CR>", "Debug (~/.cache/nvim/lsp.log)" },
 	f = { "File Types" },
 	i = { "<cmd>LspInstallInfo<cr>", "Install LSP Server" },
 	I = { "<cmd>LspInfo<cr>", "Lsp Servers Info" },
@@ -125,16 +137,10 @@ local quickfix_config = {
 
 local search_config = {
 	name = "Buffer Search",
-	c = { "<cmd>HopChar1<cr>", "Jump to Char" },
-	C = { "<cmd>HopChar2<cr>", "Jump to Chars" },
 	f = { "Search Window (Spectre)" },
 	F = { "Search Current Word (Spectre)" },
-	l = { "<cmd>HopLine<cr>", "Jump to Line" },
-	p = { "<cmd>HopLine<cr>", "Jump to Line" },
-	r = { "<cmd>HopPattern<cr>", "Jump to Regex" },
 	s = { "Search (Box)" },
 	S = { "Search & Replace (Box)" },
-	w = { "<cmd>HopWord<cr>", "Jump to Word" },
 }
 
 local vim_config = {
@@ -177,12 +183,13 @@ local dap_visual_config = {
 }
 
 wk.register({
-	a = { "Aerial" },
+	a = { "LSP Symbols" },
 	c = code_config,
 	d = diagnostics_config,
 	D = dashboard_config,
 	f = files_config,
 	g = git_config,
+  h = harpoon_config,
 	i = { "Ember Import" },
 	l = lsp_config,
 	n = annotation_config,

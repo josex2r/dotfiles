@@ -31,6 +31,7 @@ cmp.setup({
 		["<C-e>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.close()
+        return
 			elseif vim.b._copilot_suggestion then
 				vim.cmd["copilot#Dismiss"]()
 			end
@@ -97,12 +98,12 @@ cmp.setup({
 			with_text = true,
 			maxwidth = 50,
 			menu = {
-				nvim_lsp = "[LSP]",
-				nvim_lua = "[Lua]",
-				buffer = "[Buffer]",
-				luasnip = "[Snip]",
-				path = "[Path]",
-				cmdline = "[CMD]",
+				nvim_lsp = "[ LSP]",
+				nvim_lua = "[ Lua]",
+				buffer = "[﬘ Buf]",
+				luasnip = "[ LSnip]",
+				path = "[ Path]",
+				cmdline = "[ CMD]",
 			},
 		}),
 	},

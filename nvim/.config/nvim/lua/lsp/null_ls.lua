@@ -41,10 +41,14 @@ local config = {
 			filetypes = { "html", "json", "yaml", "markdown", "handlebars" },
 		}),
 		null_ls.builtins.formatting.stylua,
+    null_ls.builtins.formatting.isort,
+    null_ls.builtins.formatting.black,
 
 		-- ---------------
 		-- - diagnostics -
 		-- ---------------
+    null_ls.builtins.diagnostics.flake8,
+    null_ls.builtins.diagnostics.pydocstyle,
 		-- null_ls.builtins.diagnostics.eslint_d.with({
 		--   prefer_local = "node_modules/.bin",
 		--   cwd = function(params)
@@ -63,12 +67,11 @@ local config = {
 			end,
 		}),
 	},
+  null_ls.builtins.code_actions.refactoring,
 }
 
 M.setup = function(server, opts)
 	-- Init "null-ls" for code formatting
-	local null_ls_config = M.config
-
 	config.on_attach = require("lsp.handlers").on_attach
 
 	null_ls.setup(config)

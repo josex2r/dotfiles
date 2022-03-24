@@ -50,6 +50,8 @@ return packer.startup(function(use)
 	-- Colorscheme
 	use("navarasu/onedark.nvim")
 	use({ "catppuccin/nvim", as = "catppuccin" })
+	use("EdenEast/nightfox.nvim")
+	use("rebelot/kanagawa.nvim")
 
 	-- UI (IDE style)
 	use("kyazdani42/nvim-web-devicons") -- Web devicons
@@ -64,7 +66,7 @@ return packer.startup(function(use)
 	use("petertriho/nvim-scrollbar") -- Scrollbar
 
 	-- Terminal navigation
-	use("christoomey/vim-tmux-navigator") -- Move cursor between panes
+	-- use("christoomey/vim-tmux-navigator") -- Move cursor between panes
 	-- use("knubie/vim-kitty-navigator") -- Move cursor between panes
 
 	-- Navigation
@@ -72,9 +74,11 @@ return packer.startup(function(use)
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- Use FZF algorithm
 	use("folke/which-key.nvim") -- Displays a popup with possible key bindings of the command you started typing
 	use("nacro90/numb.nvim") -- Peeks lines of the buffer in non-obtrusive way.
-	use({ "phaazon/hop.nvim", as = "hop" }) -- Jump anywhere in a document with as few keystrokes as possible
-	use("ggandor/lightspeed.nvim") -- Use "s <char>" to move cursor
+	-- use("ggandor/lightspeed.nvim") -- Use "s <char>" to move cursor
+	use("ggandor/leap.nvim") -- Use "s <char>" to move cursor
 	use("stevearc/aerial.nvim") -- Move using Treesitter symbols, check "simrat39/symbols-outline.nvim"
+	use("simrat39/symbols-outline.nvim")
+
 	use({ "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" }) -- Navigate diagnostics
 
 	-- Syntax highlighting
@@ -93,7 +97,7 @@ return packer.startup(function(use)
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }) -- UI for DAP
 	use({ "theHamsta/nvim-dap-virtual-text", requires = { "mfussenegger/nvim-dap" } }) -- UI for virtualtext
 	use("nvim-telescope/telescope-dap.nvim") -- DAP for telescope
-	use({ "rcarriga/vim-ultest", requires = { "vim-test/vim-test" }, run = ":UpdateRemotePlugins" }) -- The ultimate testing plugin for NeoVim
+	-- use({ "rcarriga/vim-ultest", requires = { "vim-test/vim-test" }, run = ":UpdateRemotePlugins" }) -- The ultimate testing plugin for NeoVim
 
 	-- LSP
 	use({
@@ -118,6 +122,13 @@ return packer.startup(function(use)
 	use("b0o/schemastore.nvim") -- JSON schemas for "jsonls" LSP
 	use("j-hui/fidget.nvim") -- LSP progress info in the bottom right corner
 	use("ray-x/lsp_signature.nvim") -- Show function signature when you type
+	use({
+		"ThePrimeagen/refactoring.nvim",
+		requires = {
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-treesitter/nvim-treesitter" },
+		},
+	})
 
 	-- Git
 	use("tpope/vim-fugitive") -- Git commands
@@ -145,6 +156,11 @@ return packer.startup(function(use)
 	use("numToStr/Comment.nvim") -- comments using "gcc"
 	use("tpope/vim-surround") -- add/delete/replace surroundings of a sandwiched textobject
 	use("kshenoy/vim-signature") -- Toggle/Show marks in tabline
+	use("mg979/vim-visual-multi") -- Multiple cursor like VS Code
+	use("ThePrimeagen/harpoon")
+
+	-- Python
+	use("bfredl/nvim-ipy")
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

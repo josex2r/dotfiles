@@ -6,8 +6,8 @@ end
 
 spectre.setup({
 	highlight = {
-		search = "IncSearch",
-		replace = "debugBreakpoint",
+		search = "Exception",
+		replace = "Identifier",
 	},
 })
 
