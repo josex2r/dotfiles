@@ -35,10 +35,10 @@ alias vimdiff='nvim -d'
 alias attach='TERM=screen-256color tmux new-session -A -s woody'
 
 # python
-alias py="python $1"
-alias pr="pipenv run python $1"
-alias ps="pipenv shell"
-alias pi="pipenv install $1"
-alias pu="pipenv uninstall $1"
-alias pg="pipenv graph"
+alias pyy="python $1"
+alias pyr="pipenv run python $1"
+alias pys="pipenv shell"
+alias pyi="pipenv install $1"
+alias pyu="pipenv uninstall $1"
+alias pyg="pipenv graph"
 alias pyclean="pipenv --rm"

@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Term
+
+function check_font() {
+  echo -e "normal: foo"
+  echo -e "italic: \e[3m bar \e[23m"
+  echo -e "bold: \033[1m wow \033[0m"
+}
+
 # Kitty
 
 function kt_theme() {
