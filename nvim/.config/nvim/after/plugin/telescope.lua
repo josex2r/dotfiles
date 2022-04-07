@@ -17,6 +17,24 @@ telescope.setup({
 				preview_cutoff = 0,
 			},
 		},
+		preview = {
+			-- filesize_hook = function(filepath, bufnr, opts)
+			-- 	local max_bytes = 10000
+			-- 	local cmd = { "head", "-c", max_bytes, filepath }
+			-- 	require("telescope.previewers.utils").job_maker(cmd, bufnr, opts)
+			-- end,
+			filesize_hook = function(filepath, bufnr, opts)
+				local path = require("plenary.path"):new(filepath)
+				-- opts exposes winid
+				local height = vim.api.nvim_win_get_height(opts.winid)
+				local lines = vim.split(path:head(height), "[\r]?\n")
+				vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
+			end,
+			timeout_hook = function(filepath, bufnr, opts)
+				local cmd = { "echo", "timeout" }
+				require("telescope.previewers.utils").job_maker(cmd, bufnr, opts)
+			end,
+		},
 		file_ignore_patterns = {
 			"^%.lint%-todo/",
 			"^%.git/",

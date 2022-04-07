@@ -25,7 +25,7 @@ null_ls.register({
 })
 
 local config = {
-	-- debug = true,
+	debug = true,
 	debounce = 250,
 	sources = {
 		-- ---------------
@@ -60,12 +60,12 @@ local config = {
 		-- - code action -
 		-- ---------------
 		null_ls.builtins.code_actions.gitsigns,
-		null_ls.builtins.code_actions.eslint_d.with({
-			prefer_local = "node_modules/.bin",
-			cwd = function(params)
-				return lspconfig["tsserver"].get_root_dir(params.bufname)
-			end,
-		}),
+		-- null_ls.builtins.code_actions.eslint_d.with({
+		-- 	prefer_local = "node_modules/.bin",
+		-- 	cwd = function(params)
+		-- 		return lspconfig["tsserver"].get_root_dir(params.bufname)
+		-- 	end,
+		-- }),
 	},
   null_ls.builtins.code_actions.refactoring,
 }

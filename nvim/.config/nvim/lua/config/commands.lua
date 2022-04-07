@@ -24,7 +24,7 @@ end
 alias("CopyFullPath", [[execute "let @+ = expand('%:p')"]])
 
 -- Copy current file path
-alias("CopyPath", [[execute "let @+ = expand('%')"]])
+alias("CopyPath", [[execute "let @+ = fnamemodify(expand(\"%\"), \":~:.\")"]])
 
 -- Copy current file path
 alias("CopyName", [[execute "let @+ = expand('%:t')"]])

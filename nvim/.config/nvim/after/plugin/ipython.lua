@@ -13,7 +13,7 @@ function! ConnectToQT()
   let l:kernel_name = input('Enter the kernel name: ')
 
   " Start console
-  call jobstart("jupyter qtconsole --style one-dark --JupyterWidget.include_other_output=True " .. "--kernel " .. l:kernel_name)
+  call jobstart("jupyter qtconsole --style monokai --JupyterWidget.include_other_output=True " .. "--kernel " .. l:kernel_name)
 
   " Connect to the console
   " call ConnectToKernel()

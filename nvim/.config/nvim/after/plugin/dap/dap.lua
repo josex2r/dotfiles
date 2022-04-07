@@ -35,6 +35,7 @@ vim.api.nvim_set_keymap("n", "<leader>xb", "<cmd>Telescope dap list_breakpoints<
 vim.api.nvim_set_keymap("n", "<leader>xv", "<cmd>Telescope dap variables<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>xf", "<cmd>Telescope dap frames<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>xh", "<cmd>lua require('dap.ui.widgets').hover()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>xl", '<cmd>lua require("utils.dap").load()<CR>', opts)
 
 vim.api.nvim_set_keymap("n", "<leader>xm", '<cmd>lua require("dap-python").test_method()<CR>', opts)
 vim.api.nvim_set_keymap("n", "<leader>xM", '<cmd>lua require("dap-python").test_class()<CR>', opts)
@@ -46,18 +47,18 @@ vim.api.nvim_set_keymap("n", "<leader>z1", '<cmd>lua require("dap").continue()<C
 vim.api.nvim_set_keymap("n", "<leader>z2", '<cmd>lua require("dap").step_over()<CR>', opts)
 vim.api.nvim_set_keymap("n", "<leader>z3", '<cmd>lua require("dap").step_into()<CR>', opts)
 vim.api.nvim_set_keymap("n", "<leader>z4", '<cmd>lua require("dap").step_out()<CR>', opts)
-vim.api.nvim_set_keymap("n", "<leader>zz", '<cmd>lua require("dap").toggle_breakpoint()<CR>', opts)
+vim.api.nvim_set_keymap("n", "<leader>zz", '<cmd>lua require("dap").toggle_breakpoint(); require("utils.dap").save()<CR>', opts)
 vim.api.nvim_set_keymap("n", "<leader>zh", "<cmd>lua require('dap.ui.widgets').hover()<CR>", opts)
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>zx",
-	'<cmd>lua require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>',
+	'<cmd>lua require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")); require("utils.dap").save()<CR>',
 	opts
 )
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>zc",
-	'<cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<CR>',
+	'<cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: ")); require("utils.dap").save()<CR>',
 	opts
 )
 vim.api.nvim_set_keymap("n", "<leader>zr", '<cmd>lua require("dap").repl.open()<CR>', opts)
