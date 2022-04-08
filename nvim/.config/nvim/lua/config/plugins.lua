@@ -64,6 +64,7 @@ return packer.startup(function(use)
 	use({ "hoob3rt/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } }) -- Statusbar
 	use({ "kyazdani42/nvim-tree.lua", requires = { "kyazdani42/nvim-web-devicons" } }) -- Tree view
 	use("petertriho/nvim-scrollbar") -- Scrollbar
+	use("karb94/neoscroll.nvim")
 
 	-- Terminal navigation
 	-- use("christoomey/vim-tmux-navigator") -- Move cursor between panes
@@ -87,9 +88,6 @@ return packer.startup(function(use)
 	use("JoosepAlviste/nvim-ts-context-commentstring") -- Fix comments when multiple langs exists on same file
 	use("p00f/nvim-ts-rainbow") -- Colorize brackets
 	use("fladson/vim-kitty")
-
-	-- Language Tools
-	use("sukima/vim-javascript-imports") -- Import JS files + ember
 
 	-- Debugging
 	use("mfussenegger/nvim-dap") -- Inspect variables in vim

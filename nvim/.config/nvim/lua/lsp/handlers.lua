@@ -34,9 +34,9 @@ function setup_lsp_signature(client, bufnr)
 		handler_opts = {
 			border = "rounded",
 		},
-		floating_window_off_x = 5,
-		floating_window_off_y = 20,
-		hi_parameter = "DiagnosticHint",
+		-- floating_window_off_x = 5,
+		-- floating_window_off_y = 20,
+		hi_parameter = "ModeMsg",
 	}, bufnr)
 end
 
