@@ -154,20 +154,30 @@ _G.packer_plugins = {
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
   },
-  hop = {
+  harpoon = {
     loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/hop",
-    url = "https://github.com/phaazon/hop.nvim"
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/harpoon",
+    url = "https://github.com/ThePrimeagen/harpoon"
+  },
+  ["impatient.nvim"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/impatient.nvim",
+    url = "https://github.com/lewis6991/impatient.nvim"
   },
   ["indent-blankline.nvim"] = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
     url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
-  ["lightspeed.nvim"] = {
+  ["kanagawa.nvim"] = {
     loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/lightspeed.nvim",
-    url = "https://github.com/ggandor/lightspeed.nvim"
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/kanagawa.nvim",
+    url = "https://github.com/rebelot/kanagawa.nvim"
+  },
+  ["leap.nvim"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/leap.nvim",
+    url = "https://github.com/ggandor/leap.nvim"
   },
   ["lsp_signature.nvim"] = {
     loaded = true,
@@ -188,6 +198,16 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/neogen",
     url = "https://github.com/danymat/neogen"
+  },
+  ["neoscroll.nvim"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/neoscroll.nvim",
+    url = "https://github.com/karb94/neoscroll.nvim"
+  },
+  ["nightfox.nvim"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nightfox.nvim",
+    url = "https://github.com/EdenEast/nightfox.nvim"
   },
   ["null-ls.nvim"] = {
     loaded = true,
@@ -238,6 +258,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-hlslens",
     url = "https://github.com/kevinhwang91/nvim-hlslens"
+  },
+  ["nvim-ipy"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-ipy",
+    url = "https://github.com/bfredl/nvim-ipy"
   },
   ["nvim-lsp-installer"] = {
     loaded = true,
@@ -314,10 +339,20 @@ _G.packer_plugins = {
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/project.nvim",
     url = "https://github.com/ahmedkhalf/project.nvim"
   },
+  ["refactoring.nvim"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/refactoring.nvim",
+    url = "https://github.com/ThePrimeagen/refactoring.nvim"
+  },
   ["schemastore.nvim"] = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/schemastore.nvim",
     url = "https://github.com/b0o/schemastore.nvim"
+  },
+  ["symbols-outline.nvim"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/symbols-outline.nvim",
+    url = "https://github.com/simrat39/symbols-outline.nvim"
   },
   ["telescope-dap.nvim"] = {
     loaded = true,
@@ -354,15 +389,15 @@ _G.packer_plugins = {
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
   },
-  ["vim-javascript-imports"] = {
+  ["vim-kitty"] = {
     loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-javascript-imports",
-    url = "https://github.com/sukima/vim-javascript-imports"
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-kitty",
+    url = "https://github.com/fladson/vim-kitty"
   },
-  ["vim-matchup"] = {
+  ["vim-python-pep8-indent"] = {
     loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-matchup",
-    url = "https://github.com/andymass/vim-matchup"
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-python-pep8-indent",
+    url = "https://github.com/Vimjas/vim-python-pep8-indent"
   },
   ["vim-repeat"] = {
     loaded = true,
@@ -384,20 +419,10 @@ _G.packer_plugins = {
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-surround",
     url = "https://github.com/tpope/vim-surround"
   },
-  ["vim-test"] = {
+  ["vim-visual-multi"] = {
     loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-test",
-    url = "https://github.com/vim-test/vim-test"
-  },
-  ["vim-tmux-navigator"] = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-tmux-navigator",
-    url = "https://github.com/christoomey/vim-tmux-navigator"
-  },
-  ["vim-ultest"] = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-ultest",
-    url = "https://github.com/rcarriga/vim-ultest"
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-visual-multi",
+    url = "https://github.com/mg979/vim-visual-multi"
   },
   ["which-key.nvim"] = {
     loaded = true,

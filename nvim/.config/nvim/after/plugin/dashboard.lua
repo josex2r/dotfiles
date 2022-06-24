@@ -1,9 +1,59 @@
+local status_ok, dashboard = pcall(require, "dashboard")
+
+if not status_ok then
+	require("utils.debug").log.error("Couldn't load plugin", "aerial.lua")
+	return
+end
+
+local home = os.getenv('HOME')
+
+dashboard.custom_center = {
+	{
+		icon = "  ",
+		desc = "Recently laset session                  ",
+		shortcut = "SPC s l",
+		action = "SessionLoad",
+	},
+	{
+		icon = "  ",
+		desc = "Recently opened files                   ",
+		action = "DashboardFindHistory",
+		shortcut = "SPC f h",
+	},
+	{
+		icon = "  ",
+		desc = "Find  File                              ",
+		action = "Telescope find_files find_command=rg,--hidden,--files",
+		shortcut = "SPC f f",
+	},
+	{
+		icon = "  ",
+		desc = "File Browser                            ",
+		action = "Telescope file_browser",
+		shortcut = "SPC f b",
+	},
+	{
+		icon = "  ",
+		desc = "Find  word                              ",
+		aciton = "DashboardFindWord",
+		shortcut = "SPC f w",
+	},
+	{
+		icon = "  ",
+		desc = "Open Personal dotfiles                  ",
+		action = "Telescope dotfiles path=" .. home .. "/dotfiles",
+		shortcut = "SPC f d",
+	},
+}
+
 local g = vim.g
 
 g.dashboard_disable_at_vimenter = 0
 g.dashboard_disable_statusline = 1
 g.dashboard_default_executive = "telescope"
-g.dashboard_custom_header = {
+dashboard.custom_header = {
+  "",
+  "",
 	"          ▀████▀▄▄              ▄█",
 	"            █▀    ▀▀▄▄▄▄▄    ▄▄▀▀█",
 	"    ▄        █          ▀▀▀▀▄  ▄▀",
@@ -13,18 +63,11 @@ g.dashboard_custom_header = {
 	"   ▀▄    ▄▀ █   ▄██▄   ▄  ▄  ▀▀ █",
 	"    █  ▄▀  █    ▀██▀    ▀▀ ▀▀  ▄▀",
 	"   █   █  █      ▄▄           ▄▀",
+  "",
+  "",
 }
 
-g.dashboard_custom_section = {
-	a = { description = { "🔍 Find File                 SPC f f" }, command = "Telescope find_files" },
-	b = { description = { "📂 Recents                   SPC f o" }, command = "Telescope oldfiles" },
-	c = { description = { "👁️  Find Word                 SPC f w" }, command = "Telescope live_grep" },
-	d = { description = { "🗄️  New File                  SPC f n" }, command = "DashboardNewFile" },
-	e = { description = { "📖 Harpoon                   SPC b m" }, command = "Telescope harpoon marks" },
-	f = { description = { "🔄 Load Last Session         SPC l  " }, command = "SessionLoad" },
-}
-
-g.dashboard_custom_footer = {
+dashboard.custom_footer = {
 	"   ",
 }
 

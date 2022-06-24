@@ -5,13 +5,25 @@ if not status_ok then
 end
 
 dapui.setup({
-  sidebar = {
-    position = "right",
-  },
-  tray = {
-    elements = { "repl" },
-    size = 5,
-    position = "bottom", -- Can be "left", "right", "top", "bottom"
+  layouts = {
+    {
+      elements = {
+        'scopes',
+        'breakpoints',
+        'stacks',
+        'watches',
+      },
+      size = 40,
+      position = 'left',
+    },
+    {
+      elements = {
+        'repl',
+        'console',
+      },
+      size = 10,
+      position = 'bottom',
+    },
   },
   floating = {
     max_height = nil, -- These can be integers or a float between 0 and 1.

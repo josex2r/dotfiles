@@ -5,47 +5,50 @@ if not status_ok then
 	return
 end
 
-vim.g.nvim_tree_icons = {
-	default = "",
-	symlink = "",
-	git = {
-		unstaged = "",
-		staged = "S",
-		unmerged = "",
-		renamed = "➜",
-		deleted = "",
-		untracked = "U",
-		ignored = "◌",
-	},
-	folder = {
-		default = "",
-		open = "",
-		empty = "",
-		empty_open = "",
-		symlink = "",
-	},
-}
-
 tree.setup({
-  diagnostics = {
-    enable = true,
-    icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
-    },
-  },
-  update_focused_file = {
-    enable = true,
-    update_cwd = false,
-    ignore_list = {},
-  },
-  git = {
-    enable = true,
-    ignore = true,
-    timeout = 500,
-  },
+	renderer = {
+		icons = {
+			glyphs = {
+				default = "",
+				symlink = "",
+				git = {
+					unstaged = "",
+					staged = "S",
+					unmerged = "",
+					renamed = "➜",
+					deleted = "",
+					untracked = "U",
+					ignored = "◌",
+				},
+				folder = {
+					default = "",
+					open = "",
+					empty = "",
+					empty_open = "",
+					symlink = "",
+				},
+			},
+		},
+	},
+	diagnostics = {
+		enable = true,
+		icons = {
+			hint = "",
+			info = "",
+			warning = "",
+			error = "",
+		},
+	},
+	update_focused_file = {
+		enable = true,
+		update_cwd = false,
+		ignore_list = {},
+	},
+	git = {
+		enable = true,
+		ignore = true,
+		timeout = 500,
+	},
 })
 
 -- Mappings

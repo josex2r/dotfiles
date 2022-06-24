@@ -78,9 +78,6 @@ cmp.setup({
 		{ name = "path" },
 		{ name = "treesitter" },
 	}),
-	documentation = {
-		border = "rounded",
-	},
 	sorting = {
 		priority_weight = 2,
 		comparators = {

@@ -115,7 +115,8 @@ return packer.startup(function(use)
 		},
 	})
 	use({ "jose-elias-alvarez/null-ls.nvim" }) -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
-	use({ "jose-elias-alvarez/nvim-lsp-ts-utils" }) -- Null_LS config for TypeScript
+	use({ "jose-elias-alvarez/typescript.nvim" }) -- typescript LSP
+	-- use({ "jose-elias-alvarez/nvim-lsp-ts-utils" }) -- Null_LS config for TypeScript
 	use("github/copilot.vim") -- Github Copilot suggestions
 	use("b0o/schemastore.nvim") -- JSON schemas for "jsonls" LSP
 	use("j-hui/fidget.nvim") -- LSP progress info in the bottom right corner
@@ -159,6 +160,7 @@ return packer.startup(function(use)
 
 	-- Python
 	use("bfredl/nvim-ipy")
+	use("Vimjas/vim-python-pep8-indent")
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

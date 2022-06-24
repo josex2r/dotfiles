@@ -42,7 +42,9 @@ local config = {
 		}),
 		null_ls.builtins.formatting.stylua,
     null_ls.builtins.formatting.isort,
-    null_ls.builtins.formatting.black,
+    null_ls.builtins.formatting.black.with({
+      args = { "--config", "pyproject.toml", "$FILENAME", "--quiet" },
+    }),
 
 		-- ---------------
 		-- - diagnostics -
@@ -60,6 +62,7 @@ local config = {
 		-- - code action -
 		-- ---------------
 		null_ls.builtins.code_actions.gitsigns,
+    null_ls.builtins.code_actions.eslint
 		-- null_ls.builtins.code_actions.eslint_d.with({
 		-- 	prefer_local = "node_modules/.bin",
 		-- 	cwd = function(params)
