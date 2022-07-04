@@ -98,8 +98,8 @@ keymap("n", "<leader><leader>", "<C-^>", opts)
 keymap("n", "J", "mjJ`j", opts)
 
 -- Fix page up and down
-keymap("n", "<PageUp>", "<C-U>", opts)
-keymap("n", "<PageDown>", "<C-D>", opts)
+-- keymap("n", "<PageUp>", "<C-U>", opts)
+-- keymap("n", "<PageDown>", "<C-D>", opts)
 keymap("i", "<PageUp>", "<C-O><C-U>", opts)
 keymap("i", "<PageDown>", "<C-O><C-D>", opts)
 

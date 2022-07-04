@@ -22,8 +22,9 @@ cmp.setup({
 		end,
 	},
 	mapping = {
-		["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+    -- conflict with vim-visual-multi
+		-- ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+		-- ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 		["<C-Tab>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 		["<C-k>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 		["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
@@ -33,8 +34,6 @@ cmp.setup({
 			if cmp.visible() then
 				cmp.close()
         return
-			elseif vim.b._copilot_suggestion then
-				vim.cmd["copilot#Dismiss"]()
 			end
 
 			if not cmp.visible() then
