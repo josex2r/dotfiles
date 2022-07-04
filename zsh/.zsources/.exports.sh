@@ -12,12 +12,6 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 export FZF_DEFAULT_COMMAND="rg --files --ignore-vcs --hidden"
 
-# Python 2 binaries.
-export PATH=$(python -m site --user-base)/bin:${PATH}
-
-# Python 3 binaries.
-export PATH=$(python3 -m site --user-base)/bin:${PATH}
-
 # Go binaries
 # export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/go/bin
@@ -25,6 +19,9 @@ export PATH=$PATH:$HOME/go/bin
 # Android SDK
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
 export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools
+
+# Pip libs
+export PATH=$PATH:$HOME/.local/bin
 
 # ruby gems
 which gem >/dev/null && export PATH=$(gem environment gemdir)/bin:${PATH}
