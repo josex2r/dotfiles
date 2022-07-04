@@ -1,4 +1,4 @@
-nodejs 16.14.2
+nodejs 16.15.1
 java adoptopenjdk-11.0.13+8
 python 3.8.12
 poetry 1.1.13
