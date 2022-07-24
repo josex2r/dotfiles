@@ -24,7 +24,7 @@ vim.diagnostic.config({
 		focusable = false,
     header = "",
 		style = "minimal",
-		border = "rounded",
+		border = "single",
 		source = "always",
 		prefix = "",
 	},
@@ -42,6 +42,6 @@ vim.diagnostic.config({
 vim.cmd([[
   augroup lsp_diagnostics
     autocmd!
-    autocmd CursorHold * lua vim.diagnostic.open_float({ focusable = false, border = "single" })
+    autocmd CursorHold * lua vim.diagnostic.open_float({ focusable = false, border = "single", width = 80 })
   augroup END
 ]])

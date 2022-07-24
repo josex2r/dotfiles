@@ -37,7 +37,7 @@ module.on_server_ready(function(server)
 	server:setup(opts)
 end)
 
-require("lsp.servers.typescript").setup({
+require("typescript").setup({
 	disable_commands = false, -- prevent the plugin from creating Vim commands
 	debug = false, -- enable debug logging for commands
 	server = { -- pass options to lspconfig's setup method
