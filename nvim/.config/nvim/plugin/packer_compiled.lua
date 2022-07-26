@@ -79,11 +79,6 @@ _G.packer_plugins = {
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
-  ["aerial.nvim"] = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/aerial.nvim",
-    url = "https://github.com/stevearc/aerial.nvim"
-  },
   ["bufferline.nvim"] = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
@@ -189,11 +184,6 @@ _G.packer_plugins = {
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/hoob3rt/lualine.nvim"
   },
-  neogen = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/neogen",
-    url = "https://github.com/danymat/neogen"
-  },
   ["neoscroll.nvim"] = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/neoscroll.nvim",
@@ -254,11 +244,6 @@ _G.packer_plugins = {
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-hlslens",
     url = "https://github.com/kevinhwang91/nvim-hlslens"
   },
-  ["nvim-ipy"] = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-ipy",
-    url = "https://github.com/bfredl/nvim-ipy"
-  },
   ["nvim-lsp-installer"] = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer",
@@ -294,6 +279,11 @@ _G.packer_plugins = {
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
+  ["nvim-treesitter-textobjects"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-treesitter-textobjects",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
+  },
   ["nvim-ts-context-commentstring"] = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-ts-context-commentstring",
@@ -303,6 +293,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow",
     url = "https://github.com/p00f/nvim-ts-rainbow"
+  },
+  ["nvim-ufo"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-ufo",
+    url = "https://github.com/kevinhwang91/nvim-ufo"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
@@ -324,10 +319,10 @@ _G.packer_plugins = {
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
-  ["project.nvim"] = {
+  ["promise-async"] = {
     loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/project.nvim",
-    url = "https://github.com/ahmedkhalf/project.nvim"
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/promise-async",
+    url = "https://github.com/kevinhwang91/promise-async"
   },
   ["refactoring.nvim"] = {
     loaded = true,
@@ -383,11 +378,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
-  },
-  ["vim-kitty"] = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-kitty",
-    url = "https://github.com/fladson/vim-kitty"
   },
   ["vim-python-pep8-indent"] = {
     loaded = true,

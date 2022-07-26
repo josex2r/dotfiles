@@ -11,6 +11,6 @@ config.load_mappings()
 config.load_plugins()
 config.load_commands()
 theme.setup()
-theme.load_theme("nightfox")
+theme.load_theme("catppuccin")
 
 require("lsp")

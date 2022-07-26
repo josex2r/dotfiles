@@ -15,17 +15,6 @@ wk.setup({
 	},
 })
 
-local dashboard_config = {
-	name = "Dashboard",
-	f = { "Find File" },
-	h = { "Find History" },
-	j = { "Jump Mark" },
-	l = { "Load Session" },
-	n = { "New File" },
-	s = { "Save Session" },
-	w = { "Find Word" },
-}
-
 local diagnostics_config = {
 	name = "Diagnostics (Trouble)",
 	d = { "Document" },
@@ -112,14 +101,6 @@ local code_config = {
 	q = { "Loclist" },
 }
 
-local annotation_config = {
-	name = "LSP Code",
-	c = { "Class" },
-	f = { "Function" },
-	F = { "File" },
-	t = { "Type" },
-}
-
 local packer_config = {
 	name = "Packer",
 	c = { "<cmd>PackerCompile<cr>", "Compile" },
@@ -187,13 +168,12 @@ wk.register({
 	a = { "LSP Symbols" },
 	c = code_config,
 	d = diagnostics_config,
-	D = dashboard_config,
 	f = files_config,
 	g = git_config,
   h = harpoon_config,
 	i = { "Ember Import" },
 	l = lsp_config,
-	n = annotation_config,
+	n = "Remove search (:noh)",
 	p = packer_config,
 	q = quickfix_config,
 	s = search_config,

@@ -32,7 +32,6 @@ indent_blankline.setup({
 		"dashboard",
 		"NvimTree",
 		"lsp-installer",
-		"aerial",
 		"terminal",
 		"TelescopePrompt",
 		"TelescopeResults",

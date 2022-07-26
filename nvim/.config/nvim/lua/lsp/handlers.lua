@@ -11,17 +11,6 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 	border = "rounded",
 })
 
-function setup_aerial(client, bufnr)
-  local status_ok, aerial = pcall(require, "aerial")
-
-	if not status_ok then
-		debug.log.error("Error attaching 'aerial' to the language server", "lsp.handlers.lua")
-	end
-
-  -- Add code symbols
-	aerial.on_attach(client)
-end
-
 function setup_lsp_signature(client, bufnr)
   local status_ok, signature = pcall(require, "lsp_signature")
 
@@ -58,9 +47,10 @@ M.on_attach = function(client, bufnr)
 	local opts = { noremap = true, silent = true }
 
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+	-- buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 	-- buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	buf_set_keymap("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+	buf_set_keymap("n", "gD", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 	buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 	-- buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 	buf_set_keymap("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
@@ -70,7 +60,8 @@ M.on_attach = function(client, bufnr)
 	buf_set_keymap("n", "]d", '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>', opts)
 	buf_set_keymap("n", "<leader>ck", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 	-- buf_set_keymap("n", "<leader>cd", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-	buf_set_keymap("n", "<leader>cd", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+	buf_set_keymap("n", "<leader>cd", "<cmd>Telescope lsp_definitions<CR>", opts)
+	buf_set_keymap("n", "<leader>cD", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 	buf_set_keymap("n", "<leader>cn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 	buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	buf_set_keymap("v", "<leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
@@ -81,7 +72,6 @@ M.on_attach = function(client, bufnr)
 	buf_set_keymap("n", "<space>vr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
 	buf_set_keymap("n", "<space>vl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
 
-	setup_aerial(client, bufnr)
 	setup_lsp_signature(client, bufnr)
 
 	-- Format on save

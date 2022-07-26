@@ -1,7 +1,7 @@
 local status_ok, dashboard = pcall(require, "dashboard")
 
 if not status_ok then
-	require("utils.debug").log.error("Couldn't load plugin", "aerial.lua")
+	require("utils.debug").log.error("Couldn't load plugin", "dashboard.lua")
 	return
 end
 

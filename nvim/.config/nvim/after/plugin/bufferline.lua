@@ -8,7 +8,7 @@ end
 bufferline.setup({
 	options = {
 		always_show_bufferline = true,
-		-- separator_style = "slant",
+		separator_style = "slant",
 		diagnostics = "nvim_lsp",
 		offsets = {
 			{

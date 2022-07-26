@@ -93,7 +93,6 @@ return packer.startup(function(use)
 	use("nacro90/numb.nvim") -- Peeks lines of the buffer in non-obtrusive way.
 	-- use("ggandor/lightspeed.nvim") -- Use "s <char>" to move cursor
 	use("ggandor/leap.nvim") -- Use "s <char>" to move cursor
-	use("stevearc/aerial.nvim") -- Move using Treesitter symbols, check "simrat39/symbols-outline.nvim"
 	use("simrat39/symbols-outline.nvim") -- A tree like view for symbols that uses LSP
 
 	use({
@@ -107,6 +106,7 @@ return packer.startup(function(use)
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
 	}) -- Treesitter
+	use("nvim-treesitter/nvim-treesitter-textobjects")
 	use("JoosepAlviste/nvim-ts-context-commentstring") -- Fix comments when multiple langs exists on same file
 	use("p00f/nvim-ts-rainbow") -- Colorize brackets
 
@@ -128,6 +128,11 @@ return packer.startup(function(use)
 		"neovim/nvim-lspconfig", -- LSP
 		"williamboman/nvim-lsp-installer", -- LSP server install commands
 	})
+ --  use({
+	-- 	"neovim/nvim-lspconfig", -- LSP
+	-- 	"williamboman/mason.nvim", -- LSP server install commands
+	-- 	"williamboman/mason-lspconfig.nvim", -- LSP server install commands
+	-- })
 	use("onsails/lspkind-nvim") -- Adds vscode-like pictograms to neovim built-in lsp
 	use({
 		"hrsh7th/nvim-cmp", -- Autocomplete

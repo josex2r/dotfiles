@@ -14,3 +14,5 @@ scrollbar.setup({
 		search = true, -- Requires hlslens to be loaded
 	},
 })
+
+require("scrollbar.handlers.search").setup()
