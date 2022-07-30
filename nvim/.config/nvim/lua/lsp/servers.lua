@@ -3,19 +3,21 @@ local lsp_handlers = require("lsp.handlers")
 local capabilities = require("lsp.capabilities")
 
 -- :lua print(vim.inspect(require('mason-lspconfig.mappings.server')))
+-- vim.lsp.set_log_level("debug")
 
 lspconfig.sumneko_lua.setup({
 	on_attach = lsp_handlers.on_attach,
 	capabilities = capabilities,
-	Lua = {
-		diagnostics = {
-			globals = { "vim" },
+	settings = {
+		Lua = {
+			diagnostics = {
+				globals = { "vim" },
+			},
 		},
 	},
 })
 
-lspconfig.pylsp.setup({
-	cmd = { "pylsp", "-v", "--log-file", "/tmp/nvim-pylsp.log" },
+lspconfig.pyright.setup({
 	on_attach = lsp_handlers.on_attach,
 	capabilities = capabilities,
 })

@@ -1,5 +1,3 @@
-local status_ok, packer = pcall(require, "packer")
-
 local M = {}
 
 M.setup = function()

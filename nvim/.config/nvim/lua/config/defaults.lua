@@ -1,3 +1,5 @@
+local nvim = require('utils.nvim')
+
 local vim_options = {
 	autoindent = true, -- copy indent from last line when starting new line
 	backspace = "indent,eol,start",
@@ -37,7 +39,7 @@ local vim_options = {
 	splitright = true, -- force all vertical splits to go to the right of current window
 	swapfile = false, -- creates a swapfile
 	timeoutlen = 500, -- time to wait for a mapped sequence to complete (in milliseconds)
-	undodir = vim.fn.stdpath("config") .. "/undo", -- set an undo directory
+	undodir = nvim.get_undo_dir(), -- set an undo directory
 	undofile = true, -- enable persistent undo
 	updatetime = 300, -- faster completion
 	writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited

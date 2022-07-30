@@ -93,7 +93,7 @@ cmp.setup({
 	formatting = {
 		format = require("lspkind").cmp_format({
 			with_text = true,
-			maxwidth = 50,
+			maxwidth = 150,
 			menu = {
 				nvim_lsp = "[ LSP]",
 				nvim_lua = "[ Lua]",

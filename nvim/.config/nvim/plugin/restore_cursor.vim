@@ -4,6 +4,7 @@
 if exists('g:loaded_restore_cursor')
   finish
 endif
+
 let g:loaded_restore_cursor = 1
 
 augroup restore_cursor

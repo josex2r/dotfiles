@@ -8,6 +8,7 @@ M.setup = function()
 	end
 
   vim.g.catppuccin_flavour = "macchiato"
+
 	catppuccin.setup()
 
   vim.cmd('colorscheme catppuccin')

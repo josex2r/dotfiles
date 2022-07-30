@@ -1,5 +1,5 @@
 local null_ls = require("null-ls")
-local lspconfig = require("lspconfig")
+-- local lspconfig = require("lspconfig")
 local command_resolver = require("null-ls.helpers.command_resolver")
 
 local M = {}

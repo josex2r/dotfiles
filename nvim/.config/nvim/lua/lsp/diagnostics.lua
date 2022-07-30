@@ -9,9 +9,6 @@ for _, sign in ipairs(signs) do
 	vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 end
 
--- Debugging
--- vim.lsp.set_log_level("debug")
-
 -- Diagnostics
 vim.diagnostic.config({
 	signs = {
