@@ -55,7 +55,7 @@ return packer.startup(function(use)
 
 	-- Terminal navigation
 	-- use("christoomey/vim-tmux-navigator") -- Move cursor between panes
-	-- use("knubie/vim-kitty-navigator") -- Move cursor between panes
+	use("knubie/vim-kitty-navigator") -- Move cursor between panes
 
 	-- Navigation
 	use("nvim-telescope/telescope.nvim") -- Fuzzy finder
@@ -83,6 +83,7 @@ return packer.startup(function(use)
 	use("nvim-treesitter/nvim-treesitter-textobjects")
 	use("JoosepAlviste/nvim-ts-context-commentstring") -- Fix comments when multiple langs exists on same file
 	use("p00f/nvim-ts-rainbow") -- Colorize brackets
+  use("fladson/vim-kitty")
 
 	-- Debugging
 	use("mfussenegger/nvim-dap") -- Inspect variables in vim

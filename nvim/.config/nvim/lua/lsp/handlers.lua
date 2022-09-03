@@ -39,7 +39,7 @@ M.on_attach = function(client, bufnr)
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-  local telescope_opts = { jump_type = "split" }
+  local telescope_opts = {} --{ jump_type = "split" }
 
 	vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
 	vim.keymap.set("n", "<leader>D", function()

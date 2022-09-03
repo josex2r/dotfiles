@@ -38,7 +38,7 @@ local config = {
 					or command_resolver.from_yarn_pnp(params)
 					or vim.fn.executable(params.command) == 1 and params.command
 			end,
-			filetypes = { "html", "json", "yaml", "markdown", "handlebars" },
+			filetypes = { "html", "json", "yaml", "markdown", "handlebars", "typescript", "typescriptreact", "javascript" },
 		}),
 		null_ls.builtins.formatting.stylua,
     null_ls.builtins.formatting.isort,
