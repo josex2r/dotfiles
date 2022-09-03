@@ -1,5 +1,11 @@
 #!/bin/bash
 
+function jqq() {
+  local filepath=$1
+  # Wrap "jq" (JSOn search) in FZF
+  jq 'paths | join(".")' $filepath | tr -d '"' | gsed -e 's/\.\([0-9]\+\)/[\1]/g' | fzf --preview "jq .{} $filepath"
+}
+
 # Term
 
 function check_font() {
@@ -8,10 +14,24 @@ function check_font() {
   echo -e "bold: \033[1m wow \033[0m"
 }
 
-# Kitty
+# Kitty terminal
 
 function kt_theme() {
-  cd ~/.config/kitty/themes && fzf | xargs -I FILE echo "$PWD/"FILE | xargs -I FILE kitty @ set-colors --all --configured FILE; cd -
+  # cd ~/.config/kitty/themes && fzf | xargs -I FILE echo "$PWD/"FILE | xargs -I FILE kitty @ set-colors --all --configured FILE; cd -
+  kitty +kitten themes
+}
+
+function kt_session_save() {
+  local session_name="$1"
+  local session_file="${session_name}.conf"
+  local config_dir="/dotfiles/kitty/.config/kitty/"
+  local session_dir="${config_dir}sessions/"
+  local tmp_file="kitty-dump.json"
+
+  kitty @ ls > "${tmp_file}"
+  cat "${tmp_file}" | python3 ~"${config_dir}kitty_convert_dump.py" > ~"${session_dir}${session_file}"
+  rm "${tmp_file}"
+  kitty --session ~"${session_dir}${session_file}"
 }
 
 # Change current .npmrc file (swap npm registry)
@@ -33,6 +53,10 @@ function npmrc() {
 # key_code
 function key_code() {
   xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'
+}
+
+find_port() {
+  lsof -t -i tcp:$1
 }
 
 kill_port() {
@@ -304,24 +328,4 @@ gifify() {
 # direct it all to /dev/null
 function nullify() {
   "$@" >/dev/null 2>&1
-}
-
-####################
-# Spaceship prompt #
-####################
-spaceship_asdfpython() {
-  [[ $SPACESHIP_PYENV_SHOW == false ]] && return
-
-  # Show pyenv python version only for Python-specific folders
-  [[ -f requirements.txt ]] || [[ -n *.py(#qN^/) ]] || return
-
-  spaceship::exists asdf || return # Do nothing if pyenv is not installed
-
-  local python_version=${$(asdf current python | awk '{print $2}')//:/ }
-
-  spaceship::section \
-    "$SPACESHIP_PYENV_COLOR" \
-    "$SPACESHIP_PYENV_PREFIX" \
-    "${SPACESHIP_PYENV_SYMBOL}${python_version}" \
-    "$SPACESHIP_PYENV_SUFFIX"
 }

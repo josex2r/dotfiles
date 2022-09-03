@@ -20,9 +20,12 @@ fpath=(
 autoload -Uz bip bcp bup cani fp kp
 
 # Load the shell dotfiles (.zsources)
-for file in ~/.zsources/.{functions,exports,aliases,extra}.sh; do
+for file in ~/.zsources/.{spaceship-prompt,functions,exports,aliases,extra}.sh; do
   [ -r "$file" ] && source "$file"
 done
+
+# Setup auto_cd: ".." instead of "cd .."
+setopt auto_cd
 
 # On slow systems, checking the cached .zcompdump file to see if it must be
 # regenerated adds a noticable delay to zsh startup.  This little hack restricts
@@ -40,12 +43,6 @@ else
   compinit -C;
 fi;
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME=""
-
 # This speeds up pasting w/ autosuggest
 # https://github.com/zsh-users/zsh-autosuggestions/issues/238
 pasteinit() {
@@ -60,7 +57,6 @@ pastefinish() {
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 
-#source $ZSH/oh-my-zsh.sh
 source $HOME/dotfiles/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
@@ -79,6 +75,7 @@ antigen bundle djui/alias-tips
 antigen bundle unixorn/tumult.plugin.zsh
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-history-substring-search
 
 # Theme
 antigen theme denysdovhan/spaceship-prompt
