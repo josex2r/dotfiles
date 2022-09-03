@@ -1,6 +1,12 @@
 # dotfiles
 
-## Install zsh
+## Install brew
+
+```zsh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
+
+## Install zsh + prompt
 
 ```bash
 # use brew zsh
@@ -10,12 +16,6 @@ sudo vim /etc/shells # /usr/local/bin/zsh
 
 # fix insecure directories
 # for f in $(compaudit);do sudo chmod -R 755 $f;done;
-```
-
-## Install brew
-
-```zsh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 
 ## Install tmux
