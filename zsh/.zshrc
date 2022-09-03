@@ -26,6 +26,8 @@ done
 
 # Setup auto_cd: ".." instead of "cd .."
 setopt auto_cd
+# Autocomplete on hidden files
+setopt globdots
 
 # On slow systems, checking the cached .zcompdump file to see if it must be
 # regenerated adds a noticable delay to zsh startup.  This little hack restricts
