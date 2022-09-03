@@ -5,3 +5,5 @@ nvim/.config/nvim/undo
 nvim/.config/nvim/undodir
 nvim/.config/nvim/.netrwhist
 nvim/.config/nvim/shada
+
+.DS_Store
