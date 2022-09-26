@@ -83,7 +83,7 @@ return packer.startup(function(use)
 	use("nvim-treesitter/nvim-treesitter-textobjects")
 	use("JoosepAlviste/nvim-ts-context-commentstring") -- Fix comments when multiple langs exists on same file
 	use("p00f/nvim-ts-rainbow") -- Colorize brackets
-  use("fladson/vim-kitty")
+	use("fladson/vim-kitty")
 
 	-- Debugging
 	use("mfussenegger/nvim-dap") -- Inspect variables in vim
@@ -129,6 +129,8 @@ return packer.startup(function(use)
 			{ "nvim-treesitter/nvim-treesitter" },
 		},
 	})
+	use("lvimuser/lsp-inlayhints.nvim") -- LSP inline hints
+	use("ii14/emmylua-nvim") -- Summekolua LSP lang completion
 
 	-- Git
 	use("tpope/vim-fugitive") -- Git commands
@@ -152,6 +154,13 @@ return packer.startup(function(use)
 	use("windwp/nvim-autopairs") -- Auto close char groups
 	use("lukas-reineke/indent-blankline.nvim") -- Indentation guides
 	use("dstein64/vim-startuptime") -- Show startup time graph when running nvim with "--startuptime" and ":StartupTime"
+	use("kevinhwang91/nvim-bqf") -- Better Quick Fix window
+	use({
+		"junegunn/fzf",
+		run = function()
+			vim.fn["fzf#install"]()
+		end,
+	})
 
 	-- Parens, Brackets, etc...
 	use("numToStr/Comment.nvim") -- comments using "gcc"

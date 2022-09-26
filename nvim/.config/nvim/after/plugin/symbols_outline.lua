@@ -1,4 +1,13 @@
-vim.g.symbols_outline = {
+local status_ok, symbols = pcall(require, "symbols-outline")
+
+if not status_ok then
+	require("utils.debug").log.error("Couldn't load plugin", "symbols_outline.lua")
+	return
+end
+
+
+
+symbols.setup({
     highlight_hovered_item = true,
     show_guides = true,
     auto_preview = true,
@@ -49,7 +58,7 @@ vim.g.symbols_outline = {
         Operator = {icon = "+", hl = "TSOperator"},
         TypeParameter = {icon = "𝙏", hl = "TSParameter"}
     }
-}
+})
 
 -- Mappings
 vim.api.nvim_set_keymap('n', '<leader>a', "<cmd>SymbolsOutline<cr>", {})

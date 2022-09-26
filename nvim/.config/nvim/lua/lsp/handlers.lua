@@ -30,6 +30,15 @@ function setup_lsp_signature(client, bufnr)
 	}, bufnr)
 end
 
+function setup_lsp_hints(client, bufnr)
+	local status_ok, hints = pcall(require, "lsp-inlayhints")
+
+	if not status_ok then
+		hints.setup()
+		hints.on_attach(client, bufnr, false)
+	end
+end
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 M.on_attach = function(client, bufnr)
@@ -39,7 +48,7 @@ M.on_attach = function(client, bufnr)
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-  local telescope_opts = {} --{ jump_type = "split" }
+	local telescope_opts = {} --{ jump_type = "split" }
 
 	vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
 	vim.keymap.set("n", "<leader>D", function()
@@ -75,6 +84,7 @@ M.on_attach = function(client, bufnr)
 	vim.keymap.set("n", "<leader>cq", vim.lsp.diagnostic.set_loclist, bufopts)
 
 	setup_lsp_signature(client, bufnr)
+	setup_lsp_hints(client, bufnr)
 end
 
 return M

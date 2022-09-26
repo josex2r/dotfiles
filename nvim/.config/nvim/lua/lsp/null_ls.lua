@@ -31,15 +31,7 @@ local config = {
 		-- ---------------
 		-- -  formating  -
 		-- ---------------
-		null_ls.builtins.formatting.prettier.with({
-			-- Looks for prettier in node_modules/.bin, then tries to find a local Yarn Plug'n'Play install, then tries to find a global prettier executable
-			dynamic_command = function(params)
-				return command_resolver.from_node_modules(params)
-					or command_resolver.from_yarn_pnp(params)
-					or vim.fn.executable(params.command) == 1 and params.command
-			end,
-			filetypes = { "html", "json", "yaml", "markdown", "handlebars", "typescript", "typescriptreact", "javascript" },
-		}),
+		null_ls.builtins.formatting.prettier,
 		null_ls.builtins.formatting.stylua,
     null_ls.builtins.formatting.isort,
     null_ls.builtins.formatting.black.with({

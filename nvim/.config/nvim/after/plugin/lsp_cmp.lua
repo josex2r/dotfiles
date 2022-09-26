@@ -6,8 +6,6 @@ if not status_ok then
 	return
 end
 
-local types = require("cmp.types")
-
 -- Navigator.lua
 vim.cmd("autocmd FileType guihua lua require('cmp').setup.buffer { enabled = false }")
 vim.cmd("autocmd FileType guihua_rust lua require('cmp').setup.buffer { enabled = false }") -- Load vscode snippets

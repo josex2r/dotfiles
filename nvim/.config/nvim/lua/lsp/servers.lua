@@ -10,6 +10,9 @@ lspconfig.sumneko_lua.setup({
 	capabilities = capabilities,
 	settings = {
 		Lua = {
+			workspace = {
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
 			diagnostics = {
 				globals = { "vim" },
 			},
@@ -57,10 +60,38 @@ lspconfig.eslint.setup({
 	capabilities = capabilities,
 })
 
+lspconfig.tsserver.setup({
+	settings = {},
+})
+
 require("typescript").setup({
 	disable_commands = false, -- prevent the plugin from creating Vim commands
 	debug = false, -- enable debug logging for commands
 	server = { -- pass options to lspconfig's setup method
 		on_attach = lsp_handlers.on_attach,
+		settings = {
+			typescript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all",
+					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHints = true,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
+				},
+			},
+			javascript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all",
+					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHints = true,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
+				},
+			},
+		},
 	},
 })
