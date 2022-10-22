@@ -9,12 +9,12 @@ require("mason-lspconfig").setup({
 	ensure_installed = {
     "sumneko_lua",
     "eslint",
-    "pylsp",
+    "pyright",
     "jsonls",
-    "bash-language-server",
-    "css-lsp",
-    "html-lsp",
-    "yaml-language-server",
+    "bashls",
+    "cssls",
+    "html",
+    "yamlls",
   },
 })
 

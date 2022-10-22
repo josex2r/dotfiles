@@ -81,7 +81,7 @@ M.on_attach = function(client, bufnr)
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
 	vim.keymap.set("v", "<leader>ca", vim.lsp.buf.range_code_action, bufopts)
 	vim.keymap.set("n", "<leader>cf", vim.lsp.buf.formatting, bufopts)
-	vim.keymap.set("n", "<leader>cq", vim.lsp.diagnostic.set_loclist, bufopts)
+	--[[ vim.keymap.set("n", "<leader>cq", vim.lsp.diagnostic.setloclist, bufopts) ]]
 
 	setup_lsp_signature(client, bufnr)
 	setup_lsp_hints(client, bufnr)

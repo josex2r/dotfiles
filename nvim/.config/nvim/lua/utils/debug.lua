@@ -31,6 +31,7 @@ M.log._notify = function(msg, title, level)
 
   notify(msg, level, {
     title = title or "Debug log",
+    timeout = 1000,
   })
 end
 

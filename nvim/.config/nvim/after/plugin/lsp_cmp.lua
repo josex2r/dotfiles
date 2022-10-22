@@ -19,6 +19,10 @@ cmp.setup({
 			require("luasnip").lsp_expand(args.body)
 		end,
 	},
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
 	mapping = {
     -- conflict with vim-visual-multi
 		-- ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
@@ -63,8 +67,9 @@ cmp.setup({
 				cmp.select_prev_item()
 			elseif require("luasnip").jumpable(-1) then
 				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+      else
+        fallback()
 			end
-			fallback()
 		end,
 	},
 	sources = cmp.config.sources({

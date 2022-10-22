@@ -13,6 +13,7 @@ packer.init({
 			return require("packer.util").float({ border = "rounded" })
 		end,
 	},
+	keys = {},
 })
 
 -- Install your plugins here
@@ -25,7 +26,6 @@ return packer.startup(function(use)
 	use("navarasu/onedark.nvim")
 	use({ "catppuccin/nvim", as = "catppuccin" })
 	use("EdenEast/nightfox.nvim")
-	use("rebelot/kanagawa.nvim")
 
 	-- UI (IDE style)
 	use("kyazdani42/nvim-web-devicons") -- Web devicons
@@ -33,7 +33,6 @@ return packer.startup(function(use)
 	use("norcalli/nvim-colorizer.lua") -- Colorize hex colors in buffers
 	use("kevinhwang91/nvim-hlslens") -- Info about current search in virtual text
 	use("stevearc/dressing.nvim") -- UI components
-	use("rcarriga/nvim-notify") -- Notifications
 	use({
 		"akinsho/bufferline.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
@@ -47,11 +46,17 @@ return packer.startup(function(use)
 		requires = { "kyazdani42/nvim-web-devicons" },
 	}) -- Tree view
 	use("petertriho/nvim-scrollbar") -- Scrollbar
-	use("karb94/neoscroll.nvim")
 	use({
 		"kevinhwang91/nvim-ufo",
 		requires = "kevinhwang91/promise-async",
 	}) -- Folds
+	use({
+		"folke/noice.nvim",
+		requires = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+		},
+	}) -- Experimental CMD view
 
 	-- Terminal navigation
 	-- use("christoomey/vim-tmux-navigator") -- Move cursor between panes
@@ -73,9 +78,9 @@ return packer.startup(function(use)
 		"folke/trouble.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
 	}) -- Navigate diagnostics
+	use("folke/todo-comments.nvim") -- Navigate TODO comments
 
 	-- Syntax highlighting
-	use("joukevandermaas/vim-ember-hbs")
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
@@ -120,7 +125,6 @@ return packer.startup(function(use)
 	use({ "jose-elias-alvarez/typescript.nvim" }) -- typescript LSP
 	-- use({ "jose-elias-alvarez/nvim-lsp-ts-utils" }) -- Null_LS config for TypeScript
 	use("b0o/schemastore.nvim") -- JSON schemas for "jsonls" LSP
-	use("j-hui/fidget.nvim") -- LSP progress info in the bottom right corner
 	use("ray-x/lsp_signature.nvim") -- Show function signature when you type
 	use({
 		"ThePrimeagen/refactoring.nvim",
@@ -144,7 +148,7 @@ return packer.startup(function(use)
 	})
 
 	-- Misc
-	use("editorconfig/editorconfig-vim") -- Read ".editorconfig" file
+	use("gpanders/editorconfig.nvim") -- Read ".editorconfig" file
 	use("tpope/vim-repeat") -- Repeat everything using "."
 	use("fcpg/vim-altscreen") -- Clean terminal when running a vim shell commands
 	use({

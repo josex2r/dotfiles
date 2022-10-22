@@ -9,23 +9,26 @@ vim.api.nvim_command('packadd packer.nvim')
 
 local no_errors, error_msg = pcall(function()
 
-  local time
-  local profile_info
-  local should_profile = false
-  if should_profile then
-    local hrtime = vim.loop.hrtime
-    profile_info = {}
-    time = function(chunk, start)
-      if start then
-        profile_info[chunk] = hrtime()
-      else
-        profile_info[chunk] = (hrtime() - profile_info[chunk]) / 1e6
-      end
+_G._packer = _G._packer or {}
+_G._packer.inside_compile = true
+
+local time
+local profile_info
+local should_profile = false
+if should_profile then
+  local hrtime = vim.loop.hrtime
+  profile_info = {}
+  time = function(chunk, start)
+    if start then
+      profile_info[chunk] = hrtime()
+    else
+      profile_info[chunk] = (hrtime() - profile_info[chunk]) / 1e6
     end
-  else
-    time = function(chunk, start) end
   end
-  
+else
+  time = function(chunk, start) end
+end
+
 local function save_profiles(threshold)
   local sorted_times = {}
   for chunk_name, time_taken in pairs(profile_info) do
@@ -38,8 +41,10 @@ local function save_profiles(threshold)
       results[i] = elem[1] .. ' took ' .. elem[2] .. 'ms'
     end
   end
+  if threshold then
+    table.insert(results, '(Only showing plugins that took longer than ' .. threshold .. ' ms ' .. 'to load)')
+  end
 
-  _G._packer = _G._packer or {}
   _G._packer.profile_output = results
 end
 
@@ -134,10 +139,20 @@ _G.packer_plugins = {
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/editorconfig-vim",
     url = "https://github.com/editorconfig/editorconfig-vim"
   },
+  ["emmylua-nvim"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/emmylua-nvim",
+    url = "https://github.com/ii14/emmylua-nvim"
+  },
   ["fidget.nvim"] = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/fidget.nvim",
     url = "https://github.com/j-hui/fidget.nvim"
+  },
+  fzf = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/fzf",
+    url = "https://github.com/junegunn/fzf"
   },
   ["gitsigns.nvim"] = {
     loaded = true,
@@ -169,6 +184,11 @@ _G.packer_plugins = {
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/leap.nvim",
     url = "https://github.com/ggandor/leap.nvim"
   },
+  ["lsp-inlayhints.nvim"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/lsp-inlayhints.nvim",
+    url = "https://github.com/lvimuser/lsp-inlayhints.nvim"
+  },
   ["lsp_signature.nvim"] = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim",
@@ -184,6 +204,16 @@ _G.packer_plugins = {
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/hoob3rt/lualine.nvim"
   },
+  ["mason-lspconfig.nvim"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
+    url = "https://github.com/williamboman/mason-lspconfig.nvim"
+  },
+  ["mason.nvim"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/mason.nvim",
+    url = "https://github.com/williamboman/mason.nvim"
+  },
   ["neoscroll.nvim"] = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/neoscroll.nvim",
@@ -193,6 +223,18 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nightfox.nvim",
     url = "https://github.com/EdenEast/nightfox.nvim"
+  },
+  ["noice.nvim"] = {
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/opt/noice.nvim",
+    url = "https://github.com/folke/noice.nvim"
+  },
+  ["nui.nvim"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nui.nvim",
+    url = "https://github.com/MunifTanjim/nui.nvim"
   },
   ["null-ls.nvim"] = {
     loaded = true,
@@ -208,6 +250,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
     url = "https://github.com/windwp/nvim-autopairs"
+  },
+  ["nvim-bqf"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-bqf",
+    url = "https://github.com/kevinhwang91/nvim-bqf"
   },
   ["nvim-cmp"] = {
     loaded = true,
@@ -243,11 +290,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-hlslens",
     url = "https://github.com/kevinhwang91/nvim-hlslens"
-  },
-  ["nvim-lsp-installer"] = {
-    loaded = true,
-    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer",
-    url = "https://github.com/williamboman/nvim-lsp-installer"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -354,6 +396,11 @@ _G.packer_plugins = {
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
+  ["todo-comments.nvim"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/todo-comments.nvim",
+    url = "https://github.com/folke/todo-comments.nvim"
+  },
   ["trouble.nvim"] = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/trouble.nvim",
@@ -378,6 +425,16 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
+  },
+  ["vim-kitty"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-kitty",
+    url = "https://github.com/fladson/vim-kitty"
+  },
+  ["vim-kitty-navigator"] = {
+    loaded = true,
+    path = "/Users/joseluis.represa/.local/share/nvim/site/pack/packer/start/vim-kitty-navigator",
+    url = "https://github.com/knubie/vim-kitty-navigator"
   },
   ["vim-python-pep8-indent"] = {
     loaded = true,
@@ -417,6 +474,20 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+vim.cmd [[augroup packer_load_aucmds]]
+vim.cmd [[au!]]
+  -- Event lazy-loads
+time([[Defining lazy-load event autocommands]], true)
+vim.cmd [[au VimEnter * ++once lua require("packer.load")({'noice.nvim'}, { event = "VimEnter *" }, _G.packer_plugins)]]
+time([[Defining lazy-load event autocommands]], false)
+vim.cmd("augroup END")
+
+_G._packer.inside_compile = false
+if _G._packer.needs_bufread == true then
+  vim.cmd("doautocmd BufRead")
+end
+_G._packer.needs_bufread = false
+
 if should_profile then save_profiles() end
 
 end)
