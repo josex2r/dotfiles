@@ -9,21 +9,23 @@ vim.opt.list = true
 vim.opt.listchars:append("space:⋅")
 vim.opt.listchars:append("eol:↴")
 
+--[[ vim.cmd "highlight IndentBlanklineContextChar guifg=#E06C75 gui=nocombine" ]]
+
 indent_blankline.setup({
 	space_char_blankline = " ",
-	show_current_context = true,
-	show_current_context_start = true,
+  show_current_context = true,
+  show_current_context_start = true,
 	buftype_exclude = { "terminal" },
-	filetype = {
-		"javascript",
-		"typescript",
-		"python",
-		"lua",
-		"json",
-		"yaml",
-		"conf",
-		"sh",
-	},
+	--[[ filetype = { ]]
+	--[[ 	"javascript", ]]
+	--[[ 	"typescript", ]]
+	--[[ 	"python", ]]
+	--[[ 	"lua", ]]
+	--[[ 	"json", ]]
+	--[[ 	"yaml", ]]
+	--[[ 	"conf", ]]
+	--[[ 	"sh", ]]
+	--[[ }, ]]
 	filetype_exclude = {
 		"lspinfo",
 		"packer",

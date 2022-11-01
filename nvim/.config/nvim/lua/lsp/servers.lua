@@ -45,6 +45,7 @@ lspconfig.jsonls.setup({
 	settings = {
 		json = {
 			schemas = require("schemastore").json.schemas(),
+			validate = { enable = true },
 		},
 	},
 })
@@ -79,6 +80,17 @@ lspconfig.bashls.setup({
 	capabilities = capabilities,
 })
 
+lspconfig.denols.setup({
+	on_attach = lsp_handlers.on_attach,
+	capabilities = capabilities,
+	root_dir = lspconfig.util.root_pattern("deps.ts"),
+})
+
+lspconfig.terraformls.setup({
+	on_attach = lsp_handlers.on_attach,
+	capabilities = capabilities,
+})
+
 --[[ lspconfig.tsserver.setup({ ]]
 --[[ 	settings = {}, ]]
 --[[ }) ]]
@@ -87,6 +99,7 @@ require("typescript").setup({
 	disable_commands = false, -- prevent the plugin from creating Vim commands
 	debug = false, -- enable debug logging for commands
 	server = { -- pass options to lspconfig's setup method
+    root_dir = lspconfig.util.root_pattern("package.json"),
 		on_attach = lsp_handlers.on_attach,
 		settings = {
 			typescript = {

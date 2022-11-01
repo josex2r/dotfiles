@@ -7,11 +7,11 @@ M.setup = function()
 		return
 	end
 
-  vim.g.catppuccin_flavour = "macchiato"
+	catppuccin.setup({
+		flavour = "macchiato",
+	})
 
-	catppuccin.setup()
-
-  vim.cmd('colorscheme catppuccin')
+	vim.cmd("colorscheme catppuccin")
 end
 
 return M
