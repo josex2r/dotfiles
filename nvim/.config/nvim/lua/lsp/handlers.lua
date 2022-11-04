@@ -69,7 +69,7 @@ M.on_attach = function(client, bufnr)
 		-- vim.lsp.buf.references()
 	end, bufopts)
 	vim.keymap.set("n", "gh", vim.lsp.buf.signature_help, bufopts)
-	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+	-- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
 
 	vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
 	vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)

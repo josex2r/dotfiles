@@ -35,6 +35,8 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 -- Move text up and down
 keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
 keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+keymap("v", "<A-j>", ":m .+1<CR>==", opts)
+keymap("v", "<A-k>", ":m .-2<CR>==", opts)
 
 -- Visual --
 -- Stay in indent mode
@@ -43,9 +45,6 @@ keymap("n", "<TAB>", ">l", opts)
 keymap("v", "<S-TAB>", "<gv", opts)
 keymap("v", "<TAB>", ">gv", opts)
 
--- Move text up and down
-keymap("v", "<A-j>", ":m .+1<CR>==", opts)
-keymap("v", "<A-k>", ":m .-2<CR>==", opts)
 
 -- Visual Block --
 -- Move text up and down

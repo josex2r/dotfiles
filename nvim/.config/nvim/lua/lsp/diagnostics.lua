@@ -9,6 +9,15 @@ for _, sign in ipairs(signs) do
 	vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 end
 
+local float_config = {
+	focusable = false,
+	header = "",
+	source = "always",
+	border = "rounded",
+	prefix = "",
+  width = 80,
+}
+
 -- Diagnostics
 vim.diagnostic.config({
 	signs = {
@@ -17,28 +26,28 @@ vim.diagnostic.config({
 	update_in_insert = true,
 	underline = true,
 	severity_sort = true,
-	float = {
-		focusable = false,
-    header = "",
-		style = "minimal",
-		border = "single",
-		source = "always",
-		prefix = "",
-	},
-	virtual_text = {
-		prefix = "●",
-		spacing = 2,
-		source = "always",
-    severity = {
-      min = vim.diagnostic.severity.WARN,
-    },
-	},
+	float = float_config,
+	virtual_text = false,
+	-- virtual_text = {
+	-- 	prefix = "●",
+	-- 	spacing = 2,
+	-- 	source = "always",
+	--    severity = {
+	--      min = vim.diagnostic.severity.WARN,
+	--    },
+	-- },
 })
 
 -- Show diagnostics when hovering over an error
-vim.cmd([[
-  augroup lsp_diagnostics
-    autocmd!
-    autocmd CursorHold * lua vim.diagnostic.open_float({ focusable = false, border = "single", width = 80 })
-  augroup END
-]])
+local group_name = "lsp_diagnostics"
+
+vim.api.nvim_create_augroup(group_name, { clear = true })
+
+vim.api.nvim_create_autocmd("CursorHold", {
+  pattern = "*",
+  callback = function()
+    vim.diagnostic.open_float(float_config)
+  end,
+  -- command = "lua vim.diagnostic.open_float({ focusable = false, border = "single", width = 80 })",
+  group = group_name,
+})
