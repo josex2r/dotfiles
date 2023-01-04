@@ -80,7 +80,7 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-history-substring-search
 
 # Theme
-antigen theme denysdovhan/spaceship-prompt
+antigen theme spaceship-prompt/spaceship-prompt
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Load plugins

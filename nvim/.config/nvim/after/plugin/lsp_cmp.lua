@@ -1,5 +1,5 @@
 local status_ok, cmp = pcall(require, "cmp")
-local utils = require("utils")
+local keymap = require("utils.keymap")
 
 if not status_ok then
 	require("utils.debug").log.error("Couldn't load plugin", "lsp_cmp.lua")
@@ -54,7 +54,7 @@ cmp.setup({
 			elseif require("luasnip").expand_or_jumpable() then
 				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
 			else
-				if utils.keymap.check_backspace() then
+				if keymap.check_backspace() then
 					fallback()
 					-- Otherwise open cmp
 				else

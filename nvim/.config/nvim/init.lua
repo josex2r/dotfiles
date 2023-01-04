@@ -1,5 +1,6 @@
 -- Try to call the cache plugin
-pcall(require, "impatient")
+local impatient_ok, impatient = pcall(require, "impatient")
+if impatient_ok then impatient.enable_profile() end
 
 local config = require("config")
 local theme = require("theme")

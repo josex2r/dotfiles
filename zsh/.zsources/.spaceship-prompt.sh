@@ -13,10 +13,8 @@ spaceship_asdfpython() {
   local python_version=${$(asdf current python | awk '{print $2}')//:/ }
 
   spaceship::section \
-    "$SPACESHIP_PYENV_COLOR" \
-    "$SPACESHIP_PYENV_PREFIX" \
-    "${SPACESHIP_PYENV_SYMBOL}${python_version}" \
-    "$SPACESHIP_PYENV_SUFFIX"
+    "\e[93m" \
+    "🐍 ${python_version}" \
 }
 
 # ORDER
@@ -33,11 +31,12 @@ SPACESHIP_PROMPT_ORDER=(
   golang
   docker
   venv
-  pyenv
   asdfpython
   exit_code
   char
 )
+
+SPACESHIP_PROMPT_ASYNC=false
 
 SPACESHIP_CHAR_PREFIX="\n"
 SPACESHIP_PROMPT_ADD_NEWLINE=true
@@ -93,6 +92,6 @@ SPACESHIP_DOCKER_SUFFIX=" "
 SPACESHIP_VENV_PREFIX=" venv:("
 SPACESHIP_VENV_SUFFIX=") "
 
-# PYENV
-SPACESHIP_PYENV_PREFIX=" "
-SPACESHIP_PYENV_SUFFIX=""
+# PYTHON
+SPACESHIP_PYTHON_PREFIX=" "
+SPACESHIP_PYTHON_SUFFIX=""

@@ -74,6 +74,7 @@ local harpoon_config = {
 	t = { "Toggle mark" },
 }
 
+-- <leader>l
 local lsp_config = {
 	name = "LSP",
 	c = { "Commands" },
@@ -88,19 +89,19 @@ local lsp_config = {
 	t = { "Tags" },
 }
 
+-- <leader>c
 local code_config = {
 	name = "LSP Code",
 	a = { "Code Action" },
-	d = { "Buff Definitions" },
-	D = { "Document function" },
-	e = { "EasyAlign" },
 	f = { "Format" },
-	k = { "Signature Help" },
-	r = { "Buff Rename" },
-	t = { "Symbols, Variables, Functions, ..." },
-	q = { "Loclist" },
+	l = { "Codelens Refresh" },
+	L = { "Codelens Run" },
+	r = { "Symbol Rename" },
+	t = { "LSP Symbols" },
+	T = { "Type Definitions" },
 }
 
+-- <leader>p
 local packer_config = {
 	name = "Packer",
 	c = { "<cmd>PackerCompile<cr>", "Compile" },
@@ -191,3 +192,12 @@ wk.register({
 	g = git_visual_config,
 	t = { "<cmd>lua vim.lsp.buf.range_formatting()<cr>", "Format Selected" },
 }, { mode = "v", prefix = "<leader>" })
+
+wk.register({
+	d = "LSP Definitions",
+	D = "LSP Declarations",
+	h = "LSP Help",
+	i = "LSP Implementations",
+	r = "LSP References",
+	t = "LSP Type Definitions",
+}, { mode = "n", prefix = "g" })

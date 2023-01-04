@@ -5,8 +5,6 @@ if not status_ok then
 	return
 end
 
-
-
 symbols.setup({
     highlight_hovered_item = true,
     show_guides = true,

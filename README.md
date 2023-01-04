@@ -12,6 +12,10 @@
 # use brew zsh
 brew install zsh
 
+# M1
+chsh -s /opt/homebrew/bin/zsh
+
+# Intel
 sudo vim /etc/shells # /usr/local/bin/zsh
 
 # fix insecure directories

@@ -50,12 +50,11 @@ M.on_attach = function(client, bufnr)
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
 	local telescope_opts = {} --{ jump_type = "split" }
 
+  -- Show LSP hint
 	vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-	vim.keymap.set("n", "<leader>D", function()
-		telescope.lsp_type_definitions(telescope_opts)
-		-- vim.lsp.buf.type_definition()
-	end, bufopts)
-	vim.keymap.set("n", "gd", function()
+
+  -- LSP Navigation
+  vim.keymap.set("n", "gd", function()
 		telescope.lsp_definitions(telescope_opts)
 		-- vim.lsp.buf.definition()
 	end, bufopts)
@@ -69,23 +68,38 @@ M.on_attach = function(client, bufnr)
 		-- vim.lsp.buf.references()
 	end, bufopts)
 	vim.keymap.set("n", "gh", vim.lsp.buf.signature_help, bufopts)
-	-- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set("n", "gt", function()
+		telescope.lsp_type_definitions(telescope_opts)
+		-- vim.lsp.buf.type_definition()
+	end, bufopts)
 
+	vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol, bufopts)
 	vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
 	vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
 	vim.keymap.set("n", "<leader>wl", function()
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, bufopts)
 
-	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+  -- Rename Symbol
+	vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, bufopts)
+
+  -- Codelens
+	vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.refresh, bufopts)
+	vim.keymap.set("n", "<leader>cL", vim.lsp.codelens.run, bufopts)
+
+  -- Code Action
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
 	vim.keymap.set("v", "<leader>ca", function()
     vim.lsp.buf.range_code_action()
   end, bufopts)
+
+  -- Format Code
   vim.keymap.set('n', '<space>cf', function()
     vim.lsp.buf.format({ async = true })
   end, bufopts)
+
 	--[[ vim.keymap.set("n", "<leader>cq", vim.lsp.diagnostic.setloclist, bufopts) ]]
+  --
 
 	setup_lsp_signature(client, bufnr)
 	setup_lsp_hints(client, bufnr)

@@ -32,7 +32,7 @@ alias vi="nvim"
 alias vimdiff='nvim -d'
 
 # tmux
-alias attach='TERM=screen-256color tmux new-session -A -s dotfiles'
+alias attach='tmux new-session -A -s dotfiles'
 
 # python
 alias pyy="python $1"

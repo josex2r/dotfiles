@@ -1,3 +1,6 @@
+# Set PATH, MANPATH, etc., for Homebrew.
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # ASDF (tool version manager: node, java, python, ...)
 local asdf_path=$(brew --prefix asdf)
 source "$asdf_path/libexec/asdf.sh"

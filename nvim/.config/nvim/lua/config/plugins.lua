@@ -32,7 +32,6 @@ return packer.startup(function(use)
 	use("glepnir/dashboard-nvim") -- NeoVim init screen
 	use("norcalli/nvim-colorizer.lua") -- Colorize hex colors in buffers
 	use("kevinhwang91/nvim-hlslens") -- Info about current search in virtual text
-	use("stevearc/dressing.nvim") -- UI components
 	use({
 		"akinsho/bufferline.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
