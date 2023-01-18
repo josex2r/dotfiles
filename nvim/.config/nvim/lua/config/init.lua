@@ -13,7 +13,8 @@ M.load_mappings = function()
 end
 
 M.load_plugins = function()
-  require('config.plugins')
+  -- require('config.plugins')
+  require('config.lazy_plugins')
 end
 
 return M
