@@ -1,89 +1,176 @@
 return {
-  -- Peek lines ":<line_number>"
-  { "nacro90/numb.nvim", config = true },
+	-- Peek lines ":<line_number>"
+	{ "nacro90/numb.nvim", config = true },
 
-  -- Fast word jump
-  {
-    "ggandor/flit.nvim",
+	-- Fast word jump
+	{
+		"ggandor/leap.nvim",
 
-    dependencies = {
-      "ggandor/leap.nvim",
-    },
+		event = "VeryLazy",
 
-    config = true,
+		dependencies = {
+			{ "ggandor/flit.nvim", opts = { labeled_modes = "nv" } },
+		},
 
-    init = function()
-      require('leap').set_default_keymaps()
-    end,
-  },
+		config = function(_, opts)
+			local leap = require("leap")
 
-  -- Navigate diagnostics
-  {
-    "folke/trouble.nvim",
+			for k, v in pairs(opts) do
+				leap.opts[k] = v
+			end
 
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-    },
+			leap.add_default_mappings(true)
+		end,
+	},
 
+	-- better diagnostics list and others
+	{
+		"folke/trouble.nvim",
+		cmd = { "TroubleToggle", "Trouble" },
+		opts = { use_diagnostic_signs = true },
+		keys = {
+			{ "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
+			{ "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
+		},
+	},
+
+	-- todo comments
+	{
+		"folke/todo-comments.nvim",
+		cmd = { "TodoTrouble", "TodoTelescope" },
+		event = "BufReadPost",
+		config = true,
+    -- stylua: ignore
     keys = {
-      { "<leader>dd", "<cmd>TroubleToggle<cr>", desc = "Toggle" },
-      { "<leader>dd", "<cmd>TroubleToggle loclist<cr>", desc = "Loclist" },
-      { "<leader>dd", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix" },
-      { "<leader>dd", "<cmd>TroubleToggle lsp_references<cr>", desc = "References" },
-      { "<leader>dd", "<cmd>TroubleToggle lsp_document_diagnostics<cr>", desc = "LSP" },
-      { "<leader>dd", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace" },
+      { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
+      { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
+      { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
+      { "<leader>xtt", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo Trouble" },
+      { "<leader>xT", "<cmd>TodoTelescope<cr>", desc = "Todo Telescope" },
     },
+	},
 
-    config = true,
-  },
+	-- Marks in files, lines, ...
+	{
+		"ThePrimeagen/harpoon",
 
-  -- Navigate TODO comments
-  { "folke/todo-comments.nvim", config = true },
+		event = "BufReadPost",
 
-  -- Marks in files, lines, ...
-  {
-    "ThePrimeagen/harpoon",
+		config = {
+			enter_on_sendcmd = true,
+		},
 
-    config = {
-      enter_on_sendcmd = true,
-    },
+		keys = {
+			{
+				"<leader>ha",
+				function()
+					require("harpoon.mark").add_file()
+				end,
+				desc = "Add file",
+			},
+			{
+				"<leader>hr",
+				function()
+					require("harpoon.mark").remove_file()
+				end,
+				desc = "Remove file",
+			},
+			{
+				"<leader>ht",
+				function()
+					require("harpoon.mark").toggle_file()
+				end,
+				desc = "Toggle file",
+			},
+			{
+				"<leader>hc",
+				function()
+					require("harpoon.mark").clear_all()
+				end,
+				desc = "Clear marks",
+			},
+			{
+				"<leader>hh",
+				"<cmd>Telescope harpoon marks<cr>",
+				desc = "Show marks",
+			},
+			{
+				"<leader>hn",
+				function()
+					require("harpoon.ui").nav_next()
+				end,
+				desc = "Next mark",
+			},
+			{
+				"<leader>hp",
+				function()
+					require("harpoon.mark").nav_prev()
+				end,
+				desc = "Prev mark",
+			},
+		},
 
-    keys = {
-      {
-        "<leader>ha",
-        "lua require('harpoon.mark').add_file()",
-        desc = "Add file",
-      },
-      {
-        "<leader>hr",
-        "lua require('harpoon.mark').remove_file()",
-        desc = "Remove file",
-      },
-      {
-        "<leader>ht",
-        "lua require('harpoon.mark').toggle_file()",
-        desc = "Toggle file",
-      },
-      {
-        "<leader>hc",
-        "lua require('harpoon.mark').clear_all()",
-        desc = "Clear marks",
-      },
-      {
-        "<leader>hh",
-        "Telescope harpoon marks",
-        desc = "Show marks",
-      },
-      {
-        "<leader>hn",
-        "lua require('harpoon.ui').nav_next()",
-        desc = "Next mark",
-      },
-      {
-        "<leader>hp",
-        "lua require('harpoon.mark').nav_prev()",
-        desc = "Prev mark",
-      },
-    },
-  },
+		init = function()
+			require("telescope").load_extension("harpoon")
+		end,
+	},
+
+	-- tmux
+	{
+		"alexghergh/nvim-tmux-navigation",
+
+		config = function()
+			local nvim_tmux_nav = require("nvim-tmux-navigation")
+
+			nvim_tmux_nav.setup({
+				disable_when_zoomed = false,
+			})
+
+			vim.keymap.set("n", "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft)
+			vim.keymap.set("n", "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
+			vim.keymap.set("n", "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
+			vim.keymap.set("n", "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
+			vim.keymap.set("n", "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive)
+			vim.keymap.set("n", "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext)
+		end,
+	},
+
+	-- file explorer
+	{
+		"nvim-neo-tree/neo-tree.nvim",
+
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+		},
+
+		cmd = "Neotree",
+
+		branch = "v2.x",
+
+		keys = {
+			{ "<leader>t", "<cmd>Neotree toggle<CR>", desc = "Explorer NeoTree (cwd)" },
+			{ "<leader>e", "<leader>fe", desc = "Explorer NeoTree (root dir)", remap = true },
+			{ "<leader>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
+		},
+
+		opts = {
+			filesystem = {
+				follow_current_file = true,
+			},
+		},
+
+		init = function()
+			vim.g.neo_tree_remove_legacy_commands = 1
+
+			if vim.fn.argc() == 1 then
+				local stat = vim.loop.fs_stat(vim.fn.argv(0))
+
+				if stat and stat.type == "directory" then
+					require("neo-tree")
+				end
+			end
+		end,
+	},
 }

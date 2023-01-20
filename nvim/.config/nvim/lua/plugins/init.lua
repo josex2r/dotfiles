@@ -1,13 +1,24 @@
 return {
-  {
-    "LazyVim/LazyVim",
+	{
+		"LazyVim/LazyVim",
 
-    opts = {
-      colorscheme = "catppuccin",
-    },
-  },
+		opts = {
+			colorscheme = "tokyonight-moon",
+		},
+	},
 
-  {
-    "nvim-lua/plenary.nvim",
-  },
+	{
+		"nvim-lua/plenary.nvim",
+	},
+
+	-- measure startuptime
+	{
+		"dstein64/vim-startuptime",
+
+		cmd = "StartupTime",
+
+		config = function()
+			vim.g.startuptime_tries = 10
+		end,
+	},
 }

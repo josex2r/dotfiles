@@ -1,4 +1,4 @@
-local nvim = require('utils.nvim')
+local nvim = require("utils.nvim")
 
 local vim_options = {
 	autoindent = true, -- copy indent from last line when starting new line
@@ -87,3 +87,9 @@ end
 for k, v in pairs(options) do
 	vim.o[k] = v
 end
+
+-- folds
+vim.wo.foldcolumn = "0"
+vim.wo.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.wo.foldenable = true
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]

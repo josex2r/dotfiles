@@ -1,14 +1,19 @@
 local fn = vim.fn
 local fs = require('utils.fs')
 local nvim = require('utils.nvim')
+local os = require("os")
 
 local M = {}
+
+-- Globals
+M.home = os.getenv("HOME")
 
 -- lazy.nvim
 M.lazy_path = fn.stdpath("data") .. "/lazy/lazy.nvim"
 
--- Packer
-M.packer_root = fs.join_paths(nvim.get_runtime_dir(), "site", "pack")
-M.packer_install_path = fs.join_paths(M.packer_root, "packer", "start", "packer.nvim")
+-- DAP
+M.breakpoints_dir = M.home .. "/.cache/dap"
+M.breakpoints_file = "breakpoints.json"
+M.breakpoints_path = M.breakpoints_dir .. "/" .. M.breakpoints_file
 
 return M
