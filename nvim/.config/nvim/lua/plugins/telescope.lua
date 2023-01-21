@@ -16,6 +16,7 @@ return {
 			{ "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find files" },
 			{ "<leader>p", "<cmd>Telescope buffers<cr>", desc = "Find buffers" },
 			-- find
+			{ "<leader>fg", Util.telescope("live_grep"), desc = "Live grep" },
 			{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
 			{ "<leader>ff", Util.telescope("files"), desc = "Find Files (root dir)" },
 			{ "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
@@ -81,6 +82,9 @@ return {
 						end,
 						["<C-Up>"] = function(...)
 							return require("telescope.actions").cycle_history_prev(...)
+						end,
+						["<ESC>"] = function(...)
+							return require("telescope.actions").close(...)
 						end,
 					},
 				},

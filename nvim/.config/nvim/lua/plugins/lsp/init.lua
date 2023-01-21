@@ -44,9 +44,6 @@ return {
 				require("plugins.lsp.keymaps").on_attach(client, buffer)
 			end)
 
-			-- floating window styles
-			require("plugins.lsp.ui")
-
 			-- diagnostics
 			require("plugins.lsp.diagnostics").setup(opts.diagnostics)
 			require("plugins.lsp.diagnostics").enableFloatingWindow(opts.diagnostics)
@@ -123,15 +120,15 @@ return {
 					root_dir = lspconfig.util.root_pattern("package.json"),
 					settings = {
 						typescript = {
-							inlayHints = {
-								includeInlayParameterNameHints = "all",
-								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHints = true,
-								includeInlayPropertyDeclarationTypeHints = true,
-								includeInlayFunctionLikeReturnTypeHints = true,
-								includeInlayEnumMemberValueHints = true,
-							},
+							-- inlayHints = {
+							-- 	includeInlayParameterNameHints = "all",
+							-- 	includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+							-- 	includeInlayFunctionParameterTypeHints = true,
+							-- 	includeInlayVariableTypeHints = true,
+							-- 	includeInlayPropertyDeclarationTypeHints = true,
+							-- 	includeInlayFunctionLikeReturnTypeHints = true,
+							-- 	includeInlayEnumMemberValueHints = true,
+							-- },
 						},
 						javascript = {
 							inlayHints = {

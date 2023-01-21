@@ -131,25 +131,6 @@ return {
 	-- json schemas
 	"b0o/SchemaStore.nvim",
 
-	-- Show function signature when you type
-	{
-		"ray-x/lsp_signature.nvim",
-
-		init = function()
-			vim.g.navic_silence = true
-
-			require("lazyvim.util").on_attach(function(client, buffer)
-				require("lsp_signature").on_attach({
-					bind = true, -- This is mandatory, otherwise border config won't get registered.
-					handler_opts = float_config,
-					hi_parameter = "ModeMsg",
-				}, buffer)
-			end)
-		end,
-
-		config = true,
-	},
-
 	-- LSP inline hints
 	{
 		"lvimuser/lsp-inlayhints.nvim",
