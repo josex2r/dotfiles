@@ -1,9 +1,23 @@
 #!/bin/bash
 
+# Wrap "jq" (JSOn search) in FZF
 function jqq() {
-  local filepath=$1
-  # Wrap "jq" (JSOn search) in FZF
-  jq 'paths | join(".")' $filepath | tr -d '"' | gsed -e 's/\.\([0-9]\+\)/[\1]/g' | fzf --preview "jq .{} $filepath"
+  # retrieve input
+  filepath=${1};
+  # by lines:
+  # - use jq to retrieve JSON keys,
+  # - use "[]" notation instead of "." to access values
+  # - handle numbers using "[]" notation
+  # - redirect JSON keys to FZF
+  key=$(jq -r 'paths | join(".")' "$filepath" \
+    | gsed -e 's/\.\([a-zA-Z:@\/-]\+\)/["\1"]/g' \
+    | gsed -e 's/\.\([0-9]\+\)/[\1]/g' \
+    | fzf --preview "jq -r .{} $filepath" \
+  )
+  # retrieve value
+  value=$(jq -r ".$key" "$filepath")
+  # return
+  printf "%s" "$value"
 }
 
 # Term
