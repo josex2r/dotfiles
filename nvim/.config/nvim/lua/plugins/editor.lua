@@ -1,6 +1,70 @@
 local Util = require("lazyvim.util")
 
 return {
+
+	-- file explorer
+	{
+		"nvim-neo-tree/neo-tree.nvim",
+
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+		},
+
+		cmd = "Neotree",
+
+		branch = "v2.x",
+
+		keys = {
+			{
+				"<leader>t",
+				function()
+					require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
+				end,
+				desc = "Explorer NeoTree (cwd)",
+			},
+			{ "<leader>e", "<leader>fe", desc = "Explorer NeoTree (root dir)", remap = true },
+			{ "<leader>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
+		},
+
+		config = {
+			filesystem = {
+				bind_to_cwd = false,
+				follow_current_file = true,
+			},
+		},
+	},
+
+	-- A search panel for neovim.
+	{
+		"windwp/nvim-spectre",
+
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+
+		keys = {
+			{
+				"<leader>sf",
+				"<cmd>lua require('spectre').open_file_search()<cr>",
+				desc = "Search in file",
+			},
+			{
+				"<leader>sF",
+				"<cmd>lua require('spectre').open_visual({ select_word=true })",
+				desc = "Search current word",
+			},
+		},
+
+		config = {
+			highlight = {
+				search = "Exception",
+				replace = "Identifier",
+			},
+		},
+	},
+
 	{
 		"nvim-telescope/telescope.nvim",
 
@@ -16,7 +80,8 @@ return {
 			{ "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find files" },
 			{ "<leader>p", "<cmd>Telescope buffers<cr>", desc = "Find buffers" },
 			-- find
-			{ "<leader>fg", Util.telescope("live_grep"), desc = "Live grep" },
+			{ "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
+			{ "<leader>fG", Util.telescope("live_grep"), desc = "Live grep (cwd)" },
 			{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
 			{ "<leader>ff", Util.telescope("files"), desc = "Find Files (root dir)" },
 			{ "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
@@ -119,5 +184,74 @@ return {
 
 			telescope.load_extension("fzf")
 		end,
+	},
+
+	{
+		"folke/which-key.nvim",
+
+		event = "VeryLazy",
+
+		config = {
+			layout = {
+				height = { min = 4, max = 15 }, -- min and max height of the columns
+				width = { min = 20, max = 50 }, -- min and max width of the columns
+				spacing = 3, -- spacing between columns
+				align = "left", -- align columns left, center or right
+			},
+			plugins = { spelling = true },
+		},
+
+		init = function()
+			local wk = require("which-key")
+
+			wk.register({
+				mode = { "n", "v" },
+				["g"] = { name = "+goto" },
+				["gz"] = { name = "+surround" },
+				["]"] = { name = "+next" },
+				["["] = { name = "+prev" },
+				["<leader><tab>"] = { name = "+tabs" },
+				b = "+buffer",
+				c = "+coding",
+				f = "+files",
+				g = "+git",
+				h = "+harpoon",
+				n = { name = ":noh", cmd = "<cmd>noh<cr>" },
+				P = "Buffer picker",
+				q = "+quickfix",
+				s = "+search",
+				u = "+toggle config",
+				v = "+vim Config",
+				w = { "Save File" },
+				x = "+diagnostics",
+				z = "+dap (debug)",
+				["<space>"] = "Go to prev Buffer",
+			}, { prefix = "<leader>" })
+		end,
+	},
+
+	-- references
+	{
+		"RRethy/vim-illuminate",
+		event = "BufReadPost",
+		opts = { delay = 200 },
+		config = function(_, opts)
+			require("illuminate").configure(opts)
+		end,
+    -- stylua: ignore
+    keys = {
+      { "]]", function() require("illuminate").goto_next_reference(false) end, desc = "Next Reference", },
+      { "[[", function() require("illuminate").goto_prev_reference(false) end, desc = "Prev Reference" },
+    },
+	},
+
+	-- buffer remove
+	{
+		"echasnovski/mini.bufremove",
+    -- stylua: ignore
+    keys = {
+      { "<leader>bd", function() require("mini.bufremove").delete(0, false) end, desc = "Delete Buffer" },
+      { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
+    },
 	},
 }

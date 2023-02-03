@@ -5,85 +5,6 @@ return {
 	-- Repeat everything using "."
 	{ "tpope/vim-repeat", event = "VeryLazy" },
 
-	-- A search panel for neovim.
-	{
-		"windwp/nvim-spectre",
-
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-
-		keys = {
-			{
-				"<leader>sf",
-				"<cmd>lua require('spectre').open_file_search()<cr>",
-				desc = "Search in file",
-			},
-			{
-				"<leader>sF",
-				"<cmd>lua require('spectre').open_visual({ select_word=true })",
-				desc = "Search current word",
-			},
-		},
-
-		config = {
-			highlight = {
-				search = "Exception",
-				replace = "Identifier",
-			},
-		},
-	},
-
-	-- Indentation guides
-	{
-		"lukas-reineke/indent-blankline.nvim",
-
-		config = {
-			space_char_blankline = " ",
-			show_current_context = true,
-			show_current_context_start = true,
-			buftype_exclude = { "terminal" },
-			--[[ filetype = { ]]
-			--[[ 	"javascript", ]]
-			--[[ 	"typescript", ]]
-			--[[ 	"python", ]]
-			--[[ 	"lua", ]]
-			--[[ 	"json", ]]
-			--[[ 	"yaml", ]]
-			--[[ 	"conf", ]]
-			--[[ 	"sh", ]]
-			--[[ }, ]]
-			filetype_exclude = {
-				"lspinfo",
-				"packer",
-				"checkhealth",
-				"help",
-				"dashboard",
-				"NvimTree",
-				"lsp-installer",
-				"terminal",
-				"TelescopePrompt",
-				"TelescopeResults",
-				"log",
-				"fugitive",
-				"gitcommit",
-				"vimwiki",
-				"markdown",
-				"txt",
-				"vista",
-				"git",
-				"undotree",
-				"",
-			},
-		},
-
-		init = function()
-			vim.opt.list = true
-			vim.opt.listchars:append("space:⋅")
-			vim.opt.listchars:append("eol:↴")
-		end,
-	},
-
 	-- Better Quick Fix window
 	"kevinhwang91/nvim-bqf",
 
@@ -121,13 +42,9 @@ return {
 		},
 	},
 
-	-- buffer remove
-	{
-		"echasnovski/mini.bufremove",
-    -- stylua: ignore
-    keys = {
-      { "<leader>bd", function() require("mini.bufremove").delete(0, false) end, desc = "Delete Buffer" },
-      { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
-    },
-	},
+	-- icons
+	{ "nvim-tree/nvim-web-devicons", lazy = true },
+
+	-- ui components
+	{ "MunifTanjim/nui.nvim", lazy = true },
 }

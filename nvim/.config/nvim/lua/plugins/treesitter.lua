@@ -13,6 +13,11 @@ return {
 			{ "p00f/nvim-ts-rainbow" },
 		},
 
+		keys = {
+			{ "<c-space>", desc = "Increment selection" },
+			{ "<bs>", desc = "Schrink selection", mode = "x" },
+		},
+
 		opts = {
 			-- ensure_installed = "maintained",
 			incremental_selection = { enable = true },

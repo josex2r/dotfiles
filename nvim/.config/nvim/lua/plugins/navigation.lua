@@ -130,47 +130,12 @@ return {
 			vim.keymap.set("n", "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
 			vim.keymap.set("n", "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
 			vim.keymap.set("n", "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
+			vim.keymap.set("n", "<C-Left>", nvim_tmux_nav.NvimTmuxNavigateLeft)
+			vim.keymap.set("n", "<C-Down>", nvim_tmux_nav.NvimTmuxNavigateDown)
+			vim.keymap.set("n", "<C-Up>", nvim_tmux_nav.NvimTmuxNavigateUp)
+			vim.keymap.set("n", "<C-Right>", nvim_tmux_nav.NvimTmuxNavigateRight)
 			vim.keymap.set("n", "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive)
 			vim.keymap.set("n", "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext)
-		end,
-	},
-
-	-- file explorer
-	{
-		"nvim-neo-tree/neo-tree.nvim",
-
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-			"MunifTanjim/nui.nvim",
-		},
-
-		cmd = "Neotree",
-
-		branch = "v2.x",
-
-		keys = {
-			{ "<leader>t", "<cmd>Neotree toggle<CR>", desc = "Explorer NeoTree (cwd)" },
-			{ "<leader>e", "<leader>fe", desc = "Explorer NeoTree (root dir)", remap = true },
-			{ "<leader>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
-		},
-
-		opts = {
-			filesystem = {
-				follow_current_file = true,
-			},
-		},
-
-		init = function()
-			vim.g.neo_tree_remove_legacy_commands = 1
-
-			if vim.fn.argc() == 1 then
-				local stat = vim.loop.fs_stat(vim.fn.argv(0))
-
-				if stat and stat.type == "directory" then
-					require("neo-tree")
-				end
-			end
 		end,
 	},
 }

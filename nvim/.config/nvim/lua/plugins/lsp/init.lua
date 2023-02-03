@@ -85,7 +85,7 @@ return {
 				"shellcheck",
 				"shfmt",
 				"prettier",
-				"eslint",
+				"eslint-lsp",
 				"stylua",
 				"luacheck",
 				"black",
@@ -116,33 +116,12 @@ return {
 			require("typescript").setup({
 				disable_commands = false, -- prevent the plugin from creating Vim commands
 				debug = false, -- enable debug logging for commands
-				server = { -- pass options to lspconfig's setup method
-					root_dir = lspconfig.util.root_pattern("package.json"),
-					settings = {
-						typescript = {
-							-- inlayHints = {
-							-- 	includeInlayParameterNameHints = "all",
-							-- 	includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-							-- 	includeInlayFunctionParameterTypeHints = true,
-							-- 	includeInlayVariableTypeHints = true,
-							-- 	includeInlayPropertyDeclarationTypeHints = true,
-							-- 	includeInlayFunctionLikeReturnTypeHints = true,
-							-- 	includeInlayEnumMemberValueHints = true,
-							-- },
-						},
-						javascript = {
-							inlayHints = {
-								includeInlayParameterNameHints = "all",
-								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHints = true,
-								includeInlayPropertyDeclarationTypeHints = true,
-								includeInlayFunctionLikeReturnTypeHints = true,
-								includeInlayEnumMemberValueHints = true,
-							},
-						},
-					},
+				go_to_source_definition = {
+					fallback = true, -- fall back to standard LSP definition on failure
 				},
+				-- server = { -- pass options to lspconfig's setup method
+				-- 	root_dir = lspconfig.util.root_pattern("package.json"),
+				-- },
 			})
 		end,
 	},
@@ -160,21 +139,27 @@ return {
 
 			return {
 				debounce = 150,
+				timeout_ms = 10000,
+				debug = true,
 				sources = {
 					null_ls.builtins.formatting.prettier,
-					null_ls.builtins.formatting.eslint,
+					-- null_ls.builtins.formatting.eslint,
 					null_ls.builtins.formatting.stylua,
-					null_ls.builtins.formatting.isort,
+					null_ls.builtins.formatting.isort.with({
+						args = { "--stdout", "--filename", "$FILENAME", "-", "--profile", "black" },
+					}),
+					-- null_ls.builtins.formatting.flake8,
 					null_ls.builtins.formatting.black.with({
 						args = { "--config", "pyproject.toml", "$FILENAME", "--quiet" },
 					}),
 					--diagnostics
-					null_ls.builtins.diagnostics.flake8,
+					-- null_ls.builtins.diagnostics.flake8,
 					null_ls.builtins.diagnostics.pydocstyle,
 					null_ls.builtins.diagnostics.markdownlint,
 					-- code action
 					null_ls.builtins.code_actions.gitsigns,
 					null_ls.builtins.code_actions.eslint,
+					require("typescript.extensions.null-ls.code-actions"),
 				},
 				root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", ".git"),
 			}
@@ -186,4 +171,7 @@ return {
 
 	-- Python lang improvements
 	"Vimjas/vim-python-pep8-indent",
+
+	-- json schema
+	"b0o/SchemaStore.nvim",
 }
