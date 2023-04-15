@@ -2,7 +2,7 @@ local lspconfig = require("lspconfig")
 
 local M = {}
 
-M.sumneko_lua = {
+M.lua_ls = {
   settings = {
     Lua = {
       workspace = {
@@ -18,12 +18,12 @@ M.sumneko_lua = {
 M.pyright = {}
 
 M.jsonls = {
-	settings = {
-		json = {
-			schemas = require("schemastore").json.schemas(),
-			validate = { enable = true },
-		},
-	},
+  settings = {
+    json = {
+      schemas = require("schemastore").json.schemas(),
+      validate = { enable = true },
+    },
+  },
 }
 
 M.cssls = {}
@@ -31,17 +31,17 @@ M.cssls = {}
 M.html = {}
 
 M.yamlls = {
-	yaml = {
-		schemaStore = {
-			enable = true,
-		},
-	},
+  yaml = {
+    schemaStore = {
+      enable = true,
+    },
+  },
 }
 
 M.bashls = {}
 
 M.denols = {
-	root_dir = lspconfig.util.root_pattern("deps.ts"),
+  root_dir = lspconfig.util.root_pattern("deps.ts"),
 }
 
 M.terraformls = {}
