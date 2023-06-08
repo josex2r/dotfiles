@@ -1,24 +1,24 @@
 -- Launch or attach to a running Javascript/Typescript process
 local jsOrTs = {
   {
-    type = 'node2';
-    name = 'Launch',
-    request = 'launch';
-    program = '${file}';
-    cwd = vim.fn.getcwd();
-    sourceMaps = true;
-    protocol = 'inspector';
-    console = 'integratedTerminal';
+    type = "node2",
+    name = "Launch",
+    request = "launch",
+    program = "${file}",
+    cwd = vim.fn.getcwd(),
+    sourceMaps = true,
+    protocol = "inspector",
+    console = "integratedTerminal",
   },
   {
-    type = 'node2';
-    name = 'Attach',
-    request = 'attach';
-    program = '${file}';
-    cwd = vim.fn.getcwd();
-    sourceMaps = true;
-    protocol = 'inspector';
-    console = 'integratedTerminal';
+    type = "node2",
+    name = "Attach",
+    request = "attach",
+    program = "${file}",
+    cwd = vim.fn.getcwd(),
+    sourceMaps = true,
+    protocol = "inspector",
+    console = "integratedTerminal",
   },
   {
     name = "Vitest Debug",
@@ -60,6 +60,47 @@ local function get_arguments()
   end
 end
 
+local python = {
+  {
+    type = "python",
+    request = "launch",
+    name = "launch with options",
+    program = "${file}",
+    python = function() end,
+    pythonPath = function()
+      local path
+      for _, server in pairs(vim.lsp.buf_get_clients()) do
+        path = vim.tbl_get(server, "config", "settings", "python", "pythonPath")
+        if path then
+          break
+        end
+      end
+      path = vim.fn.input("Python path: ", path or "", "file")
+      return path ~= "" and vim.fn.expand(path) or nil
+    end,
+    args = function()
+      local args = {}
+      local i = 1
+      while true do
+        local arg = vim.fn.input("Argument [" .. i .. "]: ")
+        if arg == "" then
+          break
+        end
+        args[i] = arg
+        i = i + 1
+      end
+      return args
+    end,
+    justMyCode = function()
+      return vim.fn.input("justMyCode? [y/n]: ") == "y"
+    end,
+    stopOnEntry = function()
+      return vim.fn.input("justMyCode? [y/n]: ") == "y"
+    end,
+    console = "integratedTerminal",
+  },
+}
+
 local go = {
   {
     type = "go",
@@ -87,14 +128,14 @@ local go = {
     name = "Attach (Pick Process)",
     mode = "local",
     request = "attach",
-    processId = require('plugins.dap.utils').pick_process,
+    processId = require("plugins.dap.utils").pick_process,
   },
   {
     type = "go",
     name = "Attach (127.0.0.1:9080)",
     mode = "remote",
     request = "attach",
-    port = "9080"
+    port = "9080",
   },
 }
 
@@ -107,6 +148,7 @@ return {
       typescriptreact = chrome_debugger,
       vue = chrome_debugger,
       go = go,
+      python = python,
     }
-  end
+  end,
 }

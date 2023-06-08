@@ -11,7 +11,7 @@ return {
         function()
           require("notify").dismiss({ silent = true, pending = true })
         end,
-        desc = "Delete all Notifications",
+        desc = "Dismiss all Notifications",
       },
     },
     opts = {
@@ -23,6 +23,15 @@ return {
         return math.floor(vim.o.columns * 0.75)
       end,
     },
+    init = function()
+      -- when noice is not enabled, install notify on VeryLazy
+      local Util = require("lazyvim.util")
+      if not Util.has("noice.nvim") then
+        Util.on_very_lazy(function()
+          vim.notify = require("notify")
+        end)
+      end
+    end,
   },
 
   -- better vim.ui
@@ -47,10 +56,18 @@ return {
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
+    keys = {
+      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
+      { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
+    },
     opts = {
       options = {
+        -- stylua: ignore
+        close_command = function(n) require("mini.bufremove").delete(n, false) end,
+        -- stylua: ignore
+        right_mouse_command = function(n) require("mini.bufremove").delete(n, false) end,
         diagnostics = "nvim_lsp",
-        always_show_bufferline = true,
+        always_show_bufferline = false,
         diagnostics_indicator = function(_, _, diag)
           local icons = require("lazyvim.config").icons.diagnostics
           local ret = (diag.error and icons.Error .. diag.error .. " " or "")
@@ -73,12 +90,12 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
 
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
 
     opts = {
       -- char = "▏",
       char = "│",
-      filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
+      filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
       show_trailing_blankline_indent = false,
       show_current_context = false,
     },
@@ -94,19 +111,21 @@ return {
   {
     "echasnovski/mini.indentscope",
     version = false, -- wait till new 0.7.0 release to put it back on semver
-    event = "BufReadPre",
+    event = { "BufReadPre", "BufNewFile" },
     opts = {
       -- symbol = "▏",
       symbol = "│",
       options = { try_as_border = true },
     },
-    config = function(_, opts)
+    init = function()
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
         callback = function()
           vim.b.miniindentscope_disable = true
         end,
       })
+    end,
+    config = function(_, opts)
       require("mini.indentscope").setup(opts)
     end,
   },
@@ -117,7 +136,7 @@ return {
 
     event = "BufReadPost",
 
-    config = {
+    opts = {
       handle = {
         color = "#333840",
       },
@@ -136,7 +155,70 @@ return {
   {
     "folke/noice.nvim",
 
-    event = "VimEnter",
+    event = "VeryLazy",
+
+    keys = {
+      {
+        "<S-Enter>",
+        function()
+          require("noice").redirect(vim.fn.getcmdline())
+        end,
+        mode = "c",
+        desc = "Redirect Cmdline",
+      },
+      {
+        "<leader>snl",
+        function()
+          require("noice").cmd("last")
+        end,
+        desc = "Noice Last Message",
+      },
+      {
+        "<leader>snh",
+        function()
+          require("noice").cmd("history")
+        end,
+        desc = "Noice History",
+      },
+      {
+        "<leader>sna",
+        function()
+          require("noice").cmd("all")
+        end,
+        desc = "Noice All",
+      },
+      {
+        "<leader>snd",
+        function()
+          require("noice").cmd("dismiss")
+        end,
+        desc = "Dismiss All",
+      },
+      {
+        "<c-f>",
+        function()
+          if not require("noice.lsp").scroll(4) then
+            return "<c-f>"
+          end
+        end,
+        silent = true,
+        expr = true,
+        desc = "Scroll forward",
+        mode = { "i", "n", "s" },
+      },
+      {
+        "<c-b>",
+        function()
+          if not require("noice.lsp").scroll(-4) then
+            return "<c-b>"
+          end
+        end,
+        silent = true,
+        expr = true,
+        desc = "Scroll backward",
+        mode = { "i", "n", "s" },
+      },
+    },
 
     opts = {
       lsp = {
@@ -175,7 +257,7 @@ return {
         -- Redirect to messages long messages
         {
           view = "messages",
-          filter = { min_height = 20 },
+          filter = { event = "msg_show", min_height = 20 },
         },
       },
       views = {

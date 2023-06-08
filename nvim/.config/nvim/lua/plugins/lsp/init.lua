@@ -105,7 +105,7 @@ return {
       { "<leader>vm", "<cmd>Mason<cr>", desc = "Mason" },
     },
 
-    config = {
+    opts = {
       ensure_installed = {
         "stylua",
         "shellcheck",
@@ -166,7 +166,7 @@ return {
       return {
         debounce = 150,
         timeout_ms = 10000,
-        debug = true,
+        debug = false,
         sources = {
           null_ls.builtins.formatting.prettier,
           -- null_ls.builtins.formatting.eslint,
@@ -200,4 +200,26 @@ return {
 
   -- json schema
   "b0o/SchemaStore.nvim",
+
+  -- saga
+  {
+    "glepnir/lspsaga.nvim",
+    event = "LspAttach",
+
+    dependencies = {
+      { "nvim-tree/nvim-web-devicons" },
+      --Please make sure you install markdown and markdown_inline parser
+      { "nvim-treesitter/nvim-treesitter" },
+    },
+
+    opts = {
+      lightbulb = {
+        enable = true,
+        enable_in_insert = true,
+        sign = true,
+        sign_priority = 40,
+        virtual_text = false,
+      },
+    },
+  },
 }

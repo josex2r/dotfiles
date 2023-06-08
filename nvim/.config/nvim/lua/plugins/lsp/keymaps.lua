@@ -2,16 +2,45 @@ local format = require("plugins.lsp.format").format
 
 local M = {}
 
+-- function M.on_attach(client, buffer)
+--   local self = M.new(client, buffer)
+--
+--   self:map("<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+--   self:map("<leader>cl", "LspInfo", { desc = "Lsp Info" })
+--   self:map("gd", "Telescope lsp_definitions", { desc = "Goto Definition" })
+--   self:map("gr", "Telescope lsp_references", { desc = "References" })
+--   self:map("gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
+--   self:map("gI", "Telescope lsp_implementations", { desc = "Goto Implementation" })
+--   self:map("gt", "Telescope lsp_type_definitions", { desc = "Goto Type Definition" })
+--   self:map("K", vim.lsp.buf.hover, { desc = "Hover" })
+--   self:map("gK", vim.lsp.buf.signature_help, { desc = "Signature Help", has = "signatureHelp" })
+--   self:map("<c-k>", vim.lsp.buf.signature_help, { mode = "i", desc = "Signature Help", has = "signatureHelp" })
+--   self:map("]d", M.diagnostic_goto(true), { desc = "Next Diagnostic" })
+--   self:map("[d", M.diagnostic_goto(false), { desc = "Prev Diagnostic" })
+--   self:map("]e", M.diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
+--   self:map("[e", M.diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
+--   self:map("]w", M.diagnostic_goto(true, "WARNING"), { desc = "Next Warning" })
+--   self:map("[w", M.diagnostic_goto(false, "WARNING"), { desc = "Prev Warning" })
+--   self:map("<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action", mode = { "n", "v" }, has = "codeAction" })
+--
+--   self:map("<leader>cf", format, { desc = "Format Document", has = "documentFormatting" })
+--   self:map("<leader>cf", format, { desc = "Format Range", mode = "v", has = "documentRangeFormatting" })
+--   self:map("<leader>cr", M.rename, { expr = true, desc = "Rename", has = "rename" })
+-- end
+
 function M.on_attach(client, buffer)
   local self = M.new(client, buffer)
 
+  self:map("gh", "Lspsaga lsp_finder", { desc = "LSP Finder" })
+  self:map("gp", "Lspsaga peek_definition", { desc = "Peek Definition" })
+  self:map("gd", "Lspsaga goto_definition", { desc = "Goto Definition" })
+  self:map("gt", "Lspsaga peek_type_definition", { desc = "Peek Type Definition" })
+
   self:map("<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
   self:map("<leader>cl", "LspInfo", { desc = "Lsp Info" })
-  self:map("gd", "Telescope lsp_definitions", { desc = "Goto Definition" })
   self:map("gr", "Telescope lsp_references", { desc = "References" })
   self:map("gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
   self:map("gI", "Telescope lsp_implementations", { desc = "Goto Implementation" })
-  self:map("gt", "Telescope lsp_type_definitions", { desc = "Goto Type Definition" })
   self:map("K", vim.lsp.buf.hover, { desc = "Hover" })
   self:map("gK", vim.lsp.buf.signature_help, { desc = "Signature Help", has = "signatureHelp" })
   self:map("<c-k>", vim.lsp.buf.signature_help, { mode = "i", desc = "Signature Help", has = "signatureHelp" })
