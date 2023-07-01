@@ -86,16 +86,25 @@ return {
     },
   },
 
-  -- Indentation guides
+  -- indent guides for Neovim
   {
     "lukas-reineke/indent-blankline.nvim",
-
     event = { "BufReadPost", "BufNewFile" },
-
     opts = {
       -- char = "▏",
       char = "│",
-      filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
+      filetype_exclude = {
+        "help",
+        "alpha",
+        "dashboard",
+        "neo-tree",
+        "Trouble",
+        "lazy",
+        "mason",
+        "notify",
+        "toggleterm",
+        "lazyterm",
+      },
       show_trailing_blankline_indent = false,
       show_current_context = false,
     },
@@ -119,21 +128,28 @@ return {
     },
     init = function()
       vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
+        pattern = {
+          "help",
+          "alpha",
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lazyterm",
+        },
         callback = function()
           vim.b.miniindentscope_disable = true
         end,
       })
-    end,
-    config = function(_, opts)
-      require("mini.indentscope").setup(opts)
     end,
   },
 
   -- scrollbar
   {
     "petertriho/nvim-scrollbar",
-
     event = "BufReadPost",
 
     opts = {
@@ -154,70 +170,15 @@ return {
   -- noicer ui
   {
     "folke/noice.nvim",
-
     event = "VeryLazy",
-
     keys = {
-      {
-        "<S-Enter>",
-        function()
-          require("noice").redirect(vim.fn.getcmdline())
-        end,
-        mode = "c",
-        desc = "Redirect Cmdline",
-      },
-      {
-        "<leader>snl",
-        function()
-          require("noice").cmd("last")
-        end,
-        desc = "Noice Last Message",
-      },
-      {
-        "<leader>snh",
-        function()
-          require("noice").cmd("history")
-        end,
-        desc = "Noice History",
-      },
-      {
-        "<leader>sna",
-        function()
-          require("noice").cmd("all")
-        end,
-        desc = "Noice All",
-      },
-      {
-        "<leader>snd",
-        function()
-          require("noice").cmd("dismiss")
-        end,
-        desc = "Dismiss All",
-      },
-      {
-        "<c-f>",
-        function()
-          if not require("noice.lsp").scroll(4) then
-            return "<c-f>"
-          end
-        end,
-        silent = true,
-        expr = true,
-        desc = "Scroll forward",
-        mode = { "i", "n", "s" },
-      },
-      {
-        "<c-b>",
-        function()
-          if not require("noice.lsp").scroll(-4) then
-            return "<c-b>"
-          end
-        end,
-        silent = true,
-        expr = true,
-        desc = "Scroll backward",
-        mode = { "i", "n", "s" },
-      },
+      { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
+      { "<leader>nl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
+      { "<leader>nh", function() require("noice").cmd("history") end, desc = "Noice History" },
+      { "<leader>na", function() require("noice").cmd("all") end, desc = "Noice All" },
+      { "<leader>nd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
+      { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll forward", mode = {"i", "n", "s"} },
+      { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll backward", mode = {"i", "n", "s"}},
     },
 
     opts = {
@@ -240,24 +201,16 @@ return {
         view = "cmdline",
       },
       routes = {
-        -- hidden "written" messages
         {
           filter = {
             event = "msg_show",
-            kind = "",
-            find = "written",
+            any = {
+              { find = "%d+L, %d+B" },
+              { find = "; after #%d+" },
+              { find = "; before #%d+" },
+            },
           },
-          opts = { skip = true },
-        },
-        -- Filter info messages
-        {
-          filter = { event = "msg_show", any = { info = true } },
-          view = "messages",
-        },
-        -- Redirect to messages long messages
-        {
-          view = "messages",
-          filter = { event = "msg_show", min_height = 20 },
+          view = "mini",
         },
       },
       views = {
@@ -278,7 +231,6 @@ return {
   -- dashboard
   {
     "goolord/alpha-nvim",
-
     event = "VimEnter",
 
     opts = function()
@@ -363,4 +315,25 @@ return {
       { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll backward"},
     },
   },
+
+  -- lsp symbol navigation for lualine
+  {
+    "SmiteshP/nvim-navic",
+
+    init = function()
+      vim.g.navic_silence = true
+
+      require("lazyvim.util").on_attach(function(client, buffer)
+        require("nvim-navic").attach(client, buffer)
+      end)
+    end,
+
+    opts = { separator = " ", highlight = true, depth_limit = 5 },
+  },
+
+  -- icons
+  { "nvim-tree/nvim-web-devicons", lazy = true },
+
+  -- ui components
+  { "MunifTanjim/nui.nvim", lazy = true },
 }

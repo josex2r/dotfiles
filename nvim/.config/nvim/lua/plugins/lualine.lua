@@ -102,19 +102,4 @@ return {
       })
     end,
   },
-
-  -- lsp symbol navigation for lualine
-  {
-    "SmiteshP/nvim-navic",
-
-    init = function()
-      vim.g.navic_silence = true
-
-      require("lazyvim.util").on_attach(function(client, buffer)
-        require("nvim-navic").attach(client, buffer)
-      end)
-    end,
-
-    opts = { separator = " ", highlight = true, depth_limit = 5 },
-  },
 }

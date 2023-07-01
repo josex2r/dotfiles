@@ -1,4 +1,8 @@
 return {
+
+  -- A plugin to place, toggle and display marks
+  "kshenoy/vim-signature",
+
   -- Read ".editorconfig" file
   "gpanders/editorconfig.nvim",
 
@@ -38,15 +42,4 @@ return {
       symbols = require("config.icons").kind,
     },
   },
-
-  -- icons
-  {
-    "nvim-tree/nvim-web-devicons",
-    opts = {
-      color_icons = true,
-    },
-  },
-
-  -- ui components
-  { "MunifTanjim/nui.nvim", lazy = true },
 }

@@ -11,3 +11,6 @@ vim.keymap.set("n", "<C-Up>", nvim_tmux_nav.NvimTmuxNavigateUp, { desc = "Go to 
 vim.keymap.set("n", "<C-Right>", nvim_tmux_nav.NvimTmuxNavigateRight, { desc = "Go to right window", remap = true })
 vim.keymap.set("n", "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive, { desc = "Go to last window", remap = true })
 vim.keymap.set("n", "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext, { desc = "Go to next window", remap = true })
+
+-- n = { name = ":noh", cmd = "<cmd>noh<cr>" },
+
