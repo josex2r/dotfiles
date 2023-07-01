@@ -2,18 +2,18 @@ local lspconfig = require("lspconfig")
 
 local M = {}
 
-M.lua_ls = {
-  settings = {
-    Lua = {
-      workspace = {
-        checkThirdParty = false,
-      },
-      completion = {
-        callSnippet = "Replace",
-      },
-    },
-  },
-}
+-- M.lua_ls = {
+--   settings = {
+--     Lua = {
+--       workspace = {
+--         checkThirdParty = false,
+--       },
+--       completion = {
+--         callSnippet = "Replace",
+--       },
+--     },
+--   },
+-- }
 
 M.pyright = {}
 
@@ -41,7 +41,7 @@ M.yamlls = {
 M.bashls = {}
 
 M.denols = {
-  root_dir = lspconfig.util.root_pattern("deps.ts"),
+  root_dir = lspconfig.util.root_pattern("deps.ts", "deno.json", "deno.jsonc"),
 }
 
 M.terraformls = {}

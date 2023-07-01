@@ -2,12 +2,10 @@ return {
   -- lspconfig
   {
     "neovim/nvim-lspconfig",
-
-    event = "BufReadPre",
-
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
-      { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
+      { "folke/neodev.nvim", opts = {} },
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
@@ -16,9 +14,9 @@ return {
     opts = {
       -- options for vim.diagnostic.config()
       diagnostics = {
-        icons = require("config.icons").diagnostics,
         underline = true,
         update_in_insert = false,
+        icons = require("config.icons").diagnostics,
         virtual_text = false,
         -- virtual_text = { spacing = 4, prefix = "●" },
         severity_sort = true,
@@ -31,16 +29,37 @@ return {
           width = 80,
         },
       },
+      -- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
+      -- Be aware that you also will need to properly configure your LSP server to
+      -- provide the inlay hints.
+      inlay_hints = {
+        enabled = false,
+      },
+      -- add any global capabilities here
+      capabilities = {},
+      -- Automatically format on save
       autoformat = true,
+      -- Enable this to show formatters used in a notification
+      -- Useful for debugging formatter issues
+      format_notify = false,
+      -- options for vim.lsp.buf.format
+      -- `bufnr` and `filter` is handled by the LazyVim formatter,
+      -- but can be also overridden when specified
+      format = {
+        formatting_options = nil,
+        timeout_ms = nil,
+      },
     },
     ---@param opts PluginLspOpts
     config = function(plugin, opts)
+      local Util = require("lazyvim.util")
+
       -- setup autoformat
       require("plugins.lsp.format").autoformat = opts.autoformat
 
       -- setup formatting and keymaps
-      require("lazyvim.util").on_attach(function(client, buffer)
-        require("plugins.lsp.format").on_attach(client, buffer)
+      Util.on_attach(function(client, buffer)
+        -- require("plugins.lsp.format").on_attach(client, buffer)
         require("plugins.lsp.keymaps").on_attach(client, buffer)
       end)
 
@@ -48,8 +67,24 @@ return {
       require("plugins.lsp.diagnostics").setup(opts.diagnostics)
       require("plugins.lsp.diagnostics").enableFloatingWindow(opts.diagnostics)
 
+      -- inline hints
+      local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+      if opts.inlay_hints.enabled and inlay_hint then
+        Util.on_attach(function(client, buffer)
+          if client.server_capabilities.inlayHintProvider then
+            inlay_hint(buffer, true)
+          end
+        end)
+      end
+
       local servers = require("plugins.lsp.servers")
-      local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+      local capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        require("cmp_nvim_lsp").default_capabilities(),
+        opts.capabilities or {}
+      )
 
       local function setup(server)
         local server_opts = vim.tbl_deep_extend("force", {
@@ -92,15 +127,22 @@ return {
         mlsp.setup({ ensure_installed = ensure_installed })
         mlsp.setup_handlers({ setup })
       end
+
+      -- deno lsp
+      if Util.lsp_get_config("denols") and Util.lsp_get_config("tsserver") then
+        local is_deno = require("lspconfig.util").root_pattern("deps.ts", "deno.json", "deno.jsonc")
+        Util.lsp_disable("tsserver", is_deno)
+        Util.lsp_disable("denols", function(root_dir)
+          return not is_deno(root_dir)
+        end)
+      end
     end,
   },
 
   -- cmdline tools and lsp servers
   {
     "williamboman/mason.nvim",
-
     cmd = "Mason",
-
     keys = {
       { "<leader>vm", "<cmd>Mason<cr>", desc = "Mason" },
     },
@@ -155,9 +197,7 @@ return {
   -- formatters
   {
     "jose-elias-alvarez/null-ls.nvim",
-
-    event = "BufReadPre",
-
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = { "mason.nvim" },
 
     opts = function()
