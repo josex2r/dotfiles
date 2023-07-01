@@ -1,3 +1,6 @@
+# GKE
+alias gke_rtvc_dev="gcloud container clusters get-credentials ingka-cmpstore-rtpc-dev-gke --region europe-west1 --project ingka-cmpstore-rtpc-dev"
+
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
   colorflag="--color"
