@@ -112,7 +112,13 @@ return {
     },
 
     keys = {
-      { "<leader>sr", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
+      {
+        "<leader>sr",
+        function()
+          require("spectre").open()
+        end,
+        desc = "Replace in files (Spectre)",
+      },
     },
 
     opts = {
@@ -303,6 +309,7 @@ return {
         ["<leader><tab>"] = { name = "+tabs" },
         b = "+buffer",
         c = "+coding",
+        d = "+debugging",
         f = "+files",
         g = "+git",
         h = "+harpoon",
@@ -310,11 +317,11 @@ return {
         P = "Buffer picker",
         q = "+quickfix",
         s = "+search",
+        t = "+testing",
         u = "+toggle config",
-        v = "+vim Config",
         w = { "Save File" },
         x = "+diagnostics",
-        z = "+dap (debug)",
+        z = "+folds",
         ["<space>"] = "Go to prev Buffer",
       }, { prefix = "<leader>" })
     end,

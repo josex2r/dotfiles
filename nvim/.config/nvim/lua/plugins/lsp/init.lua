@@ -8,26 +8,28 @@ return {
       { "folke/neodev.nvim", opts = {} },
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "hrsh7th/cmp-nvim-lsp",
+      {
+        "hrsh7th/cmp-nvim-lsp",
+        cond = function()
+          return require("lazyvim.util").has("nvim-cmp")
+        end,
+      },
     },
-
+    ---@class PluginLspOpts
     opts = {
       -- options for vim.diagnostic.config()
       diagnostics = {
         underline = true,
         update_in_insert = false,
-        icons = require("config.icons").diagnostics,
-        virtual_text = false,
-        -- virtual_text = { spacing = 4, prefix = "●" },
-        severity_sort = true,
-        float = {
-          focusable = false,
-          header = "",
-          source = "always",
-          border = "rounded",
-          prefix = "",
-          width = 80,
+        virtual_text = {
+          spacing = 4,
+          source = "if_many",
+          prefix = "●",
+          -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+          -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
+          -- prefix = "icons",
         },
+        severity_sort = true,
       },
       -- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
       -- Be aware that you also will need to properly configure your LSP server to
@@ -49,26 +51,66 @@ return {
         formatting_options = nil,
         timeout_ms = nil,
       },
+      -- LSP Server Settings
+      ---@type lspconfig.options
+      servers = {
+        jsonls = {},
+        cssls = {},
+        html = {},
+        yamlls = {
+          yaml = {
+            schemaStore = {
+              enable = true,
+            },
+          },
+        },
+        bashls = {},
+        terraformls = {},
+        lua_ls = {
+          -- mason = false, -- set to false if you don't want this server to be installed with mason
+          settings = {
+            Lua = {
+              workspace = {
+                checkThirdParty = false,
+              },
+              completion = {
+                callSnippet = "Replace",
+              },
+            },
+          },
+        },
+      },
+      -- you can do any additional lsp server setup here
+      -- return true if you don't want this server to be setup with lspconfig
+      ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
+      setup = {
+        -- example to setup with typescript.nvim
+        -- tsserver = function(_, opts)
+        --   require("typescript").setup({ server = opts })
+        --   return true
+        -- end,
+        -- Specify * to use this function as a fallback for any server
+        -- ["*"] = function(server, opts) end,
+      },
     },
     ---@param opts PluginLspOpts
-    config = function(plugin, opts)
+    config = function(_, opts)
       local Util = require("lazyvim.util")
-
       -- setup autoformat
-      require("plugins.lsp.format").autoformat = opts.autoformat
-
+      require("lazyvim.plugins.lsp.format").setup(opts)
       -- setup formatting and keymaps
       Util.on_attach(function(client, buffer)
-        -- require("plugins.lsp.format").on_attach(client, buffer)
-        require("plugins.lsp.keymaps").on_attach(client, buffer)
+        require("lazyvim.plugins.lsp.keymaps").on_attach(client, buffer)
       end)
 
       -- diagnostics
-      require("plugins.lsp.diagnostics").setup(opts.diagnostics)
-      require("plugins.lsp.diagnostics").enableFloatingWindow(opts.diagnostics)
+      for name, icon in pairs(require("lazyvim.config").icons.diagnostics) do
+        name = "DiagnosticSign" .. name
+        vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
+      end
 
-      -- inline hints
       local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+
       if opts.inlay_hints.enabled and inlay_hint then
         Util.on_attach(function(client, buffer)
           if client.server_capabilities.inlayHintProvider then
@@ -77,7 +119,21 @@ return {
         end)
       end
 
-      local servers = require("plugins.lsp.servers")
+      if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
+        opts.diagnostics.virtual_text.prefix = vim.fn.has("nvim-0.10.0") == 0 and "●"
+          or function(diagnostic)
+            local icons = require("lazyvim.config").icons.diagnostics
+            for d, icon in pairs(icons) do
+              if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+                return icon
+              end
+            end
+          end
+      end
+
+      vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
+
+      local servers = opts.servers
       local capabilities = vim.tbl_deep_extend(
         "force",
         {},
@@ -91,15 +147,15 @@ return {
           capabilities = vim.deepcopy(capabilities),
         }, servers[server] or {})
 
-        -- if opts.setup[server] then
-        --   if opts.setup[server](server, server_opts) then
-        --     return
-        --   end
-        -- elseif opts.setup["*"] then
-        --   if opts.setup["*"](server, server_opts) then
-        --     return
-        --   end
-        -- end
+        if opts.setup[server] then
+          if opts.setup[server](server, server_opts) then
+            return
+          end
+        elseif opts.setup["*"] then
+          if opts.setup["*"](server, server_opts) then
+            return
+          end
+        end
         require("lspconfig")[server].setup(server_opts)
       end
 
@@ -124,13 +180,11 @@ return {
       end
 
       if have_mason then
-        mlsp.setup({ ensure_installed = ensure_installed })
-        mlsp.setup_handlers({ setup })
+        mlsp.setup({ ensure_installed = ensure_installed, handlers = { setup } })
       end
 
-      -- deno lsp
       if Util.lsp_get_config("denols") and Util.lsp_get_config("tsserver") then
-        local is_deno = require("lspconfig.util").root_pattern("deps.ts", "deno.json", "deno.jsonc")
+        local is_deno = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")
         Util.lsp_disable("tsserver", is_deno)
         Util.lsp_disable("denols", function(root_dir)
           return not is_deno(root_dir)
@@ -139,127 +193,58 @@ return {
     end,
   },
 
-  -- cmdline tools and lsp servers
-  {
-    "williamboman/mason.nvim",
-    cmd = "Mason",
-    keys = {
-      { "<leader>vm", "<cmd>Mason<cr>", desc = "Mason" },
-    },
-
-    opts = {
-      ensure_installed = {
-        "stylua",
-        "shellcheck",
-        "shfmt",
-        "prettier",
-        "eslint-lsp",
-        "stylua",
-        "luacheck",
-        "black",
-        "isort",
-        "flake8",
-        "deno",
-        "pyright",
-        "jsonls",
-        "bashls",
-        "cssls",
-        "html",
-        "yamlls",
-      },
-    },
-  },
-
-  -- typescript
-  {
-    "jose-elias-alvarez/typescript.nvim",
-
-    dependencies = {
-      "neovim/nvim-lspconfig",
-    },
-
-    config = function()
-      local lspconfig = require("lspconfig")
-
-      require("typescript").setup({
-        disable_commands = false, -- prevent the plugin from creating Vim commands
-        debug = false, -- enable debug logging for commands
-        go_to_source_definition = {
-          fallback = true, -- fall back to standard LSP definition on failure
-        },
-        -- server = { -- pass options to lspconfig's setup method
-        -- 	root_dir = lspconfig.util.root_pattern("package.json"),
-        -- },
-      })
-    end,
-  },
-
   -- formatters
   {
     "jose-elias-alvarez/null-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "mason.nvim" },
-
     opts = function()
-      local null_ls = require("null-ls")
-
+      local nls = require("null-ls")
       return {
-        debounce = 150,
-        timeout_ms = 10000,
-        debug = false,
+        root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
         sources = {
-          null_ls.builtins.formatting.prettier,
-          -- null_ls.builtins.formatting.eslint,
-          null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.isort.with({
-            args = { "--stdout", "--profile", "black", "--filename", "$FILENAME", "-" },
-          }),
-          -- null_ls.builtins.formatting.flake8,
-          null_ls.builtins.formatting.black.with({
-            args = { "--config", "pyproject.toml", "$FILENAME", "--quiet" },
-          }),
-          --diagnostics
-          -- null_ls.builtins.diagnostics.flake8,
-          null_ls.builtins.diagnostics.pydocstyle,
-          null_ls.builtins.diagnostics.markdownlint,
-          -- code action
-          null_ls.builtins.code_actions.gitsigns,
-          null_ls.builtins.code_actions.eslint,
-          require("typescript.extensions.null-ls.code-actions"),
+          -- formatting
+          nls.builtins.formatting.fish_indent,
+          nls.builtins.formatting.stylua,
+          nls.builtins.formatting.shfmt,
+          -- diagnostics
+          -- nls.builtins.diagnostics.flake8,
+          nls.builtins.diagnostics.fish,
         },
-        root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", ".git"),
       }
     end,
   },
 
-  -- Summekolua LSP lang completion
-  "ii14/emmylua-nvim",
-
-  -- Python lang improvements
-  "Vimjas/vim-python-pep8-indent",
-
-  -- json schema
-  "b0o/SchemaStore.nvim",
-
-  -- saga
+  -- cmdline tools and lsp servers
   {
-    "glepnir/lspsaga.nvim",
-    event = "LspAttach",
 
-    dependencies = {
-      { "nvim-tree/nvim-web-devicons" },
-      --Please make sure you install markdown and markdown_inline parser
-      { "nvim-treesitter/nvim-treesitter" },
-    },
-
+    "williamboman/mason.nvim",
+    cmd = "Mason",
+    keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
     opts = {
-      lightbulb = {
-        enable = true,
-        enable_in_insert = true,
-        sign = true,
-        sign_priority = 40,
-        virtual_text = false,
+      ensure_installed = {
+        "stylua",
+        "shfmt",
+        -- "flake8",
       },
     },
+    ---@param opts MasonSettings | {ensure_installed: string[]}
+    config = function(_, opts)
+      require("mason").setup(opts)
+      local mr = require("mason-registry")
+      local function ensure_installed()
+        for _, tool in ipairs(opts.ensure_installed) do
+          local p = mr.get_package(tool)
+          if not p:is_installed() then
+            p:install()
+          end
+        end
+      end
+      if mr.refresh then
+        mr.refresh(ensure_installed)
+      else
+        ensure_installed()
+      end
+    end,
   },
 }
