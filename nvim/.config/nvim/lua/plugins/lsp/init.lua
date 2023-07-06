@@ -97,10 +97,10 @@ return {
     config = function(_, opts)
       local Util = require("lazyvim.util")
       -- setup autoformat
-      require("lazyvim.plugins.lsp.format").setup(opts)
+      require("plugins.lsp.format").setup(opts)
       -- setup formatting and keymaps
       Util.on_attach(function(client, buffer)
-        require("lazyvim.plugins.lsp.keymaps").on_attach(client, buffer)
+        require("plugins.lsp.keymaps").on_attach(client, buffer)
       end)
 
       -- diagnostics
@@ -207,6 +207,7 @@ return {
           nls.builtins.formatting.fish_indent,
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.shfmt,
+          nls.builtins.formatting.prettier,
           -- diagnostics
           -- nls.builtins.diagnostics.flake8,
           nls.builtins.diagnostics.fish,

@@ -1,3 +1,5 @@
+local diagnostics = require("plugins.lsp.diagnostics")
+
 local M = {}
 
 ---@type PluginLspKeys
@@ -6,7 +8,7 @@ M._keys = nil
 ---@return (LazyKeys|{has?:string})[]
 function M.get()
   local format = function()
-    require("lazyvim.plugins.lsp.format").format({ force = true })
+    require("plugins.lsp.format").format({ force = true })
   end
   if not M._keys then
   ---@class PluginLspKeys
@@ -21,6 +23,7 @@ function M.get()
       { "gy", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto T[y]pe Definition" },
       { "K", vim.lsp.buf.hover, desc = "Hover" },
       { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
+      { "L", diagnostics.toggle_diagnosticts, desc = "Floating diagnostics" },
       { "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
       { "]d", M.diagnostic_goto(true), desc = "Next Diagnostic" },
       { "[d", M.diagnostic_goto(false), desc = "Prev Diagnostic" },

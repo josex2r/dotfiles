@@ -50,7 +50,9 @@ return {
               vim.keymap.set("n", "<leader>cR", "<cmd>TypescriptRenameFile<CR>", { desc = "Rename File", buffer = buffer })
             end
           end)
-          require("typescript").setup({ server = opts })
+          require("typescript").setup({
+            server = opts,
+          })
           return true
         end,
       },
