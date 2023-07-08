@@ -5,6 +5,7 @@ return {
       table.insert(opts.ensure_installed, "prettier")
     end,
   },
+
   {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function(_, opts)

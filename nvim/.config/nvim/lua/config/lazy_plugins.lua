@@ -23,6 +23,8 @@ require("lazy").setup({
     -- { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- import/override with your plugins
     { import = "plugins" },
+    { import = "plugins/lsp/lang" },
+    { import = "plugins/lsp/servers" },
   },
   defaults = {
     -- lazy = true, -- every plugin is lazy-loaded by default

@@ -223,7 +223,6 @@ return {
           nls.builtins.formatting.fish_indent,
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.shfmt,
-          nls.builtins.formatting.prettier,
           -- diagnostics
           -- nls.builtins.diagnostics.flake8,
           nls.builtins.diagnostics.fish,

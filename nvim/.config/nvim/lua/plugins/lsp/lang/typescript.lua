@@ -26,6 +26,16 @@ return {
                 convertTabsToSpaces = vim.o.expandtab,
                 tabSize = vim.o.tabstop,
               },
+              inlayHints = {
+                -- includeInlayEnumMemberValueHints = true,
+                -- includeInlayFunctionLikeReturnTypeHints = true,
+                -- includeInlayFunctionParameterTypeHints = true,
+                -- includeInlayParameterNameHints = "all",
+                -- includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                -- includeInlayPropertyDeclarationTypeHints = true,
+                -- includeInlayVariableTypeHints = true,
+                -- includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+              },
             },
             javascript = {
               format = {

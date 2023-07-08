@@ -1,4 +1,4 @@
-return {,
+return {
   {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function(_, opts)
@@ -24,7 +24,7 @@ return {,
         eslint = function()
           vim.api.nvim_create_autocmd("BufWritePre", {
             callback = function(event)
-              if not require("lazyvim.plugins.lsp.format").enabled() then
+              if not require("plugins.lsp.format").enabled() then
                 -- exit early if autoformat is not enabled
                 return
               end
