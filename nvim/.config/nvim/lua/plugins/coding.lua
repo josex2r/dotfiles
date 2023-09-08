@@ -96,8 +96,6 @@ return {
       local defaults = require("cmp.config.default")()
       local luasnip = require("luasnip")
 
-      require("luasnip/loaders/from_vscode").lazy_load()
-
       return {
         window = {
           completeopt = "menu,menuone,noinsert",
@@ -151,15 +149,6 @@ return {
           { name = "buffer" },
           { name = "path" },
         }),
-        formatting = {
-          format = function(_, item)
-            local icons = require("lazyvim.config").icons.kinds
-            if icons[item.kind] then
-              item.kind = icons[item.kind] .. item.kind
-            end
-            return item
-          end,
-        },
         experimental = {
           ghost_text = {
             hl_group = "CmpGhostText",
@@ -251,8 +240,9 @@ return {
   -- surround
   {
     "echasnovski/mini.surround",
-    keys = function(plugin, keys)
+    keys = function(_, keys)
       -- Populate the keys based on the user's options
+      local plugin = require("lazy.core.config").spec.plugins["mini.surround"]
       local opts = require("lazy.core.plugin").values(plugin, "opts", false)
       local mappings = {
         { opts.mappings.add, desc = "Add surrounding", mode = { "n", "v" } },
@@ -263,6 +253,9 @@ return {
         { opts.mappings.replace, desc = "Replace surrounding" },
         { opts.mappings.update_n_lines, desc = "Update `MiniSurround.config.n_lines`" },
       }
+      mappings = vim.tbl_filter(function(m)
+        return m[1] and #m[1] > 0
+      end, mappings)
       return vim.list_extend(mappings, keys)
     end,
     opts = {
@@ -276,25 +269,6 @@ return {
         update_n_lines = "gzn", -- Update `n_lines`
       },
     },
-    config = function(_, opts)
-      -- use gz mappings instead of s to prevent conflict with leap
-      require("mini.surround").setup(opts)
-    end,
-  },
-
-  -- LSP inline hints
-  {
-    "lvimuser/lsp-inlayhints.nvim",
-
-    init = function()
-      vim.g.navic_silence = true
-
-      require("lazyvim.util").on_attach(function(client, buffer)
-        require("lsp-inlayhints").on_attach(client, buffer, false)
-      end)
-    end,
-
-    config = true,
   },
 
   -- comments
@@ -316,6 +290,21 @@ return {
     end,
   },
 
+  -- LSP inline hints
+  {
+    "lvimuser/lsp-inlayhints.nvim",
+
+    init = function()
+      vim.g.navic_silence = true
+
+      require("lazyvim.util").on_attach(function(client, buffer)
+        require("lsp-inlayhints").on_attach(client, buffer, false)
+      end)
+    end,
+
+    config = true,
+  },
+
   -- better text-objects
   {
     "echasnovski/mini.ai",
@@ -324,9 +313,7 @@ return {
     --   { "i", mode = { "x", "o" } },
     -- },
     event = "VeryLazy",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
-    },
+    dependencies = { "nvim-treesitter-textobjects" },
     opts = function()
       local ai = require("mini.ai")
       return {
@@ -344,7 +331,7 @@ return {
     config = function(_, opts)
       require("mini.ai").setup(opts)
       -- register all text objects with which-key
-      if require("lazyvim.util").has("which-key.nvim") then
+      require("lazyvim.util").on_load("which-key.nvim", function()
         ---@type table<string, string|table>
         local i = {
           [" "] = "Whitespace",
@@ -385,7 +372,7 @@ return {
           i = i,
           a = a,
         })
-      end
+      end)
     end,
   },
 

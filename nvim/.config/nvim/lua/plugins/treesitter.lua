@@ -1,13 +1,14 @@
 local load_textobjects = false
 
 return {
+  -- Treesitter is a new parser generator tool that we can
+  -- use in Neovim to power faster and more accurate
+  -- syntax highlighting.
   {
     "nvim-treesitter/nvim-treesitter",
     version = false, -- last release is way too old and doesn't work on Windows
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
-    cmd = { "TSUpdateSync" },
-
     dependencies = {
       {
         "nvim-treesitter/nvim-treesitter-textobjects",
@@ -20,7 +21,7 @@ return {
         end,
       },
     },
-
+    cmd = { "TSUpdateSync" },
     keys = {
       { "<c-space>", desc = "Increment selection" },
       { "<bs>", desc = "Decrement selection", mode = "x" },
@@ -28,12 +29,16 @@ return {
     ---@type TSConfig
     opts = {
       highlight = { enable = true },
-      indent = { enable = true },
+      indent = {
+        enable = true,
+        disable = { "yaml", "python" },
+      },
       ensure_installed = {
         "bash",
         "c",
         "html",
         "javascript",
+        "jsdoc",
         "json",
         "lua",
         "luadoc",

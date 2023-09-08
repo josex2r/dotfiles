@@ -5,8 +5,8 @@ return {
   -- file explorer
   {
     "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
     cmd = "Neotree",
-
     keys = {
       {
         "<leader>fe",
@@ -25,31 +25,10 @@ return {
       { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (root dir)", remap = true },
       { "<leader>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
     },
-    keys = {
-      {
-        "<leader>fe",
-        function()
-          require("neo-tree.command").execute({ toggle = true, dir = require("lazyvim.util").get_root() })
-        end,
-        desc = "Explorer NeoTree (root dir)",
-      },
-      {
-        "<leader>fE",
-        function()
-          require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
-        end,
-        desc = "Explorer NeoTree (cwd)",
-      },
-      { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (root dir)", remap = true },
-      { "<leader>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
-    },
-
     deactivate = function()
       vim.cmd([[Neotree close]])
     end,
-
     init = function()
-      vim.g.neo_tree_remove_legacy_commands = 1
       if vim.fn.argc() == 1 then
         local stat = vim.loop.fs_stat(vim.fn.argv(0))
         if stat and stat.type == "directory" then
@@ -57,13 +36,12 @@ return {
         end
       end
     end,
-
     opts = {
       sources = { "filesystem", "buffers", "git_status", "document_symbols" },
       open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "Outline" },
       filesystem = {
         bind_to_cwd = false,
-        follow_current_file = true,
+        follow_current_file = { enabled = true },
         use_libuv_file_watcher = true,
       },
       window = {
@@ -77,16 +55,6 @@ return {
           expander_collapsed = "",
           expander_expanded = "",
           expander_highlight = "NeoTreeExpander",
-        },
-        icon = {
-          folder_empty = "󰜌",
-          folder_empty_open = "󰜌",
-        },
-        git_status = {
-          symbols = {
-            renamed = "󰁕",
-            unstaged = "󰄱",
-          },
         },
       },
     },
@@ -105,28 +73,12 @@ return {
 
   -- A search panel for neovim.
   {
-    "windwp/nvim-spectre",
-
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-
+    "nvim-pack/nvim-spectre",
+    cmd = "Spectre",
+    opts = { open_cmd = "noswapfile vnew" },
+    -- stylua: ignore
     keys = {
-      {
-        "<leader>sr",
-        function()
-          require("spectre").open()
-        end,
-        desc = "Replace in files (Spectre)",
-      },
-    },
-
-    opts = {
-      open_cmd = "noswapfile vnew",
-      highlight = {
-        search = "Exception",
-        replace = "Identifier",
-      },
+      { "<leader>sr", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
     },
   },
 
@@ -138,10 +90,9 @@ return {
     dependencies = {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
-
     keys = {
       { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
-      { "<leader>/", Util.telescope("live_grep"), desc = "Live grep" },
+      { "<leader>/", Util.telescope("live_grep"), desc = "Grep (root dir)" },
       { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
       -- { "<leader><space>", Util.telescope("files"), desc = "Find Files (root dir)" },
       { "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find files" },
@@ -156,6 +107,7 @@ return {
       { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
       { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "status" },
       -- search
+      { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },
       { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
       { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
       { "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "Command History" },
@@ -171,8 +123,10 @@ return {
       { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
       { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
       { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
-      { "<leader>sw", Util.telescope("grep_string"), desc = "Word (root dir)" },
-      { "<leader>sW", Util.telescope("grep_string", { cwd = false }), desc = "Word (cwd)" },
+      { "<leader>sw", Util.telescope("grep_string", { word_match = "-w" }), desc = "Word (root dir)" },
+      { "<leader>sW", Util.telescope("grep_string", { cwd = false, word_match = "-w" }), desc = "Word (cwd)" },
+      { "<leader>sw", Util.telescope("grep_string"), mode = "v", desc = "Selection (root dir)" },
+      { "<leader>sW", Util.telescope("grep_string", { cwd = false }), mode = "v", desc = "Selection (cwd)" },
       { "<leader>uC", Util.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
       {
         "<leader>ss",
@@ -211,7 +165,6 @@ return {
         desc = "Goto Symbol (Workspace)",
       },
     },
-
     opts = {
       defaults = {
         prompt_prefix = " ",
@@ -221,11 +174,18 @@ return {
             ["<c-t>"] = function(...)
               return require("trouble.providers.telescope").open_with_trouble(...)
             end,
-            ["<C-i>"] = function()
-              Util.telescope("find_files", { no_ignore = true })()
+            ["<a-t>"] = function(...)
+              return require("trouble.providers.telescope").open_selected_with_trouble(...)
             end,
-            ["<C-h>"] = function()
-              Util.telescope("find_files", { hidden = true })()
+            ["<a-i>"] = function()
+              local action_state = require("telescope.actions.state")
+              local line = action_state.get_current_line()
+              Util.telescope("find_files", { no_ignore = true, default_text = line })()
+            end,
+            ["<a-h>"] = function()
+              local action_state = require("telescope.actions.state")
+              local line = action_state.get_current_line()
+              Util.telescope("find_files", { hidden = true, default_text = line })()
             end,
             ["<C-Down>"] = function(...)
               return require("telescope.actions").cycle_history_next(...)
@@ -233,14 +193,14 @@ return {
             ["<C-Up>"] = function(...)
               return require("telescope.actions").cycle_history_prev(...)
             end,
-            ["<ESC>"] = function(...)
-              return require("telescope.actions").close(...)
-            end,
             ["<C-f>"] = function(...)
               return require("telescope.actions").preview_scrolling_down(...)
             end,
             ["<C-b>"] = function(...)
               return require("telescope.actions").preview_scrolling_up(...)
+            end,
+            ["<ESC>"] = function(...)
+              return require("telescope.actions").close(...)
             end,
           },
           n = {
@@ -249,27 +209,6 @@ return {
             end,
           },
         },
-        preview = {
-          filesize_hook = function(filepath, bufnr, opts)
-            local path = require("plenary.path"):new(filepath)
-            -- opts exposes winid
-            local height = vim.api.nvim_win_get_height(opts.winid)
-            local lines = vim.split(path:head(height), "[\r]?\n")
-            vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
-          end,
-
-          timeout_hook = function(filepath, bufnr, opts)
-            local cmd = { "echo", "timeout" }
-            require("telescope.previewers.utils").job_maker(cmd, bufnr, opts)
-          end,
-        },
-        -- file_ignore_patterns = {
-        -- 	"^%.lint%-todo/",
-        -- 	"^%.git/",
-        -- 	"^recordings/",
-        -- 	"^node_modules/",
-        -- 	"^bower_components/",
-        -- },
       },
     },
 
@@ -295,35 +234,36 @@ return {
         align = "left", -- align columns left, center or right
       },
       plugins = { spelling = true },
-    },
-
-    init = function()
-      local wk = require("which-key")
-
-      wk.register({
+      defaults = {
         mode = { "n", "v" },
         ["g"] = { name = "+goto" },
         ["gz"] = { name = "+surround" },
+        ["P"] = { name = "Buffer picker" },
         ["]"] = { name = "+next" },
         ["["] = { name = "+prev" },
         ["<leader><tab>"] = { name = "+tabs" },
-        b = "+buffer",
-        c = "+coding",
-        d = "+debugging",
-        f = "+files",
-        g = "+git",
-        h = "+harpoon",
-        n = "+noice",
-        P = "Buffer picker",
-        q = "+quickfix",
-        s = "+search",
-        t = "+testing",
-        u = "+toggle config",
-        w = { "Save File" },
-        x = "+diagnostics",
-        z = "+folds",
-        ["<space>"] = "Go to prev Buffer",
-      }, { prefix = "<leader>" })
+        ["<leader><leader>"] = { name = "Goto prev buffer" },
+        ["<leader>b"] = { name = "+buffer" },
+        ["<leader>c"] = { name = "+coding" },
+        ["<leader>d"] = { name = "+debugging" },
+        ["<leader>f"] = { name = "+file/find" },
+        ["<leader>g"] = { name = "+git" },
+        ["<leader>gh"] = { name = "+hunks" },
+        ["<leader>h"] = { name = "+harpoon" },
+        ["<leader>n"] = { name = "+noice" },
+        ["<leader>q"] = { name = "+quit/session" },
+        ["<leader>s"] = { name = "+search" },
+        ["<leader>t"] = { name = "+testing" },
+        ["<leader>u"] = { name = "+ui" },
+        ["<leader>w"] = { name = "+windows" },
+        ["<leader>x"] = { name = "+diagnostics/quickfix" },
+        ["<leader>z"] = { name = "+folds" },
+      },
+    },
+    config = function(_, opts)
+      local wk = require("which-key")
+      wk.setup(opts)
+      wk.register(opts.defaults)
     end,
   },
 

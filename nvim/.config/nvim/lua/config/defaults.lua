@@ -1,98 +1,86 @@
-local nvim = require("utils.nvim")
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
-local vim_options = {
-  termguicolors = true, -- True color support
-  autoindent = true, -- copy indent from last line when starting new line
-  backspace = "indent,eol,start",
-  backup = false, -- creates a backup file
-  clipboard = "unnamedplus", -- allows neovim to access the system clipboard
-  cmdheight = 1, -- more space in the neovim command line for displaying messages
-  colorcolumn = "99999", -- fixes indentline for now
-  completeopt = { "menuone", "noselect" },
-  conceallevel = 0, -- so that `` is visible in markdown files
-  encoding = "utf-8",
-  fileencoding = "utf-8", -- the encoding written to a file
-  foldmethod = "manual", -- folding, set to "expr" for treesitter based folding
-  foldexpr = "", -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
-  guifont = "monospace:h17", -- the font used in graphical neovim applications
-  hidden = true, -- required to keep multiple buffers and open multiple buffers
-  hlsearch = true, -- highlight all matches on previous search pattern
-  history = 1000, -- increase history from 20 default to 1000
-  ignorecase = true, -- ignore case in search patterns
-  list = true, -- enable listchars
-  laststatus = 3, -- show global status bar
-  listchars = {
-    tab = "  →",
-    eol = "↲",
-    extends = "⟩",
-    precedes = "⟨",
-    lead = "·",
-    trail = "·",
-    nbsp = "·",
-  },
-  mouse = "a", -- allow the mouse to be used in neovim
-  pumheight = 10, -- pop up menu height
-  showmode = false, -- we don't need to see things like -- INSERT -- anymore
-  showtabline = 1, -- always show tabs
-  smartcase = true, -- smart case
-  smartindent = true, -- make indenting smarter again
-  splitbelow = true, -- force all horizontal splits to go below current window
-  splitright = true, -- force all vertical splits to go to the right of current window
-  swapfile = false, -- creates a swapfile
-  timeoutlen = 500, -- time to wait for a mapped sequence to complete (in milliseconds)
-  undodir = nvim.get_undo_dir(), -- set an undo directory
-  undofile = true, -- enable persistent undo
-  updatetime = 300, -- faster completion
-  writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
-  expandtab = true, -- convert tabs to spaces
-  tabstop = 2, -- insert 2 spaces for a tab
-  cursorline = true, -- highlight the current line
-  number = true, -- set numbered lines
-  relativenumber = false, -- set relative numbered lines
-  numberwidth = 4, -- set number column width to 2 {default 4}
-  signcolumn = "yes:1", -- always show the sign column, otherwise it would shift the text each time
-  wrap = false, -- display lines as one long line
-  scrolloff = 8, -- start scrolling three lines before horizontal border of window
-  sidescrolloff = 8,
-  wildignore = {
-    ".DS_STORE",
-    "*.har",
-    "*.jpg",
-    "*.jpeg",
-    "*.gif",
-    "*.min.js",
-    "*.png",
-    "*/.git/*",
-    "*/.svn/*",
-    "*/cache/*",
-    "*/build/*",
-    "*/dist/*",
-    "*/log/*",
-    "*/recs/*",
-    "*/recordings/*",
-    "*/tmp/*",
-  },
+local opt = vim.opt
+
+opt.autowrite = true -- Enable auto write
+opt.clipboard = "unnamedplus" -- Sync with system clipboard
+opt.completeopt = "menu,menuone,noselect"
+-- completeopt = { "menuone", "noselect" },
+opt.conceallevel = 0
+opt.confirm = true -- Confirm to save changes before exiting modified buffer
+opt.cursorline = true -- Enable highlighting of the current line
+opt.expandtab = true -- Use spaces instead of tabs
+opt.formatoptions = "jcroqlnt" -- tcqj
+opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep"
+opt.ignorecase = true -- Ignore case
+opt.inccommand = "nosplit" -- preview incremental substitute
+opt.laststatus = 3 -- Show global statusbar
+opt.list = true -- Show some invisible characters (tabs...
+opt.listchars = {
+  tab = "  →",
+  eol = "↲",
+  extends = "⟩",
+  precedes = "⟨",
+  lead = "·",
+  trail = "·",
+  nbsp = "·",
 }
+opt.mouse = "a" -- Enable mouse mode
+opt.number = true -- Print line number
+opt.pumblend = 10 -- Popup blend
+opt.pumheight = 10 -- Maximum number of entries in a popup
+opt.relativenumber = false -- Relative line numbers
+opt.scrolloff = 4 -- Lines of context
+opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
+opt.shiftround = true -- Round indent
+opt.shiftwidth = 2 -- Size of an indent
+opt.shortmess:append({ W = true, I = true, c = true })
+opt.showmode = false -- Dont show mode since we have a statusline
+opt.sidescrolloff = 8 -- Columns of context
+opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
+-- opt.signcolumn = "yes:1" -- Always show the signcolumn, otherwise it would shift the text each time
+opt.smartcase = true -- Don't ignore case with capitals
+opt.smartindent = true -- Insert indents automatically
+opt.spelllang = { "en" }
+opt.splitbelow = true -- Put new windows below current
+opt.splitright = true -- Put new windows right of current
+opt.tabstop = 2 -- Number of spaces tabs count for
+opt.termguicolors = true -- True color support
+opt.timeoutlen = 300
+opt.undofile = true
+opt.undolevels = 10000
+opt.updatetime = 200 -- Save swap file and trigger CursorHold
+opt.wildmode = "longest:full,full" -- Command-line completion mode
+opt.winminwidth = 5 -- Minimum window width
+opt.wrap = false -- Disable line wrap
+-- opt.wildignore = {
+--   ".DS_STORE",
+--   "*.har",
+--   "*.jpg",
+--   "*.jpeg",
+--   "*.gif",
+--   "*.min.js",
+--   "*.png",
+--   "*/.git/*",
+--   "*/.svn/*",
+--   "*/cache/*",
+--   "*/build/*",
+--   "*/dist/*",
+--   "*/log/*",
+--   "*/recs/*",
+--   "*/recordings/*",
+--   "*/tmp/*",
+-- }
 
 if vim.fn.has("nvim-0.9.0") == 1 then
-  vim.opt.splitkeep = "screen"
-  vim.opt.shortmess:append({ C = true })
+  opt.splitkeep = "screen"
+  opt.shortmess:append({ C = true })
 end
 
-local options = {
-  grepprg = [[rg --no-heading --vimgrep --smart-case  --follow]],
-  grepformat = [[%f:%l:%c:%m,%f:%l:%m]],
-}
-
-vim.opt.shortmess:append("c")
-
-for k, v in pairs(vim_options) do
-  vim.opt[k] = v
-end
-
-for k, v in pairs(options) do
-  vim.o[k] = v
-end
+-- Fix markdown indentation settings
+vim.g.markdown_recommended_style = 0
 
 -- folds
 vim.wo.foldcolumn = "0"
