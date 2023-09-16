@@ -198,5 +198,5 @@ vim.cmd([[
 
 -- Copy & paste {{{
 -- Make y and p copy/paste to system clipboard
-vim.api.nvim_set_keymap("v", "<C-c>", '"+yi', opts)
-vim.api.nvim_set_keymap("v", "<C-x>", '"+c', opts)
+-- vim.api.nvim_set_keymap("v", "<C-c>", '"+yi', opts)
+-- vim.api.nvim_set_keymap("v", "<C-x>", '"+c', opts)
