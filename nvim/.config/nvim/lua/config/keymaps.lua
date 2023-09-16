@@ -1,44 +1,23 @@
 local Util = require("lazyvim.util")
+local keymap = require("utils.keymap")
 
-local function map(mode, lhs, rhs, opts)
-  local keys = require("lazy.core.handler").handlers.keys
-  ---@cast keys LazyKeysHandler
-  -- do not create the keymap if a lazy keys handler exists
-  if not keys.active[keys.parse({ lhs, mode = mode }).id] then
-    opts = opts or {}
-    opts.silent = opts.silent ~= false
-    if opts.remap and not vim.g.vscode then
-      opts.remap = nil
-    end
-    vim.keymap.set(mode, lhs, rhs, opts)
-  end
-end
+local map = keymap.map
 
 -- better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
+-- Move to window using the <ctrl> hjkl keys
+map("n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true })
+map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window", remap = true })
+map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window", remap = true })
+map("n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true })
+
 -- Resize window using <ctrl> arrow keys
--- map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
--- map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
--- map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
--- map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
-
--- Declared here instead of plugin definition to override "LazyNvim" defaults
-local nvim_tmux_nav = require("nvim-tmux-navigation")
-
-vim.keymap.set("n", "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft, { desc = "Go to left window", remap = true })
-vim.keymap.set("n", "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown, { desc = "Go to lower window", remap = true })
-vim.keymap.set("n", "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp, { desc = "Go to upper window", remap = true })
-vim.keymap.set("n", "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight, { desc = "Go to right window", remap = true })
-vim.keymap.set("n", "<C-Left>", nvim_tmux_nav.NvimTmuxNavigateLeft, { desc = "Go to left window", remap = true })
-vim.keymap.set("n", "<C-Down>", nvim_tmux_nav.NvimTmuxNavigateDown, { desc = "Go to lower window", remap = true })
-vim.keymap.set("n", "<C-Up>", nvim_tmux_nav.NvimTmuxNavigateUp, { desc = "Go to upper window", remap = true })
-vim.keymap.set("n", "<C-Right>", nvim_tmux_nav.NvimTmuxNavigateRight, { desc = "Go to right window", remap = true })
-vim.keymap.set("n", "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive, { desc = "Go to last window", remap = true })
-vim.keymap.set("n", "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext, { desc = "Go to next window", remap = true })
-
--- n = { name = ":noh", cmd = "<cmd>noh<cr>" },
+map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Move Lines
 map("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
@@ -90,11 +69,6 @@ map("i", ";", ";<c-g>u")
 
 -- save file
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
--- map({ "n" }, "<leader>w", "<cmd>w<cr><esc>", { desc = "Save file" })
--- map({ "n" }, "<leader>W", "<cmd>w<cr><esc>", { desc = "Save file" })
-
--- Return to the last buffer
-map({ "n" }, "<leader><leader>", "<C-^>", { desc = "Goto prev buffer" })
 
 --keywordprg
 map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
@@ -102,6 +76,9 @@ map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 -- better indenting
 map("v", "<", "<gv")
 map("v", ">", ">gv")
+
+-- lazy
+map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 -- new file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
@@ -114,35 +91,23 @@ if not Util.has("trouble.nvim") then
   map("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
 end
 
+-- stylua: ignore start
+
 -- toggle options
 map("n", "<leader>uf", require("lazyvim.plugins.lsp.format").toggle, { desc = "Toggle format on Save" })
-map("n", "<leader>us", function()
-  Util.toggle("spell")
-end, { desc = "Toggle Spelling" })
-map("n", "<leader>uw", function()
-  Util.toggle("wrap")
-end, { desc = "Toggle Word Wrap" })
-map("n", "<leader>ul", function()
-  Util.toggle_number()
-end, { desc = "Toggle Line Numbers" })
+map("n", "<leader>us", function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
+map("n", "<leader>uw", function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
+map("n", "<leader>ul", function() Util.toggle_number() end, { desc = "Toggle Line Numbers" })
 map("n", "<leader>ud", Util.toggle_diagnostics, { desc = "Toggle Diagnostics" })
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
-map("n", "<leader>uc", function()
-  Util.toggle("conceallevel", false, { 0, conceallevel })
-end, { desc = "Toggle Conceal" })
+map("n", "<leader>uc", function() Util.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
 if vim.lsp.inlay_hint then
-  map("n", "<leader>uh", function()
-    vim.lsp.inlay_hint(0, nil)
-  end, { desc = "Toggle Inlay Hints" })
+  map("n", "<leader>uh", function() vim.lsp.inlay_hint(0, nil) end, { desc = "Toggle Inlay Hints" })
 end
 
 -- lazygit
-map("n", "<leader>gg", function()
-  Util.float_term({ "lazygit" }, { cwd = Util.get_root(), esc_esc = false, ctrl_hjkl = false })
-end, { desc = "Lazygit (root dir)" })
-map("n", "<leader>gG", function()
-  Util.float_term({ "lazygit" }, { esc_esc = false, ctrl_hjkl = false })
-end, { desc = "Lazygit (cwd)" })
+map("n", "<leader>gg", function() Util.float_term({ "lazygit" }, { cwd = Util.get_root(), esc_esc = false, ctrl_hjkl = false }) end, { desc = "Lazygit (root dir)" })
+map("n", "<leader>gG", function() Util.float_term({ "lazygit" }, {esc_esc = false, ctrl_hjkl = false}) end, { desc = "Lazygit (cwd)" })
 
 -- quit
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
@@ -151,6 +116,25 @@ map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
 if vim.fn.has("nvim-0.9.0") == 1 then
   map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 end
+
+-- LazyVim Changelog
+map("n", "<leader>L", Util.changelog, {desc = "LazyVim Changelog"})
+
+-- floating terminal
+local lazyterm = function() Util.float_term(nil, { cwd = Util.get_root() }) end
+map("n", "<leader>ft", lazyterm, { desc = "Terminal (root dir)" })
+map("n", "<leader>fT", function() Util.float_term() end, { desc = "Terminal (cwd)" })
+map("n", "<c-/>", lazyterm, { desc = "Terminal (root dir)" })
+map("n", "<c-_>", lazyterm, { desc = "which_key_ignore" })
+
+-- Terminal Mappings
+map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
+map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
+map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
+map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
+map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
 
 -- windows
 map("n", "<leader>ww", "<C-W>p", { desc = "Other window", remap = true })
@@ -168,12 +152,51 @@ map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
--- Faster split resizing
-map("n", "+", "<C-W>+", { desc = "Resize +" })
-map("n", "-", "<C-W>-", { desc = "Resize -" })
 
--- Fix page up and down
--- map("n", "<PageUp>", "<C-U>", opts)
--- map("n", "<PageDown>", "<C-D>", opts)
-map("i", "<PageUp>", "<C-O><C-U>", { desc = "Page up" })
-map("i", "<PageDown>", "<C-O><C-D>", { desc = "Page down" })
+------------------------
+---- CUSTOM KEYMAPS ----
+------------------------
+local opts = { noremap = true, silent = true }
+
+--- Return to the last buffer
+map({ "n" }, "<leader><leader>", "<C-^>", { desc = "Goto prev buffer" })
+
+-- Move to window using the <ctrl> hjkl keys
+map("n", "<C-Left>", "<C-w>h", { desc = "Go to left window", remap = true })
+map("n", "<C-Down>", "<C-w>j", { desc = "Go to lower window", remap = true })
+map("n", "<C-Up>", "<C-w>k", { desc = "Go to upper window", remap = true })
+map("n", "<C-Right>", "<C-w>l", { desc = "Go to right window", remap = true })
+
+-- Better code indent
+map("n", "<S-TAB>", "<l", { desc = "Reduce indent", remap = true })
+map("n", "<TAB>", ">l", { desc = "Increment indent", remap = true })
+map("v", "<S-TAB>", "<gv", { desc = "Reduce indent", remap = true })
+map("v", "<TAB>", ">gv", { desc = "Increment indent", remap = true })
+
+-- Jump words
+-- How to get the first char? Use CRTL+V and press the key in command mode
+-- How to get the second char? Use CRTL+K and press the key in command mode
+-- <Esc> means escape char (<Esc>b === ^[b)
+--
+-- <M-*> is the 'meta' key (ALT)
+vim.api.nvim_set_keymap("n", "<M-f>", "<Esc>w", opts)
+vim.api.nvim_set_keymap("n", "<M-b>", "<Esc>b", opts)
+vim.api.nvim_set_keymap("v", "<M-f>", "<S-Right>", opts)
+vim.api.nvim_set_keymap("v", "<M-b>", "<S-Left>", opts)
+vim.api.nvim_set_keymap("i", "<M-f>", "<S-Right>", opts)
+vim.api.nvim_set_keymap("i", "<M-b>", "<S-Left>", opts)
+vim.api.nvim_set_keymap("c", "<M-f>", "<Esc>w", opts)
+vim.api.nvim_set_keymap("c", "<M-b>", "<Esc>b", opts)
+vim.api.nvim_set_keymap("o", "<M-f>", "<S-Right>", opts)
+vim.api.nvim_set_keymap("o", "<M-b>", "<S-Left>", opts)
+vim.cmd([[
+  omap <M-f> <Esc>w
+  omap <M-b> <Esc>b
+  cnoremap <M-f> <S-Right>
+  cnoremap <M-b> <S-Left>
+]])
+
+-- Copy & paste {{{
+-- Make y and p copy/paste to system clipboard
+vim.api.nvim_set_keymap("v", "<C-c>", '"+yi', opts)
+vim.api.nvim_set_keymap("v", "<C-x>", '"+c', opts)

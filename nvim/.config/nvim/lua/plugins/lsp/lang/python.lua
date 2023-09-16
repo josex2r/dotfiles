@@ -45,7 +45,7 @@ return {
     opts = {
       servers = {
         pyright = {},
-        ruff_lsp = {},
+        -- ruff_lsp = {},
       },
       setup = {
         ruff_lsp = function()

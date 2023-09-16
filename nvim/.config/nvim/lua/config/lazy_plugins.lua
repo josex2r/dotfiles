@@ -2,6 +2,8 @@ local constants = require("constants")
 
 local lazypath = constants.lazy_path
 
+print(constants.lazy_path)
+
 if not vim.loop.fs_stat(lazypath) then
   -- bootstrap lazy.nvim
   -- stylua: ignore
@@ -15,7 +17,7 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 
-vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
@@ -28,7 +30,7 @@ require("lazy").setup({
   },
   defaults = {
     -- lazy = true, -- every plugin is lazy-loaded by default
-    version = "*", -- try installing the latest stable version for plugins that support semver
+    -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
   install = {
     colorscheme = { "tokyonight-moon" },
