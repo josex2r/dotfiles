@@ -2,7 +2,7 @@ return {
   -- lspconfig
   {
     "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     dependencies = {
       { "folke/neoconf.nvim", cmd = "Neoconf", config = false, dependencies = { "nvim-lspconfig" } },
       { "folke/neodev.nvim", opts = {} },
@@ -41,9 +41,6 @@ return {
       capabilities = {},
       -- Automatically format on save
       autoformat = true,
-      -- Enable this to show formatters used in a notification
-      -- Useful for debugging formatter issues
-      format_notify = false,
       -- options for vim.lsp.buf.format
       -- `bufnr` and `filter` is handled by the LazyVim formatter,
       -- but can be also overridden when specified
@@ -209,8 +206,8 @@ return {
 
   -- formatters
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    "nvimtools/none-ls.nvim",
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     dependencies = { "mason.nvim" },
     opts = function()
       local nls = require("null-ls")

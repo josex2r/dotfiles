@@ -1,37 +1,4 @@
 return {
-  -- Python lang improvements
-  "Vimjas/vim-python-pep8-indent",
-
-  {
-    "williamboman/mason.nvim",
-    opts = function(_, opts)
-      table.insert(opts.ensure_installed, "isort")
-      table.insert(opts.ensure_installed, "flake8")
-      table.insert(opts.ensure_installed, "black")
-    end,
-  },
-
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    opts = function(_, opts)
-      local nls = require("null-ls")
-      -- table.insert(opts.sources, nls.builtins.formatting.flake8)
-      table.insert(opts.sources, nls.builtins.diagnostics.pydocstyle)
-      table.insert(
-        opts.sources,
-        nls.builtins.formatting.isort.with({
-          args = { "--stdout", "--profile", "black", "--filename", "$FILENAME", "-" },
-        })
-      )
-      table.insert(
-        opts.sources,
-        nls.builtins.formatting.black.with({
-          args = { "--config", "pyproject.toml", "$FILENAME", "--quiet" },
-        })
-      )
-    end,
-  },
-
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
@@ -45,7 +12,7 @@ return {
     opts = {
       servers = {
         pyright = {},
-        -- ruff_lsp = {},
+        ruff_lsp = {},
       },
       setup = {
         ruff_lsp = function()
@@ -94,14 +61,19 @@ return {
   {
     "linux-cultist/venv-selector.nvim",
     cmd = "VenvSelect",
-    opts = {
-      name = {
-        "venv",
-        ".venv",
-        "env",
-        ".env",
-      },
-    },
+    opts = function(_, opts)
+      if require("lazyvim.util").has("nvim-dap-python") then
+        opts.dap_enabled = true
+      end
+      return vim.tbl_deep_extend("force", opts, {
+        name = {
+          "venv",
+          ".venv",
+          "env",
+          ".env",
+        },
+      })
+    end,
     keys = { { "<leader>cv", "<cmd>:VenvSelect<cr>", desc = "Select VirtualEnv" } },
   },
 }

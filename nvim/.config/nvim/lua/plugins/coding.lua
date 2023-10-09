@@ -96,6 +96,26 @@ return {
       local defaults = require("cmp.config.default")()
       local luasnip = require("luasnip")
 
+      -- LazyVim extension to prioritise certain sources
+      defaults.sorting.primary = {}
+
+      ---@param entry Cmp.Entry
+      local function is_primary(entry)
+        local config = require("cmp.config").global
+        return vim.tbl_contains(config.sorting.primary or {}, entry.source:get_debug_name())
+      end
+
+      table.insert(defaults.sorting.comparators, 1, function(a, b)
+        local aa = is_primary(a)
+        local bb = is_primary(b)
+        if aa and not bb then
+          return true
+        end
+        if not aa and bb then
+          return false
+        end
+      end)
+
       return {
         window = {
           completeopt = "menu,menuone,noinsert",
@@ -144,10 +164,10 @@ return {
           end, { "i", "s" }),
         },
         sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "buffer" },
-          { name = "path" },
+          { name = "nvim_lsp", group_index = 1 },
+          { name = "luasnip", group_index = 1 },
+          { name = "buffer", group_index = 2 },
+          { name = "path", group_index = 2 },
         }),
         experimental = {
           ghost_text = {
@@ -200,41 +220,24 @@ return {
 
   -- auto pairs
   {
-    "windwp/nvim-autopairs",
-
-    opts = {
-      -- Don't add pairs if it already has a close pair in the same line
-      enable_check_bracket_line = true,
-      -- will ignore alphanumeric and `.` `"` `'` symbols
-      ignored_next_char = "[%w%.%'%\"]",
-      -- disable in buffers of type
-      disable_filetype = {
-        "TelescopePrompt",
-        "vim",
-        "guihua",
-        "guihua_rust",
-        "clap_input",
-        "spectre_panel",
-      },
-      fast_wrap = {
-        map = "<C-e>",
-        chars = { "{", "[", "(", '"', "'" },
-        pattern = [=[[%'%"%)%>%]%)%}%,]]=],
-        end_key = "$",
-        keys = "qwertyuiopzxcvbnmasdfghjkl",
-        check_comma = true,
-        highlight = "Search",
-        highlight_grey = "Comment",
+    "echasnovski/mini.pairs",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      {
+        "<leader>up",
+        function()
+          local Util = require("lazy.core.util")
+          vim.g.minipairs_disable = not vim.g.minipairs_disable
+          if vim.g.minipairs_disable then
+            Util.warn("Disabled auto pairs", { title = "Option" })
+          else
+            Util.info("Enabled auto pairs", { title = "Option" })
+          end
+        end,
+        desc = "Toggle auto pairs",
       },
     },
-
-    init = function()
-      -- If you want insert `(` after select function or method item
-      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-      local cmp = require("cmp")
-
-      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-    end,
   },
 
   -- surround
@@ -260,13 +263,13 @@ return {
     end,
     opts = {
       mappings = {
-        add = "gza", -- Add surrounding in Normal and Visual modes
-        delete = "gzd", -- Delete surrounding
-        find = "gzf", -- Find surrounding (to the right)
-        find_left = "gzF", -- Find surrounding (to the left)
-        highlight = "gzh", -- Highlight surrounding
-        replace = "gzr", -- Replace surrounding
-        update_n_lines = "gzn", -- Update `n_lines`
+        add = "gsa", -- Add surrounding in Normal and Visual modes
+        delete = "gsd", -- Delete surrounding
+        find = "gsf", -- Find surrounding (to the right)
+        find_left = "gsF", -- Find surrounding (to the left)
+        highlight = "gsh", -- Highlight surrounding
+        replace = "gsr", -- Replace surrounding
+        update_n_lines = "gsn", -- Update `n_lines`
       },
     },
   },
@@ -276,7 +279,13 @@ return {
     "numToStr/Comment.nvim",
 
     dependencies = {
-      { "JoosepAlviste/nvim-ts-context-commentstring" },
+      {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        lazy = true,
+        opts = {
+          enable_autocmd = false,
+        },
+      },
     },
 
     config = function()
@@ -313,7 +322,6 @@ return {
     --   { "i", mode = { "x", "o" } },
     -- },
     event = "VeryLazy",
-    dependencies = { "nvim-treesitter-textobjects" },
     opts = function()
       local ai = require("mini.ai")
       return {
@@ -325,6 +333,7 @@ return {
           }, {}),
           f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
           c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
+          t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },
         },
       }
     end,

@@ -25,7 +25,8 @@ return {
     },
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
+    optional = true,
     opts = function(_, opts)
       if type(opts.sources) == "table" then
         local null_ls = require("null-ls")
@@ -35,5 +36,26 @@ return {
         })
       end
     end,
+  },
+  {
+    "mfussenegger/nvim-lint",
+    optional = true,
+    opts = {
+      linters_by_ft = {
+        terraform = { "terraform_validate" },
+        tf = { "terraform_validate" },
+      },
+    },
+  },
+  {
+    "stevearc/conform.nvim",
+    optional = true,
+    opts = {
+      formatters_by_ft = {
+        terraform = { "terraform_fmt" },
+        tf = { "terraform_fmt" },
+        ["terraform-vars"] = { "terraform_fmt" },
+      },
+    },
   },
 }

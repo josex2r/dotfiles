@@ -31,9 +31,16 @@ return {
 
     event = "VeryLazy",
 
+    init = function()
+      vim.g.lualine_laststatus = vim.o.laststatus
+      vim.o.laststatus = 0
+    end,
+
     config = function()
       local lualine = require("lualine")
       local navic = require("nvim-navic")
+
+      vim.o.laststatus = vim.g.lualine_laststatus
 
       lualine.setup({
         options = {

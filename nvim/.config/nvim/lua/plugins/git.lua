@@ -5,7 +5,7 @@ return {
   -- Git statusline icons
   {
     "lewis6991/gitsigns.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     opts = {
       signs = {
         add = { text = "▎" },

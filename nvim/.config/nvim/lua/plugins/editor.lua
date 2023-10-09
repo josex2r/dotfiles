@@ -59,6 +59,16 @@ return {
       },
     },
     config = function(_, opts)
+      local function on_move(data)
+        Util.on_rename(data.source, data.destination)
+      end
+
+      local events = require("neo-tree.events")
+      opts.event_handlers = opts.event_handlers or {}
+      vim.list_extend(opts.event_handlers, {
+        { event = events.FILE_MOVED, handler = on_move },
+        { event = events.FILE_RENAMED, handler = on_move },
+      })
       require("neo-tree").setup(opts)
       vim.api.nvim_create_autocmd("TermClose", {
         pattern = "*lazygit",
@@ -84,7 +94,6 @@ return {
 
   {
     "nvim-telescope/telescope.nvim",
-    commit = vim.fn.has("nvim-0.9.0") == 0 and "057ee0f8783" or nil,
     cmd = "Telescope",
     version = false, -- telescope did only one release, so use HEAD for now
     dependencies = {
@@ -142,6 +151,8 @@ return {
             "Trait",
             "Field",
             "Property",
+            "Enum",
+            "Constant",
           },
         }),
         desc = "Goto Symbol",
@@ -160,58 +171,56 @@ return {
             "Trait",
             "Field",
             "Property",
+            "Enum",
+            "Constant",
           },
         }),
         desc = "Goto Symbol (Workspace)",
       },
     },
-    opts = {
-      defaults = {
-        prompt_prefix = " ",
-        selection_caret = " ",
-        mappings = {
-          i = {
-            ["<c-t>"] = function(...)
-              return require("trouble.providers.telescope").open_with_trouble(...)
-            end,
-            ["<a-t>"] = function(...)
-              return require("trouble.providers.telescope").open_selected_with_trouble(...)
-            end,
-            ["<a-i>"] = function()
-              local action_state = require("telescope.actions.state")
-              local line = action_state.get_current_line()
-              Util.telescope("find_files", { no_ignore = true, default_text = line })()
-            end,
-            ["<a-h>"] = function()
-              local action_state = require("telescope.actions.state")
-              local line = action_state.get_current_line()
-              Util.telescope("find_files", { hidden = true, default_text = line })()
-            end,
-            ["<C-Down>"] = function(...)
-              return require("telescope.actions").cycle_history_next(...)
-            end,
-            ["<C-Up>"] = function(...)
-              return require("telescope.actions").cycle_history_prev(...)
-            end,
-            ["<C-f>"] = function(...)
-              return require("telescope.actions").preview_scrolling_down(...)
-            end,
-            ["<C-b>"] = function(...)
-              return require("telescope.actions").preview_scrolling_up(...)
-            end,
-            ["<ESC>"] = function(...)
-              return require("telescope.actions").close(...)
-            end,
-          },
-          n = {
-            ["q"] = function(...)
-              return require("telescope.actions").close(...)
-            end,
+    opts = function()
+      local actions = require("telescope.actions")
+
+      local open_with_trouble = function(...)
+        return require("trouble.providers.telescope").open_with_trouble(...)
+      end
+      local open_selected_with_trouble = function(...)
+        return require("trouble.providers.telescope").open_selected_with_trouble(...)
+      end
+      local find_files_no_ignore = function()
+        local action_state = require("telescope.actions.state")
+        local line = action_state.get_current_line()
+        Util.telescope("find_files", { no_ignore = true, default_text = line })()
+      end
+      local find_files_with_hidden = function()
+        local action_state = require("telescope.actions.state")
+        local line = action_state.get_current_line()
+        Util.telescope("find_files", { hidden = true, default_text = line })()
+      end
+
+      return {
+        defaults = {
+          prompt_prefix = " ",
+          selection_caret = " ",
+          mappings = {
+            i = {
+              ["<c-t>"] = open_with_trouble,
+              ["<a-t>"] = open_selected_with_trouble,
+              ["<a-i>"] = find_files_no_ignore,
+              ["<a-h>"] = find_files_with_hidden,
+              ["<C-Down>"] = actions.cycle_history_next,
+              ["<C-Up>"] = actions.cycle_history_prev,
+              ["<C-f>"] = actions.preview_scrolling_down,
+              ["<C-b>"] = actions.preview_scrolling_up,
+            },
+            n = {
+              ["q"] = actions.close,
+              ["<ESC>"] = actions.close,
+            },
           },
         },
-      },
-    },
-
+      }
+    end,
     config = function(plugin, opts)
       local telescope = require("telescope")
 
@@ -237,7 +246,7 @@ return {
       defaults = {
         mode = { "n", "v" },
         ["g"] = { name = "+goto" },
-        ["gz"] = { name = "+surround" },
+        ["gs"] = { name = "+surround" },
         ["P"] = { name = "Buffer picker" },
         ["]"] = { name = "+next" },
         ["["] = { name = "+prev" },
@@ -270,7 +279,7 @@ return {
   -- references
   {
     "RRethy/vim-illuminate",
-    event = { "BufReadPost", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     opts = {
       delay = 200,
       large_file_cutoff = 2000,
@@ -310,7 +319,24 @@ return {
     "echasnovski/mini.bufremove",
     -- stylua: ignore
     keys = {
-      { "<leader>bd", function() require("mini.bufremove").delete(0, false) end, desc = "Delete Buffer" },
+      {
+        "<leader>bd",
+        function()
+          local bd = require("mini.bufremove").delete
+          if vim.bo.modified then
+            local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
+            if choice == 1 then -- Yes
+              vim.cmd.write()
+              bd(0)
+            elseif choice == 2 then -- No
+              bd(0, true)
+            end
+          else
+            bd(0)
+          end
+        end,
+        desc = "Delete Buffer",
+      },
       { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
     },
   },

@@ -13,23 +13,25 @@ return {
   -- correctly setup lspconfig
   {
     "neovim/nvim-lspconfig",
-    dependencies = { "jose-elias-alvarez/typescript.nvim" },
     opts = {
       -- make sure mason installs the server
       servers = {
         ---@type lspconfig.options.tsserver
         tsserver = {
-          init_options = {
-            hostInfo = "neovim",
-            preferences = {
-              includeCompletionsForModuleExports = true,
-              includeCompletionsForImportStatements = true,
-              importModuleSpecifierPreference = "relative",
-            },
-          },
           keys = {
-            { "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", desc = "Organize Imports" },
-            { "<leader>cR", "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
+            {
+              "<leader>co",
+              function()
+                vim.lsp.buf.code_action({
+                  apply = true,
+                  context = {
+                    only = { "source.organizeImports.ts" },
+                    diagnostics = {},
+                  },
+                })
+              end,
+              desc = "Organize Imports",
+            },
           },
           settings = {
             typescript = {
@@ -37,16 +39,6 @@ return {
                 indentSize = vim.o.shiftwidth,
                 convertTabsToSpaces = vim.o.expandtab,
                 tabSize = vim.o.tabstop,
-              },
-              inlayHints = {
-                -- includeInlayEnumMemberValueHints = true,
-                -- includeInlayFunctionLikeReturnTypeHints = true,
-                -- includeInlayFunctionParameterTypeHints = true,
-                -- includeInlayParameterNameHints = "all",
-                -- includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                -- includeInlayPropertyDeclarationTypeHints = true,
-                -- includeInlayVariableTypeHints = true,
-                -- includeInlayVariableTypeHintsWhenTypeMatchesName = true,
               },
             },
             javascript = {
@@ -62,19 +54,7 @@ return {
           },
         },
       },
-      setup = {
-        tsserver = function(_, opts)
-          require("typescript").setup({ server = opts })
-          return true
-        end,
-      },
     },
-  },
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    opts = function(_, opts)
-      table.insert(opts.sources, require("typescript.extensions.null-ls.code-actions"))
-    end,
   },
   {
     "mfussenegger/nvim-dap",
@@ -106,7 +86,7 @@ return {
           },
         }
       end
-      for _, language in ipairs({ "typescript", "javascript" }) do
+      for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
         if not dap.configurations[language] then
           dap.configurations[language] = {
             {

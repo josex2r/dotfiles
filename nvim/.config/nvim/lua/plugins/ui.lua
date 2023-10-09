@@ -84,43 +84,52 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      require("bufferline").setup(opts)
+      -- Fix bufferline when restoring a session
+      vim.api.nvim_create_autocmd("BufAdd", {
+        callback = function()
+          vim.schedule(function()
+            pcall(nvim_bufferline)
+          end)
+        end,
+      })
+    end,
   },
 
   -- indent guides for Neovim
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = { "BufReadPost", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     opts = {
-      -- char = "▏",
-      char = "│",
-      filetype_exclude = {
-        "help",
-        "alpha",
-        "dashboard",
-        "neo-tree",
-        "Trouble",
-        "lazy",
-        "mason",
-        "notify",
-        "toggleterm",
-        "lazyterm",
+      indent = {
+        char = "│",
+        tab_char = "│",
       },
-      show_trailing_blankline_indent = false,
-      show_current_context = false,
+      scope = { enabled = false },
+      exclude = {
+        filetypes = {
+          "help",
+          "alpha",
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lazyterm",
+        },
+      },
     },
-
-    init = function()
-      vim.opt.list = true
-      vim.opt.listchars:append("space:⋅")
-      vim.opt.listchars:append("eol:↴")
-    end,
+    main = "ibl",
   },
 
   -- active indent guide and indent text objects
   {
     "echasnovski/mini.indentscope",
     version = false, -- wait till new 0.7.0 release to put it back on semver
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     opts = {
       -- symbol = "▏",
       symbol = "│",
@@ -167,7 +176,7 @@ return {
     end,
   },
 
-  -- noicer ui
+  -- Displays a popup with possible key bindings of the command you started typing
   {
     "folke/which-key.nvim",
     opts = function(_, opts)
@@ -176,6 +185,8 @@ return {
       end
     end,
   },
+
+  -- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -244,14 +255,14 @@ return {
 
       dashboard.section.header.val = vim.split(logo, "\n")
       dashboard.section.buttons.val = {
-        dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
-        dashboard.button("n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
-        dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
-        dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
-        dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR>"),
-        dashboard.button("s", "勒" .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
-        dashboard.button("l", "鈴" .. " Lazy", ":Lazy<CR>"),
-        dashboard.button("q", " " .. " Quit", ":qa<CR>"),
+        dashboard.button("f", " " .. " Find file", "<cmd> Telescope find_files <cr>"),
+        dashboard.button("n", " " .. " New file", "<cmd> ene <BAR> startinsert <cr>"),
+        dashboard.button("r", " " .. " Recent files", "<cmd> Telescope oldfiles <cr>"),
+        dashboard.button("g", " " .. " Find text", "<cmd> Telescope live_grep <cr>"),
+        dashboard.button("c", " " .. " Config", "<cmd> e $MYVIMRC <cr>"),
+        dashboard.button("s", " " .. " Restore Session", [[<cmd> lua require("persistence").load() <cr>]]),
+        dashboard.button("l", "󰒲 " .. " Lazy", "<cmd> Lazy <cr>"),
+        dashboard.button("q", " " .. " Quit", "<cmd> qa <cr>"),
       }
       for _, button in ipairs(dashboard.section.buttons.val) do
         button.opts.hl = "AlphaButtons"
@@ -271,6 +282,7 @@ return {
       if vim.o.filetype == "lazy" then
         vim.cmd.close()
         vim.api.nvim_create_autocmd("User", {
+          once = true,
           pattern = "AlphaReady",
           callback = function()
             require("lazy").show()
@@ -281,6 +293,7 @@ return {
       require("alpha").setup(dashboard.opts)
 
       vim.api.nvim_create_autocmd("User", {
+        once = true,
         pattern = "LazyVimStarted",
         callback = function()
           local stats = require("lazy").stats()
@@ -323,7 +336,12 @@ return {
       end)
     end,
 
-    opts = { separator = " ", highlight = true, depth_limit = 5 },
+    opts = {
+      separator = " ",
+      highlight = true,
+      depth_limit = 5,
+      lazy_update_context = true,
+    },
   },
 
   -- icons

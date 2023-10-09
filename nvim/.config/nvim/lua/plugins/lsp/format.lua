@@ -5,6 +5,11 @@ local M = {}
 ---@type PluginLspOpts
 M.opts = nil
 
+-- Allow plugins to set a custom formatter for a buffer.
+-- See the conform extra for an example.
+---@type fun(bufnr:number):boolean
+M.custom_format = nil
+
 function M.enabled()
   return M.opts.autoformat
 end
@@ -30,17 +35,25 @@ function M.format(opts)
     return
   end
 
+  if
+    M.custom_format
+    and Util.try(function()
+      return M.custom_format(buf)
+    end, { msg = "Custom formatter failed" })
+  then
+    return
+  end
+
   local formatters = M.get_formatters(buf)
   local client_ids = vim.tbl_map(function(client)
     return client.id
   end, formatters.active)
 
   if #client_ids == 0 then
+    if opts and opts.force then
+      Util.warn("No formatter available", { title = "LazyVim" })
+    end
     return
-  end
-
-  if M.opts.format_notify then
-    M.notify(formatters)
   end
 
   vim.lsp.buf.format(vim.tbl_deep_extend("force", {
@@ -49,45 +62,6 @@ function M.format(opts)
       return vim.tbl_contains(client_ids, client.id)
     end,
   }, require("lazyvim.util").opts("nvim-lspconfig").format or {}))
-end
-
----@param formatters LazyVimFormatters
-function M.notify(formatters)
-  local lines = { "# Active:" }
-
-  for _, client in ipairs(formatters.active) do
-    local line = "- **" .. client.name .. "**"
-    if client.name == "null-ls" then
-      line = line
-        .. " ("
-        .. table.concat(
-          vim.tbl_map(function(f)
-            return "`" .. f.name .. "`"
-          end, formatters.null_ls),
-          ", "
-        )
-        .. ")"
-    end
-    table.insert(lines, line)
-  end
-
-  if #formatters.available > 0 then
-    table.insert(lines, "")
-    table.insert(lines, "# Disabled:")
-    for _, client in ipairs(formatters.available) do
-      table.insert(lines, "- **" .. client.name .. "**")
-    end
-  end
-
-  vim.notify(table.concat(lines, "\n"), vim.log.levels.INFO, {
-    title = "Formatting",
-    on_open = function(win)
-      vim.api.nvim_win_set_option(win, "conceallevel", 3)
-      vim.api.nvim_win_set_option(win, "spell", false)
-      local buf = vim.api.nvim_win_get_buf(win)
-      vim.treesitter.start(buf, "markdown")
-    end,
-  })
 end
 
 -- Gets all lsp clients that support formatting.
@@ -108,7 +82,7 @@ function M.get_formatters(bufnr)
   }
 
   ---@type lsp.Client[]
-  local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+  local clients = require("lazyvim.util").get_clients({ bufnr = bufnr })
   for _, client in ipairs(clients) do
     if M.supports_format(client) then
       if (#null_ls > 0 and client.name == "null-ls") or #null_ls == 0 then

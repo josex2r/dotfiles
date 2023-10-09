@@ -27,8 +27,8 @@ require("lazy").setup({
     { import = "plugins" },
     { import = "plugins/dap" },
     { import = "plugins/extras" },
+    { import = "plugins/extras/formatting" },
     { import = "plugins/lsp_lang" },
-    { import = "plugins/null_ls" },
   },
   defaults = {
     -- lazy = true, -- every plugin is lazy-loaded by default

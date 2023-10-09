@@ -8,7 +8,15 @@ return {
     end,
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "mason.nvim",
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "hadolint" })
+    end,
+  },
+  {
+    "nvimtools/none-ls.nvim",
+    optional = true,
     opts = function(_, opts)
       local nls = require("null-ls")
       opts.sources = opts.sources or {}
@@ -16,12 +24,14 @@ return {
         nls.builtins.diagnostics.hadolint,
       })
     end,
-    dependencies = {
-      "mason.nvim",
-      opts = function(_, opts)
-        opts.ensure_installed = opts.ensure_installed or {}
-        vim.list_extend(opts.ensure_installed, { "hadolint" })
-      end,
+  },
+  {
+    "mfussenegger/nvim-lint",
+    optional = true,
+    opts = {
+      linters_by_ft = {
+        dockerfile = { "hadolint" },
+      },
     },
   },
   {
