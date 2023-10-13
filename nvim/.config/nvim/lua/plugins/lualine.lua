@@ -1,9 +1,3 @@
-local icons = require("config.icons")
-
-local hide_in_width = function()
-  return vim.fn.winwidth(0) > 80
-end
-
 -- cool function for progress
 local progress = function()
   local current_line = vim.fn.line(".")
@@ -15,52 +9,41 @@ local progress = function()
   return chars[index]
 end
 
-local disabled_filetypes = vim.o.laststatus == 3 and {} or { "dashboard", "lazy", "Outline", "alpha" }
-
-local function fg(name)
-  return function()
-    ---@type {foreground?:number}?
-    local hl = vim.api.nvim_get_hl_by_name(name, true)
-    return hl and hl.foreground and { fg = string.format("#%06x", hl.foreground) }
-  end
-end
-
 return {
+  -- statusline
   {
     "nvim-lualine/lualine.nvim",
-
     event = "VeryLazy",
-
     init = function()
       vim.g.lualine_laststatus = vim.o.laststatus
-      vim.o.laststatus = 0
+      if vim.fn.argc(-1) > 0 then
+        -- set an empty statusline till lualine loads
+        vim.o.statusline = " "
+      else
+        -- hide the statusline on the starter page
+        vim.o.laststatus = 0
+      end
     end,
+    opts = function()
+      -- PERF: we don't need this lualine require madness 🤷
+      local lualine_require = require("lualine_require")
+      lualine_require.require = require
 
-    config = function()
-      local lualine = require("lualine")
-      local navic = require("nvim-navic")
+      local icons = require("lazyvim.config").icons
+      local Util = require("lazyvim.util")
 
       vim.o.laststatus = vim.g.lualine_laststatus
 
-      lualine.setup({
+      return {
         options = {
-          icons_enabled = true,
           theme = "auto",
-          component_separators = { left = "|", right = "|" },
-          section_separators = { left = "", right = "" },
-          disabled_filetypes = disabled_filetypes,
           globalstatus = true,
+          disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
         },
         sections = {
           lualine_a = { "mode" },
-          lualine_b = {
-            -- 'branch',
-            {
-              "diff",
-              colored = false,
-              symbols = require("config.icons").git,
-              cond = hide_in_width,
-            },
+          lualine_b = { "branch" },
+          lualine_c = {
             {
               "diagnostics",
               symbols = {
@@ -70,43 +53,55 @@ return {
                 hint = icons.diagnostics.Hint,
               },
             },
-          },
-          lualine_c = {
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            { "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
-            { navic.get_location, cond = navic.is_available },
-          },
-          -- lualine_x = { "encoding", "fileformat", "filetype" },
-          lualine_x = {
             {
               function()
-                return require("noice").api.status.command.get()
+                return Util.root.pretty_path()
               end,
-              cond = function()
-                return package.loaded["noice"] and require("noice").api.status.command.has()
-              end,
-              color = fg("Statement"),
             },
+          },
+          lualine_x = {
+            -- stylua: ignore
             {
-              function()
-                return require("noice").api.status.mode.get()
-              end,
-              cond = function()
-                return package.loaded["noice"] and require("noice").api.status.mode.has()
-              end,
-              color = fg("Constant"),
+              function() return require("noice").api.status.command.get() end,
+              cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+              color = Util.ui.fg("Statement"),
+            },
+            -- stylua: ignore
+            {
+              function() return require("noice").api.status.mode.get() end,
+              cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+              color = Util.ui.fg("Constant"),
+            },
+            -- stylua: ignore
+            {
+              function() return "  " .. require("dap").status() end,
+              cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
+              color = Util.ui.fg("Debug"),
             },
             {
               require("lazy.status").updates,
               cond = require("lazy.status").has_updates,
-              color = fg("Special"),
+              color = Util.ui.fg("Special"),
+            },
+            {
+              "diff",
+              symbols = {
+                added = icons.git.added,
+                modified = icons.git.modified,
+                removed = icons.git.removed,
+              },
             },
           },
-          lualine_y = { progress },
-          lualine_z = { "location" },
+          lualine_y = {
+            { progress, padding = { left = 1, right = 1 } },
+          },
+          lualine_z = {
+            { "location", padding = { left = 0, right = 1 } },
+          },
         },
-        extensions = { "neo-tree" },
-      })
+        extensions = { "neo-tree", "lazy" },
+      }
     end,
   },
 }
