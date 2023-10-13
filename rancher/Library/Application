@@ -1,0 +1,7 @@
+# Allows t
+mountType: 9p
+mounts:
+  - location: "~"
+    9p:
+      securityModel: mapped-xattr
+      cache: "mmap"
