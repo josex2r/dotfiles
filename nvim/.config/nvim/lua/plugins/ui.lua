@@ -2,6 +2,20 @@ return {
   -- improved hls search using virtual line
   { "kevinhwang91/nvim-hlslens", config = true },
 
+  -- completion
+  {
+    "nvim-cmp",
+    event = "VeryLazy",
+    opts = function(_, opts)
+      local cmp = require("cmp")
+
+      opts.window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+      }
+    end,
+  },
+
   -- scrollbar
   {
     "petertriho/nvim-scrollbar",
@@ -48,13 +62,14 @@ return {
         command_palette = true,
         long_message_to_split = true,
         inc_rename = false, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = true, -- add a border to hover docs and signature help
+        -- lsp_doc_border = false,
+        lsp_doc_border = true,
       },
     },
   },
 
   {
-    "glepnir/dashboard-nvim",
+    "nvimdev/dashboard-nvim",
     event = "VimEnter",
     opts = function()
       local logo = [[
@@ -117,5 +132,10 @@ return {
 
       return opts
     end,
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    enabled = false,
   },
 }

@@ -34,4 +34,7 @@ return {
       -- map("n", "<C-Right>", nvim_tmux_nav.NvimTmuxNavigateRight, { desc = "Go to right window", remap = true })
     end,
   },
+
+  -- makes some plugins dot-repeatable
+  { "tpope/vim-repeat", event = "VeryLazy" },
 }
