@@ -20,7 +20,7 @@ fpath=(
 autoload -Uz bip bcp bup cani fp kp
 
 # Load the shell dotfiles (.zsources)
-for file in ~/.zsources/.{spaceship-prompt,functions,exports,aliases,extra}.sh; do
+for file in ~/.zsources/.{spaceship-prompt,functions,exports,aliases,extra,mappings}.sh; do
   [ -r "$file" ] && source "$file"
 done
 

@@ -2,8 +2,7 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # ASDF (tool version manager: node, java, python, ...)
-local asdf_path=$(brew --prefix asdf)
-source "$asdf_path/libexec/asdf.sh"
+eval "$(rtx activate zsh)"
 
 # Setup fzf (fuzzy-finder)
 [ -s ~/.fzf.zsh ] && source ~/.fzf.zsh
