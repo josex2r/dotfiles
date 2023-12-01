@@ -54,9 +54,3 @@ vim.api.nvim_set_keymap("c", "<M-f>", "<Esc>w", opts)
 vim.api.nvim_set_keymap("c", "<M-b>", "<Esc>b", opts)
 vim.api.nvim_set_keymap("o", "<M-f>", "<S-Right>", opts)
 vim.api.nvim_set_keymap("o", "<M-b>", "<S-Left>", opts)
-vim.cmd([[
-  omap <M-f> <Esc>w
-  omap <M-b> <Esc>b
-  cnoremap <M-f> <S-Right>
-  cnoremap <M-b> <S-Left>
-]])
