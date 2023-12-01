@@ -28,3 +28,7 @@ export DYLD_FORCE_FLAT_NAMESPACE=1
 source ~/.profile
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/jorep1/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
