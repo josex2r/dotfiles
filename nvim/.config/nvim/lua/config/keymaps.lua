@@ -25,10 +25,10 @@ end
 
 map("n", "<C-h>", move_left, { desc = "Go to left window", remap = true })
 map("n", "<C-Left>", move_left, { desc = "Go to left window", remap = true })
-map("n", "<C-j>", move_up, { desc = "Go to bottom window", remap = true })
-map("n", "<C-Down>", move_up, { desc = "Go to bottom window", remap = true })
-map("n", "<C-k>", move_down, { desc = "Go to top window", remap = true })
-map("n", "<C-Up>", move_down, { desc = "Go to top window", remap = true })
+map("n", "<C-k>", move_up, { desc = "Go to up window", remap = true })
+map("n", "<C-Up>", move_up, { desc = "Go to bottom window", remap = true })
+map("n", "<C-j>", move_down, { desc = "Go to bottom window", remap = true })
+map("n", "<C-Down>", move_down, { desc = "Go to bottom window", remap = true })
 map("n", "<C-l>", move_right, { desc = "Go to right window", remap = true })
 map("n", "<C-Right>", move_right, { desc = "Go to right window", remap = true })
 
