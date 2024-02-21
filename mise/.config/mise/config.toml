@@ -1,0 +1,6 @@
+[tools]
+node = "20"
+python = "3.11"
+deno = "latest"
+go = "latest"
+poetry = "latest"

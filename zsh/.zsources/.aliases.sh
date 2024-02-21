@@ -45,11 +45,3 @@ alias pyi="pipenv install $1"
 alias pyu="pipenv uninstall $1"
 alias pyg="pipenv graph"
 alias pyclean="pipenv --rm"
-
-# BBVA VPN
-alias vpn-up-blocking="sudo /opt/vpn/vpn-commands connect-blocking"
-alias vpn-up="sudo /opt/vpn/vpn-commands connect"
-alias vpn-routes-add="sudo /opt/vpn/vpn-commands add"
-alias vpn-routes-clean="sudo /opt/vpn/vpn-commands clean"
-alias vpn-down="sudo /opt/vpn/vpn-commands disconnect"
-alias vpn-status="sudo /opt/vpn/vpn-commands status"

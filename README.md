@@ -53,6 +53,9 @@ cp -r "fonts/*" ~/Library/Fonts
 ## Install neovim
 
 ```bash
+brew install sqlite # optional, depends on OS
+brew install ripgrep
+brew install gsed
 brew install --HEAD neovim
 ```
 
@@ -62,16 +65,16 @@ brew install --HEAD neovim
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-## Install asdf
+## Install mise (rtx)
 
 ```bash
-brew install asdf
+curl https://mise.jdx.dev/install.sh | sh
 # install plugins like node, python, ...
 ```
 
 ## Install fzf
 
-```bash
+````bash
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 ``
@@ -84,6 +87,7 @@ cd ~
 git clone https://github.com/josex2r/dotfiles.git
 
 # stow
+cd ~/dotfiles
 brew install stow
 stow --verbose alacritty
 stow --verbose aliases
@@ -98,4 +102,4 @@ stow --verbose zsh
 
 # Allow italics in terminal+nvim
 tic ./screen-256color-it.terminfo
-```
+````
