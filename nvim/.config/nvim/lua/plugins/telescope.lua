@@ -3,9 +3,9 @@ return {
     "folke/which-key.nvim",
     optional = true,
     opts = {
-      defaults = {
-        ["p"] = { name = "File picker" },
-        ["P"] = { name = "Buffer picker" },
+      spec = {
+        { "p", group = "File picker" },
+        { "P", group = "Buffer picker" },
       },
     },
   },
@@ -13,12 +13,9 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     keys = {
-      { "<C-o>", "<cmd>Telescope find_files<cr>", desc = "Find files" },
       { "<C-p>", "<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files<cr>", desc = "Find files" },
       { "<leader>p", "<cmd>Telescope buffers<cr>", desc = "Find buffers" },
       { "<leader><space>", false },
-      { "<leader>sG", LazyVim.telescope("live_grep"), desc = "Grep (Root Dir)" },
-      { "<leader>sg", LazyVim.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
     },
     opts = function()
       local actions = require("telescope.actions")

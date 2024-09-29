@@ -1,18 +1,19 @@
 # Allows to chmod files using relative path volumes
 # https://github.com/rancher-sandbox/rancher-desktop/issues/1209#issuecomment-1370181132
-mountType: 9p
-mounts:
-  - location: "~"
-    9p:
-      securityModel: mapped-xattr
-      cache: "mmap"
+# mountType: 9p
+# mounts:
+#   - location: "~"
+#     9p:
+#       securityModel: mapped-xattr
+#       cache: "mmap"
+
 # Virtual Machine type (qemu, vz)
 # NOTE: this is macOS 13 only. For Linux and macOS <13.0, qemu is always used.
 #
 # vz is macOS virtualization framework and requires macOS 13
 #
 # Default: qemu
-#vmType: vz
+vmType: vz
 
 # Utilise rosetta for amd64 emulation (requires m1 mac and vmType `vz`)
 # Default: false
@@ -28,4 +29,4 @@ mounts:
 # of concurrent reads or writes).
 #
 # Default: virtiofs (for vz), sshfs (for qemu)
-#mountType: virtiofs
+mountType: virtiofs

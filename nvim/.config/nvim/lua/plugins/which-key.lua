@@ -5,9 +5,10 @@ return {
     { "<leader><space>", "<C-^>", desc = "Prev buffer" },
   },
   opts = {
-    defaults = {
-      ["<leader><tab>"] = { name = "+tabs" },
-      ["<leader><leader>"] = { name = "Prev buffer" },
+    notify = false,
+    spec = {
+      { "<leader><leader>", group = "Prev buffer" },
+      { "<leader>cv", group = "Copilot", icon = "" },
     },
   },
 }

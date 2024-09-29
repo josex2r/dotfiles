@@ -18,6 +18,7 @@ fpath=(
 )
 
 autoload -Uz bip bcp bup cani fp kp
+autoload -U up-line-or-beginning-search down-line-or-beginning-search
 
 # Load the shell dotfiles (.zsources)
 for file in ~/.zsources/.{spaceship-prompt,functions,exports,aliases,extra,mappings}.sh; do
@@ -92,5 +93,5 @@ antigen apply
 
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="$HOME/.rd/bin:$PATH"
+export PATH="/Users/joseluis.represa/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

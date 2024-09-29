@@ -1,0 +1,16 @@
+paths:
+  vdeSwitch: /opt/rancher-desktop/bin/vde_switch
+  vdeVMNet: /opt/rancher-desktop/bin/vde_vmnet
+  varRun: /private/var/run
+group: everyone
+networks:
+  rancher-desktop-shared:
+    mode: shared
+    gateway: 192.168.205.1
+    dhcpEnd: 192.168.205.254
+    netmask: 255.255.255.0
+  host:
+    mode: host
+    gateway: 192.168.206.1
+    dhcpEnd: 192.168.206.254
+    netmask: 255.255.255.0

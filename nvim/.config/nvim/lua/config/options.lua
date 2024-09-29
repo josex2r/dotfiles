@@ -18,4 +18,4 @@ opt.fillchars = {
   eob = " ",
 }
 opt.relativenumber = false -- Relative line numbers
-opt.spelllang = { "en", "es" }
+opt.spelllang = { "en_us", "es_es" }
