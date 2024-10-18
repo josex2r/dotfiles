@@ -3,18 +3,18 @@ return {
   { "kevinhwang91/nvim-hlslens", config = true },
 
   -- completion
-  {
-    "nvim-cmp",
-    event = "VeryLazy",
-    opts = function(_, opts)
-      local cmp = require("cmp")
-
-      opts.window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
-      }
-    end,
-  },
+  -- {
+  --   "nvim-cmp",
+  --   event = "VeryLazy",
+  --   opts = function(_, opts)
+  --     local cmp = require("cmp")
+  --
+  --     opts.window = {
+  --       completion = cmp.config.window.bordered(),
+  --       documentation = cmp.config.window.bordered(),
+  --     }
+  --   end,
+  -- },
 
   -- scrollbar
   {
@@ -98,12 +98,9 @@ return {
           -- stylua: ignore
           center = {
             { action = "Telescope find_files",              desc = " Find file",       icon = " ", key = "f" },
-            { action = "ene | startinsert",                 desc = " New file",        icon = " ", key = "n" },
             { action = "Telescope oldfiles",                desc = " Recent files",    icon = " ", key = "r" },
             { action = "Telescope live_grep",               desc = " Find text",       icon = " ", key = "g" },
             { action = "e $MYVIMRC",                        desc = " Config",          icon = " ", key = "c" },
-            { action = 'lua require("persistence").load()', desc = " Restore Session", icon = " ", key = "s" },
-            { action = "LazyExtras",                        desc = " Lazy Extras",     icon = " ", key = "e" },
             { action = "Lazy",                              desc = " Lazy",            icon = "󰒲 ", key = "l" },
             { action = "qa",                                desc = " Quit",            icon = " ", key = "q" },
           },
@@ -132,10 +129,5 @@ return {
 
       return opts
     end,
-  },
-
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    enabled = false,
   },
 }
