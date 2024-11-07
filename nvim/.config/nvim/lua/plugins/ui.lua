@@ -15,6 +15,20 @@ return {
   --     }
   --   end,
   -- },
+  -- {
+  --   "saghen/blink.cmp",
+  --   opts = function(_, opts)
+  --     opts.windows.autocomplete.border = "padded"
+  --     opts.windows.autocomplete.draw = "simple"
+  --     opts.windows.autocomplete.scrollbar = true
+  --
+  --     opts.windows.documentation.border = "padded"
+  --     opts.windows.documentation.draw = "simple"
+  --     opts.windows.documentation.scrollbar = true
+  --
+  --     return opts
+  --   end,
+  -- },
 
   -- scrollbar
   {

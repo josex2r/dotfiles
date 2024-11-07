@@ -9,3 +9,6 @@ vim.cmd([[
     autocmd FileType * highlight DashboardHeader ctermfg=3 guifg=#f6cf57
   augroup END
 ]])
+
+-- vim.lsp.set_log_level("off")
+-- vim.lsp.set_log_level("DEBUG")
