@@ -6,6 +6,40 @@ return {
     ---@type snacks.Config
     opts = {
       bigfile = { enabled = true },
+      dashboard = {
+        enabled = true,
+        preset = {
+          header = [[
+
+
+          ▀████▀▄▄              ▄█
+            █▀    ▀▀▄▄▄▄▄    ▄▄▀▀█
+	   ▄        █          ▀▀▀▀▄  ▄▀
+   ▄▀ ▀▄      ▀▄              ▀▄▀
+  ▄▀    █     █▀   ▄█▀▄      ▄█
+  ▀▄     ▀▄  █     ▀██▀     ██▄█
+   ▀▄    ▄▀ █   ▄██▄   ▄  ▄  ▀▀ █
+    █  ▄▀  █    ▀██▀    ▀▀ ▀▀  ▄▀
+   █   █  █      ▄▄           ▄▀
+      ]],
+        },
+        sections = {
+          { section = "header" },
+          {
+            pane = 1,
+            { section = "keys", gap = 1, padding = 1 },
+            { section = "startup" },
+          },
+          -- {
+          --   section = "terminal",
+          --   cmd = "pokemon-colorscripts -n pikachu --no-title; sleep .1",
+          --   random = 10,
+          --   pane = 2,
+          --   indent = 4,
+          --   height = 30,
+          -- },
+        },
+      },
       notifier = {
         enabled = true,
         timeout = 3000,
@@ -72,7 +106,7 @@ return {
       {
         "<leader>cR",
         function()
-          Snacks.rename()
+          Snacks.rename.rename_file()
         end,
         desc = "Rename File",
       },
@@ -96,6 +130,7 @@ return {
           Snacks.words.jump(vim.v.count1)
         end,
         desc = "Next Reference",
+        mode = { "n", "t" },
       },
       {
         "[[",
@@ -103,6 +138,7 @@ return {
           Snacks.words.jump(-vim.v.count1)
         end,
         desc = "Prev Reference",
+        mode = { "n", "t" },
       },
       {
         "<leader>N",
@@ -123,6 +159,17 @@ return {
         end,
       },
     },
+    config = function(_, opts)
+      local hl = {
+        SnacksDashboardHeader = { ctermfg = 3, fg = "#f6cf57" },
+      }
+
+      for group, colors in pairs(hl) do
+        vim.api.nvim_set_hl(0, group, colors)
+      end
+
+      require("snacks").setup(opts)
+    end,
     init = function()
       vim.api.nvim_create_autocmd("User", {
         pattern = "VeryLazy",
