@@ -2,34 +2,6 @@ return {
   -- improved hls search using virtual line
   { "kevinhwang91/nvim-hlslens", config = true },
 
-  -- completion
-  -- {
-  --   "nvim-cmp",
-  --   event = "VeryLazy",
-  --   opts = function(_, opts)
-  --     local cmp = require("cmp")
-  --
-  --     opts.window = {
-  --       completion = cmp.config.window.bordered(),
-  --       documentation = cmp.config.window.bordered(),
-  --     }
-  --   end,
-  -- },
-  -- {
-  --   "saghen/blink.cmp",
-  --   opts = function(_, opts)
-  --     opts.windows.autocomplete.border = "padded"
-  --     opts.windows.autocomplete.draw = "simple"
-  --     opts.windows.autocomplete.scrollbar = true
-  --
-  --     opts.windows.documentation.border = "padded"
-  --     opts.windows.documentation.draw = "simple"
-  --     opts.windows.documentation.scrollbar = true
-  --
-  --     return opts
-  --   end,
-  -- },
-
   -- scrollbar
   {
     "petertriho/nvim-scrollbar",
