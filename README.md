@@ -11,6 +11,7 @@
 ```bash
 # use brew zsh
 brew install zsh
+brew install zoxide
 
 # M1
 chsh -s /opt/homebrew/bin/zsh

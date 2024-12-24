@@ -26,11 +26,11 @@ export PATH=$PATH:$HOME/.local/bin
 # ruby gems
 which gem >/dev/null && export PATH=$(gem environment gemdir)/bin:${PATH}
 
-# Export Android vars
-# export ANDROID_HOME=$HOME/Library/Android/sdk
-# export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-
 # User configuration
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Hey fool! You have an alias: "
 export DEFAULT_USER="josex2r"
 export SSH_CONNECTION=""
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/joseluis.represa/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

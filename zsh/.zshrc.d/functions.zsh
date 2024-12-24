@@ -3,16 +3,17 @@
 # Wrap "jq" (JSOn search) in FZF
 function jqq() {
   # retrieve input
-  filepath=${1};
+  filepath=${1}
   # by lines:
   # - use jq to retrieve JSON keys,
   # - use "[]" notation instead of "." to access values
   # - handle numbers using "[]" notation
   # - redirect JSON keys to FZF
-  key=$(jq -r 'paths | join(".")' "$filepath" \
-    | gsed -e 's/\.\([a-zA-Z:@\/-]\+\)/["\1"]/g' \
-    | gsed -e 's/\.\([0-9]\+\)/[\1]/g' \
-    | fzf --preview "jq -r .{} $filepath" \
+  key=$(
+    jq -r 'paths | join(".")' "$filepath" |
+      gsed -e 's/\.\([a-zA-Z:@\/-]\+\)/["\1"]/g' |
+      gsed -e 's/\.\([0-9]\+\)/[\1]/g' |
+      fzf --preview "jq -r .{} $filepath"
   )
   # retrieve value
   value=$(jq -r ".$key" "$filepath")
@@ -42,8 +43,8 @@ function kt_session_save() {
   local session_dir="${config_dir}sessions/"
   local tmp_file="kitty-dump.json"
 
-  kitty @ ls > "${tmp_file}"
-  cat "${tmp_file}" | python3 ~"${config_dir}kitty_convert_dump.py" > ~"${session_dir}${session_file}"
+  kitty @ ls >"${tmp_file}"
+  cat "${tmp_file}" | python3 ~"${config_dir}kitty_convert_dump.py" >~"${session_dir}${session_file}"
   rm "${tmp_file}"
   kitty --session ~"${session_dir}${session_file}"
 }
@@ -113,38 +114,8 @@ function check_resolution() {
 
 # clean /etc/hosts cache
 clean_hosts() {
-  sudo killall -HUP mDNSResponder;say DNS cache has been flushed
-}
-
-# Run mimtproxy to allow Woody access to production environment
-function run_proxy() {
-  local ENV="$1"
-  local HOST="$2"
-  local PORT="$3"
-  local PREFIX=""
-
-  if [ -n "$ENV" ]; then
-    PREFIX="$ENV-"
-  fi
-
-  if [ -z "$HOST" ]; then
-    HOST="localhost"
-  fi
-
-  if [ -z "$PORT" ]; then
-    PORT="4200"
-  fi
-
-  mitmproxy \
-    -p 8081 \
-    --mode reverse:https://${PREFIX}servicios.bbva.es \
-    --modify-headers "|Host|${PREFIX}servicios.bbva.es" \
-    --modify-headers "|Origin|https://movil.bbva.es" \
-    --modify-headers "|Referer|https://movil.bbva.es/" \
-    --modify-headers "|access-control-allow-origin| *" \
-    --modify-headers "|Secure; HttpOnly|" \
-    --set "console_focus_follow=true" \
-    --stickycookie=".*"
+  sudo killall -HUP mDNSResponder
+  say DNS cache has been flushed
 }
 
 function searchChange() {
@@ -171,22 +142,9 @@ function merge_turn() {
   git fetch --all --quiet && git log --merges --grep="Pull request" --format="%an" --reverse "origin/${branch_origin}..origin/${branch_name}"
 }
 
-
 # Git resolve conflicts
 function resolve_ours() {
   grep -lr '<<<<<<<' $1 | xargs git checkout --ours
-}
-
-# Gitmerge subdirectory from repo to another repo
-function merge_sub_to_repo() {
-  # git filter-branch --subdirectory-filter my/directory -- -- all
-  # 1. add the origin to the new repo
-  #   $ git remote add local ../my-repo
-  # 2. fetch the local repo
-  #   $ git fetch local
-  # 3. Execute
-  #   $ git merge --no-ff -s recursive -X subtree="my/directory/" --allow-unrelated-histories local/master
-  echo 'foo'
 }
 
 function resolve_theirs() {
@@ -194,7 +152,7 @@ function resolve_theirs() {
 }
 
 function delete_merged_files() {
-  git rm `git status | grep deleted | awk '{print $4}'`
+  git rm $(git status | grep deleted | awk '{print $4}')
 }
 
 # Shell timing performance
@@ -227,8 +185,8 @@ function f() {
 }
 
 # List all files, long format, colorized, permissions in octal
-function la(){
-  ls -l  "$@" | awk '
+function la() {
+  ls -l "$@" | awk '
   {
     k=0;
     for (i=0;i<=8;i++)
@@ -240,22 +198,22 @@ function la(){
 }
 
 # cd into whatever is the forefront Finder window.
-cdf() {  # short for cdfinder
-  cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
+cdf() { # short for cdfinder
+  cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
 }
 
 # git commit browser. needs fzf
-log() {
+git_log() {
   git log --graph --color=always \
     --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
     fzf --ansi --no-sort --reverse --tiebreak=index --toggle-sort=\` \
-    --bind "ctrl-m:execute:
+      --bind "ctrl-m:execute:
       echo '{}' | grep -o '[a-f0-9]\{7\}' | head -1 |
         xargs -I % sh -c 'git show --color=always % | less -R'"
 }
 
 # Copy w/ progress
-cp_p () {
+cp_p() {
   rsync -WavP --human-readable --progress $1 $2
 }
 
@@ -270,7 +228,7 @@ function gz() {
 # whois a domain or a URL
 function whois() {
   local domain=$(echo "$1" | awk -F/ '{print $3}') # get domain from URL
-  if [ -z $domain ] ; then
+  if [ -z $domain ]; then
     domain=$1
   fi
   echo "Getting whois record for: $domain …"
@@ -279,64 +237,6 @@ function whois() {
   # this is the best whois server
   # strip extra fluff
   /usr/bin/whois -h whois.internic.net $domain | sed '/NOTICE:/q'
-}
-
-# preview csv files. source: http://stackoverflow.com/questions/1875305/command-line-csv-viewer
-function csvpreview(){
-  sed 's/,,/, ,/g;s/,,/, ,/g' "$@" | column -s, -t | less -#2 -N -S
-}
-
-# Extract archives - use: extract <file>
-# Based on http://dotfiles.org/~pseup/.bashrc
-function extract() {
-  if [ -f "$1" ] ; then
-    local filename=$(basename "$1")
-    local foldername="${filename%%.*}"
-    local fullpath=`perl -e 'use Cwd "abs_path";print abs_path(shift)' "$1"`
-    local didfolderexist=false
-    if [ -d "$foldername" ]; then
-      didfolderexist=true
-      read -p "$foldername already exists, do you want to overwrite it? (y/n) " -n 1
-      echo
-      if [[ $REPLY =~ ^[Nn]$ ]]; then
-        return
-      fi
-    fi
-    mkdir -p "$foldername" && cd "$foldername"
-    case $1 in
-      *.tar.bz2) tar xjf "$fullpath" ;;
-      *.tar.gz) tar xzf "$fullpath" ;;
-      *.tar.xz) tar Jxvf "$fullpath" ;;
-      *.tar.Z) tar xzf "$fullpath" ;;
-      *.tar) tar xf "$fullpath" ;;
-      *.taz) tar xzf "$fullpath" ;;
-      *.tb2) tar xjf "$fullpath" ;;
-      *.tbz) tar xjf "$fullpath" ;;
-      *.tbz2) tar xjf "$fullpath" ;;
-      *.tgz) tar xzf "$fullpath" ;;
-      *.txz) tar Jxvf "$fullpath" ;;
-      *.zip) unzip "$fullpath" ;;
-      *) echo "'$1' cannot be extracted via extract()" && cd .. && ! $didfolderexist && rm -r "$foldername" ;;
-    esac
-  else
-    echo "'$1' is not a valid file"
-  fi
-}
-
-# animated gifs from any video
-# from alex sexton   gist.github.com/SlexAxton/4989674
-gifify() {
-  if [[ -n "$1" ]]; then
-    if [[ $2 == '--good' ]]; then
-      ffmpeg -i "$1" -r 10 -vcodec png out-static-%05d.png
-      time convert -verbose +dither -layers Optimize -resize 900x900\> out-static*.png  GIF:- | gifsicle --colors 128 --delay=5 --loop --optimize=3 --multifile - > "$1.gif"
-      rm out-static*.png
-    else
-      ffmpeg -i "$1" -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > "$1.gif"
-    fi
-  else
-    echo "proper usage: gifify <input_movie.mov>. You DO need to include extension."
-  fi
 }
 
 # direct it all to /dev/null
