@@ -56,6 +56,18 @@ return {
         },
       },
     },
+
+    config = function(_, opts)
+      local hl = {
+        SnacksDashboardHeader = { fg = "#f6cf57" },
+      }
+
+      for group, colors in pairs(hl) do
+        vim.api.nvim_set_hl(0, group, colors)
+      end
+
+      require("snacks").setup(opts)
+    end,
     keys = {
       {
         "<leader>z",

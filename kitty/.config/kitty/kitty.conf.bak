@@ -28,11 +28,11 @@ enable_audio_bell no
 linux_display_server x11
 
 # font
-font_family      family='MonaspiceNe Nerd Font Mono' postscript_name=MonaspiceNeNFM-Regular
-bold_font        auto
-italic_font      auto
-bold_italic_font auto
-font_size 13.0
+font_family        MonaspiceNe Nerd Font Mono
+bold_font          auto
+italic_font        auto
+bold_italic_font   auto
+font_size 12.0
 
 # font size management 
 map ctrl+shift+backspace change_font_size all 0
@@ -84,11 +84,3 @@ map ctrl+shift+t new_tab
 map ctrl+shift+right next_tab
 map ctrl+shift+left previous_tab
 map ctrl+shift+q close_tab
-
-# mac navigation: jump words
-# ANSI char code list: https://docs.google.com/spreadsheets/d/1O1CmiU9WeJuVvrUZpYb9fBxzdEsqk0vmAOFLY2qDVX8/edit#gid=0
-# \x1b ---> ESC
-map alt+left send_text all \x1b\x62
-map alt+right send_text all \x1b\x66
-map alt+left send_text all \x1b\x62
-map alt+right send_text all \x1b\x66

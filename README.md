@@ -2,7 +2,7 @@
 
 ## Install brew
 
-```zsh
+```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
@@ -13,10 +13,10 @@
 brew install zsh
 brew install zoxide
 
-# M1
+# M1 - Set default terminal
 chsh -s /opt/homebrew/bin/zsh
 
-# Intel
+# Intel - Set default terminal
 sudo vim /etc/shells # /usr/local/bin/zsh
 
 # fix insecure directories
@@ -27,21 +27,8 @@ sudo vim /etc/shells # /usr/local/bin/zsh
 
 ```bash
 brew install tmux
-```
 
-### Build tmux & speedup render in Alacritty
-
-```bash
-git clone https://github.com/tmux/tmux.git
-cd tmux
-# modify this file => tty.c:#define TTY_BLOCK_INTERVAL (16666 /* 60fps */)
-sh autogen.sh
-./configure && make && sudo make install
-```
-
-### Add tmux plugin manager
-
-```bash
+# Add tmux plugin manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
@@ -51,34 +38,22 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 cp -r "fonts/*" ~/Library/Fonts
 ```
 
-## Install neovim
+## Install cli tools
 
 ```bash
 brew install sqlite # optional, depends on OS
 brew install ripgrep
 brew install gsed
-brew install --HEAD neovim
-```
-
-## Install oh-my-zsh
-
-```bash
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+brew install fzf
+# brew install --HEAD neovim
+brew install neovim
 ```
 
 ## Install mise (rtx)
 
 ```bash
-curl https://mise.jdx.dev/install.sh | sh
-# install plugins like node, python, ...
+curl https://mise.run | sh
 ```
-
-## Install fzf
-
-````bash
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
-``
 
 ## Setup dotfiles
 
@@ -90,17 +65,14 @@ git clone https://github.com/josex2r/dotfiles.git
 # stow
 cd ~/dotfiles
 brew install stow
-stow --verbose alacritty
-stow --verbose aliases
-stow --verbose bash
-stow --verbose exports
-stow --verbose functions
+
 stow --verbose git
-stow --verbose karabiner
+stow --verbose mise
 stow --verbose nvim
+stow --verbose rancher
 stow --verbose tmux
 stow --verbose zsh
 
 # Allow italics in terminal+nvim
 tic ./screen-256color-it.terminfo
-````
+```

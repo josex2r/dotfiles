@@ -18,7 +18,6 @@ belak/zsh-utils path:editor
 belak/zsh-utils path:history
 
 # Prompt
-# spaceship-prompt/spaceship-prompt
 sindresorhus/pure kind:fpath
 
 # Utilities

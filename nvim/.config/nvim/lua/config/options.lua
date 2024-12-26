@@ -19,3 +19,6 @@ opt.fillchars = {
 }
 opt.relativenumber = false -- Relative line numbers
 opt.spelllang = { "en_us", "es_es" }
+
+-- Remove root detection by LSP
+-- vim.g.root_spec = { { ".git", "lua" }, "cwd" }
