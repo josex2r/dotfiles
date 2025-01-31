@@ -5,6 +5,7 @@ return {
     lazy = true,
     opts = {
       style = "moon",
+      transparent = true,
       on_colors = function(colors)
         -- Make inline suggestions more readable
         -- colors.terminal_black = "#68a8bc"

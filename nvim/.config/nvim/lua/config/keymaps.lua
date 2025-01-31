@@ -50,3 +50,15 @@ vim.keymap.set("c", "<M-f>", "<S-Right>", { desc = "Jump forward", remap = true 
 vim.keymap.set("c", "<M-b>", "<S-Left>", { desc = "Jump backwards", remap = true })
 vim.keymap.set("o", "<M-f>", "<S-Right>", { desc = "Jump forward", remap = true })
 vim.keymap.set("o", "<M-b>", "<S-Left>", { desc = "Jump backwards", remap = true })
+
+-- Jump start/end line
+vim.keymap.set("n", "<C-A>", "<Home>", { desc = "Jump to start of line", remap = true })
+vim.keymap.set("n", "<C-E>", "<End>", { desc = "Jump to start of line", remap = true })
+vim.keymap.set("v", "<C-A>", "<Home>", { desc = "Jump to start of line", remap = true })
+vim.keymap.set("v", "<C-E>", "<End>", { desc = "Jump to start of line", remap = true })
+vim.keymap.set("i", "<C-A>", "<Home>", { desc = "Jump to start of line", remap = true })
+vim.keymap.set("i", "<C-E>", "<End>", { desc = "Jump to start of line", remap = true })
+vim.keymap.set("c", "<C-A>", "<Home>", { desc = "Jump to start of line", remap = true })
+vim.keymap.set("c", "<C-E>", "<End>", { desc = "Jump to start of line", remap = true })
+vim.keymap.set("o", "<C-A>", "<Home>", { desc = "Jump to start of line", remap = true })
+vim.keymap.set("o", "<C-E>", "<End>", { desc = "Jump to start of line", remap = true })

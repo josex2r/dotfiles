@@ -5,7 +5,22 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
-      bigfile = { enabled = true },
+      bigfile = {
+        notify = true, -- show notification when big file detected
+        size = 1.5 * 1024 * 1024, -- 1.5MB
+        -- Enable or disable features when big file detected
+        ---@param ctx {buf: number, ft:string}
+        setup = function(ctx)
+          vim.cmd([[NoMatchParen]])
+          Snacks.util.wo(0, { foldmethod = "manual", statuscolumn = "", conceallevel = 0 })
+          vim.b.minianimate_disable = true
+          -- Disable syntax highlighting for big files
+          vim.schedule(function()
+            vim.bo[ctx.buf].syntax = nil
+            -- vim.bo[ctx.buf].syntax = ctx.ft
+          end)
+        end,
+      },
       dashboard = {
         enabled = true,
         preset = {
@@ -56,7 +71,7 @@ return {
         },
       },
     },
-
+    -- yellowish dashboard header text
     config = function(_, opts)
       local hl = {
         SnacksDashboardHeader = { fg = "#f6cf57" },
