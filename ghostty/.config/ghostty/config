@@ -1,0 +1,43 @@
+## Theme
+# background = 282c34
+# foreground= ffffff
+theme = tokyonight-storm
+font-family = MonaspiceNe Nerd Font Mono
+font-size = 14
+adjust-cell-width = 1%
+adjust-cell-height = 10%
+
+## Background
+background-opacity = 100
+background-blur-radius = 40
+
+## Clipboard
+clipboard-read = allow
+clipboard-write = allow
+clipboard-paste-protection = false
+
+## Window
+# window-decoration = false
+# mouse-hide-while-typing = true
+window-padding-x = 5
+window-padding-y = 0
+# macos-window-shadow = false
+macos-titlebar-style = tabs
+macos-titlebar-proxy-icon = hidden
+# The next option breaks input special characters
+# by pressing the alt plus another key.
+# Must remap every special char:
+macos-option-as-alt = true
+keybind = alt+ñ=text:~
+keybind = alt+º=text:\\
+keybind = alt+1=text:|
+keybind = alt+2=text:@
+keybind = alt+3=text:#
+keybind = alt+4=text:¢
+keybind = alt+5=text:∞
+keybind = alt+`=text:[
+keybind = alt+plus=text:]
+keybind = alt+´=text:{
+keybind = alt+ç=text:}
+keybind = alt+e=text:€
+
