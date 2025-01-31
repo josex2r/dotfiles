@@ -71,5 +71,8 @@ setopt globdots
 # zstyle :bracketed-paste-magic paste-init pasteinit
 # zstyle :bracketed-paste-magic paste-finish pastefinish
 
+# default input to emacs mode
+bindkey -e
+
 # Disable profiling
 # zprof
