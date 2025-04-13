@@ -31,16 +31,6 @@ return {
             return nvim_lsp.util.root_pattern("deno.jsonc", "deno.json")(...)
           end,
         },
-        vtsls = {
-          root_dir = nvim_lsp.util.root_pattern("package.json"),
-          settings = {
-            typescript = {
-              tsserver = {
-                maxTsServerMemory = 8192,
-              },
-            },
-          },
-        },
       },
     },
   },

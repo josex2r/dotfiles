@@ -40,6 +40,8 @@ unset _rc
 setopt auto_cd
 # Autocomplete on hidden files
 setopt globdots
+# Share history between sessions with timestamps
+setopt inc_append_history_time
 
 # # On slow systems, checking the cached .zcompdump file to see if it must be
 # # regenerated adds a noticable delay to zsh startup.  This little hack restricts
@@ -76,3 +78,7 @@ bindkey -e
 
 # Disable profiling
 # zprof
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/joseluis.represa/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

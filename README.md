@@ -27,6 +27,7 @@ sudo vim /etc/shells # /usr/local/bin/zsh
 
 ```bash
 brew install tmux
+brew install reattach-to-user-namespace
 
 # Add tmux plugin manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -75,4 +76,5 @@ stow --verbose zsh
 
 # Allow italics in terminal+nvim
 tic ./screen-256color-it.terminfo
+tic -x ./tmux-256color.terminfo
 ```
