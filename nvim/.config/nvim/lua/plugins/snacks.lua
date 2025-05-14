@@ -5,7 +5,15 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
-      image = {},
+      image = {
+        enabled = true,
+        -- force = true,
+        -- debug = {
+        --   request = true,
+        --   convert = true,
+        --   placement = true,
+        -- },
+      },
       bigfile = { enabled = true },
       dashboard = {
         enabled = true,

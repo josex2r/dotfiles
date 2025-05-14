@@ -29,8 +29,5 @@ which gem >/dev/null && export PATH=$(gem environment gemdir)/bin:${PATH}
 # User configuration
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Hey fool! You have an alias: "
 export DEFAULT_USER="josex2r"
-export SSH_CONNECTION=""
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/joseluis.represa/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+# export SSH_CONNECTION=""
+unset SSH_CONNECTION
