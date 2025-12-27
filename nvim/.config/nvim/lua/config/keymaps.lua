@@ -29,10 +29,10 @@ vim.keymap.set("n", "<C-l>", move_right, { desc = "Go to right window", remap = 
 vim.keymap.set("n", "<C-Right>", move_right, { desc = "Go to right window", remap = true })
 
 -- Better code indent
-vim.keymap.set("n", "<S-TAB>", "<l", { desc = "Reduce indent", remap = true })
-vim.keymap.set("n", "<TAB>", ">l", { desc = "Increment indent", remap = true })
-vim.keymap.set("v", "<S-TAB>", "<gv", { desc = "Reduce indent", remap = true })
-vim.keymap.set("v", "<TAB>", ">gv", { desc = "Increment indent", remap = true })
+vim.keymap.set("n", "<S-Tab>", "<l", { desc = "Reduce indent", remap = true })
+vim.keymap.set("n", "<Tab>", ">l", { desc = "Increment indent", remap = true })
+vim.keymap.set("v", "<S-Tab>", "<gv", { desc = "Reduce indent", remap = true })
+vim.keymap.set("v", "<Tab>", ">gv", { desc = "Increment indent", remap = true })
 
 -- Jump words
 -- How to get the first char? Use CRTL+V and press the key in command mode

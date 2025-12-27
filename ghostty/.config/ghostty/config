@@ -1,7 +1,7 @@
 ## Theme
 # background = 282c34
 # foreground= ffffff
-theme = tokyonight-storm
+theme = TokyoNight Storm
 font-family = MonaspiceNe Nerd Font Mono
 font-size = 14
 adjust-cell-width = 1%

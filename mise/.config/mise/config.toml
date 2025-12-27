@@ -1,7 +1,8 @@
 [tools]
-node = "18.17"
+node = "22"
 python = "3.11"
 deno = "latest"
 go = "latest"
 poetry = "latest"
 java = "openjdk-20"
+rust = "latest"

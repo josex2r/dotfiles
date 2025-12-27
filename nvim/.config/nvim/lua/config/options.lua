@@ -22,3 +22,7 @@ opt.spelllang = { "en_us", "es_es" }
 
 -- Remove root detection by LSP
 -- vim.g.root_spec = { { ".git", "lua" }, "cwd" }
+
+-- Lazyvim
+-- vim.g.lazyvim_blink_main = true
+-- vim.g.ai_cmp = false

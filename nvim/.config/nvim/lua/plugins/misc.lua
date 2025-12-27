@@ -37,4 +37,11 @@ return {
 
   -- makes some plugins dot-repeatable
   { "tpope/vim-repeat", event = "VeryLazy" },
+
+  -- {
+  --   "m4xshen/hardtime.nvim",
+  --   lazy = false,
+  --   dependencies = { "MunifTanjim/nui.nvim" },
+  --   opts = {},
+  -- },
 }

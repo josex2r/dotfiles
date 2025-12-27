@@ -4,5 +4,5 @@ require("config.lazy")
 -- Custom
 require("config.commands")
 
--- vim.lsp.set_log_level("off")
+vim.lsp.set_log_level("off")
 -- vim.lsp.set_log_level("DEBUG")

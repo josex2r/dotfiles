@@ -5,25 +5,14 @@
 
 # single character aliases - be sparing!
 alias _=sudo
-alias l=ls
 alias g=git
-
-# more ways to ls
-alias ll='ls -lh'
-alias la='ls -lAh'
-alias ldot='ls -ld .*'
 
 # fix common typos
 alias quit='exit'
-alias cd..='cd ..'
 
 # tar
 alias tarls="tar -tvf"
 alias untar="tar -xf"
-
-# find
-alias fd='find . -type d -name'
-alias ff='find . -type f -name'
 
 # url encode/decode
 alias urldecode='python3 -c "import sys, urllib.parse as ul; \
@@ -40,18 +29,6 @@ alias zdot='cd ${ZDOTDIR:-~}'
 # List all installed brew packages of top level
 alias brew-list-top-level='brew leaves | xargs -n1 brew desc'
 alias brew-list-top-installed='brew leaves --installed-on-request | xargs -n1 brew desc'
-
-# unix
-alias sed='gsed'
-
-# List all files colorized in long format
-alias ll='ls -lh'
-
-# List all files colorized in long format, including dot files
-alias la="ls -lha"
-
-# List only directories
-alias lsd='ls -l | grep "^d"'
 
 # Neovim
 alias vim="nvim"
@@ -70,3 +47,55 @@ alias pyu="pipenv uninstall $1"
 alias pyg="pipenv graph"
 alias pyclean="pipenv --rm"
 
+# fd - Better find
+if (( $+commands[fd] )); then
+  alias find='fd'
+fi
+
+# ripgrep - Better grep
+if (( $+commands[rg] )); then
+  alias grep='rg --color=always --line-number --no-heading'
+fi
+
+# gsed - GNU sed
+if (( $+commands[gsed] )); then
+  alias sed='gsed'
+fi
+
+# bat - Better cat
+if (( $+commands[bat] )); then
+  alias cat='bat'
+fi
+
+# eza - Better ls
+if (( $+commands[eza] )); then
+  alias ls='eza'
+  alias la='eza -lha'
+  alias lsd='ls -l | grep "^d"'
+  alias lsz='eza -Z'
+  alias ll='eza -lh'
+  alias ldot='eza -ld .*'
+else
+  # List all files colorized in long format
+  alias ll='ls -lh'
+  # List all files colorized in long format, including dot files
+  alias la="ls -lha"
+  # List only directories
+  alias lsd='ls -l | grep "^d"'
+fi
+
+# xh - Better curl
+if (( $+commands[xh] )); then
+  alias http='xh'
+fi
+
+# dust - Better du
+if (( $+commands[dust] )); then
+  alias dusk='dust'
+  alias duskh='dust'
+fi
+
+# procs - Better ps
+if (( $+commands[procs] )); then
+  alias ps='procs'
+fi
