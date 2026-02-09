@@ -48,9 +48,9 @@ alias pyg="pipenv graph"
 alias pyclean="pipenv --rm"
 
 # fd - Better find
-if (( $+commands[fd] )); then
-  alias find='fd'
-fi
+# if (( $+commands[fd] )); then
+#   alias find='fd'
+# fi
 
 # ripgrep - Better grep
 if (( $+commands[rg] )); then
