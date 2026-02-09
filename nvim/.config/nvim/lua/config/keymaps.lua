@@ -62,3 +62,15 @@ vim.keymap.set("c", "<C-A>", "<Home>", { desc = "Jump to start of line", remap =
 vim.keymap.set("c", "<C-E>", "<End>", { desc = "Jump to start of line", remap = true })
 vim.keymap.set("o", "<C-A>", "<Home>", { desc = "Jump to start of line", remap = true })
 vim.keymap.set("o", "<C-E>", "<End>", { desc = "Jump to start of line", remap = true })
+
+-- Remap navigation (<M-]> and <M-[>) due spanish uses "[]" as third level keys
+vim.keymap.set("n", "<M-m>", "<M-]>", { desc = "Next item", remap = true })
+vim.keymap.set("n", "<M-n>", "<M-[>", { desc = "Prev item", remap = true })
+vim.keymap.set("v", "<M-m>", "<M-]>", { desc = "Next item", remap = true })
+vim.keymap.set("v", "<M-n>", "<M-[>", { desc = "Prev item", remap = true })
+vim.keymap.set("i", "<M-m>", "<M-]>", { desc = "Next item", remap = true })
+vim.keymap.set("i", "<M-n>", "<M-[>", { desc = "Prev item", remap = true })
+vim.keymap.set("c", "<M-m>", "<M-]>", { desc = "Next item", remap = true })
+vim.keymap.set("c", "<M-n>", "<M-[>", { desc = "Prev item", remap = true })
+vim.keymap.set("o", "<M-m>", "<M-]>", { desc = "Next item", remap = true })
+vim.keymap.set("o", "<M-n>", "<M-[>", { desc = "Prev item", remap = true })
