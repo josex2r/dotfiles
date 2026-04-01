@@ -17,6 +17,7 @@ clipboard-write = allow
 clipboard-paste-protection = false
 
 ## Window
+window-save-state = always
 # window-decoration = false
 # mouse-hide-while-typing = true
 window-padding-x = 5

@@ -5,15 +5,12 @@ return {
   -- scrollbar
   {
     "petertriho/nvim-scrollbar",
+    dependencies = { "kevinhwang91/nvim-hlslens" },
     event = "BufReadPost",
 
     opts = {
       handle = {
-        color = "#333840",
-      },
-      handlers = {
-        diagnostic = true,
-        search = true, -- Requires hlslens to be loaded
+        color = vim.fn.synIDattr(vim.fn.hlID("Visual"), "bg#"),
       },
     },
 
