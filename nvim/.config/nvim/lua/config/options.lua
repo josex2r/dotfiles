@@ -26,3 +26,4 @@ opt.spelllang = { "en_us", "es_es" }
 -- Lazyvim
 -- vim.g.lazyvim_blink_main = true
 -- vim.g.ai_cmp = false
+-- vim.g.lazyvim_ts_lsp = "tsgo"

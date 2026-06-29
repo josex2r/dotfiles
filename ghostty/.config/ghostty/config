@@ -3,7 +3,7 @@
 # foreground= ffffff
 theme = TokyoNight Storm
 font-family = MonaspiceNe Nerd Font Mono
-font-size = 14
+font-size = 13
 adjust-cell-width = 1%
 adjust-cell-height = 10%
 
