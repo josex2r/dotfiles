@@ -32,10 +32,6 @@ export DEFAULT_USER="josex2r"
 # export SSH_CONNECTION=""
 unset SSH_CONNECTION
 
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/joseluis.represa/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-
 # pnpm
 export PNPM_HOME="/Users/joseluis.represa/.local/share/pnpm"
 case ":$PATH:" in
