@@ -7,7 +7,7 @@ vim.g.maplocalleader = "\\"
 
 local opt = vim.opt
 
-opt.conceallevel = 0 -- 3 -> Hide * markup for bold and italic
+opt.conceallevel = 0 -- 0 disables concealing; set to 3 to hide * markup for bold/italic
 opt.fillchars = {
   foldopen = "",
   foldclose = "",

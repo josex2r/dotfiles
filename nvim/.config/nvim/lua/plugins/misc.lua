@@ -24,14 +24,8 @@ return {
         disable_when_zoomed = false,
       })
 
-      -- map("n", "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft, { desc = "Go to left window", remap = true })
-      -- map("n", "<C-Left>", nvim_tmux_nav.NvimTmuxNavigateLeft, { desc = "Go to left window", remap = true })
-      -- map("n", "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown, { desc = "Go to bottom window", remap = true })
-      -- map("n", "<C-Down>", nvim_tmux_nav.NvimTmuxNavigateDown, { desc = "Go to bottom window", remap = true })
-      -- map("n", "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp, { desc = "Go to top window", remap = true })
-      -- map("n", "<C-Up>", nvim_tmux_nav.NvimTmuxNavigateUp, { desc = "Go to top window", remap = true })
-      -- map("n", "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight, { desc = "Go to right window", remap = true })
-      -- map("n", "<C-Right>", nvim_tmux_nav.NvimTmuxNavigateRight, { desc = "Go to right window", remap = true })
+      -- Window navigation keymaps are set in config/keymaps.lua (loaded after
+      -- LazyVim's defaults, so they correctly override <C-h/j/k/l>).
     end,
   },
 

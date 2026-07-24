@@ -6,16 +6,16 @@
 vim.keymap.set({ "n" }, "<leader><leader>", "<C-^>", { desc = "Goto prev buffer" })
 
 -- Move to window using the <ctrl> hjkl keys
-function move_left()
+local function move_left()
   require("nvim-tmux-navigation").NvimTmuxNavigateLeft()
 end
-function move_up()
+local function move_up()
   require("nvim-tmux-navigation").NvimTmuxNavigateUp()
 end
-function move_down()
+local function move_down()
   require("nvim-tmux-navigation").NvimTmuxNavigateDown()
 end
-function move_right()
+local function move_right()
   require("nvim-tmux-navigation").NvimTmuxNavigateRight()
 end
 
