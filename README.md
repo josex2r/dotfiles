@@ -48,6 +48,7 @@ brew install gsed
 brew install fzf
 # brew install --HEAD neovim
 brew install neovim
+brew install pngpaste
 ```
 
 ## Install mise (rtx)
