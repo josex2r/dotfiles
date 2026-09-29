@@ -68,6 +68,8 @@ git clone https://github.com/josex2r/dotfiles.git
 cd ~/dotfiles
 brew install stow
 
+stow --verbose copilot
+stow --verbose ghostty
 stow --verbose git
 stow --verbose mise
 stow --verbose nvim

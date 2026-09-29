@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# GCP
+function set_gcp_project() {
+  gcloud config set project "$1" && gcloud auth application-default set-quota-project "$1"
+}
+
 # Wrap "jq" (JSOn search) in FZF
 function jqq() {
   # retrieve input

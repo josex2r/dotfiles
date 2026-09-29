@@ -1,0 +1,17 @@
+{
+  "renderMarkdown": true,
+  "screenReader": false,
+  "theme": "default",
+  "experimental": true,
+  "colorMode": "default",
+  "extraKnownMarketplaces": {
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    }
+  },
+  "enabledPlugins": {},
+  "model": "gemini-3.8-flash"
+}
