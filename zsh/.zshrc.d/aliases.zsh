@@ -99,6 +99,3 @@ fi
 if (( $+commands[procs] )); then
   alias ps='procs'
 fi
-
-# Podman
-alias docker=podman
